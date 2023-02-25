@@ -27,6 +27,8 @@
 		27ED8C1529AA527F0092C57D /* RotationGestureView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27ED8C1429AA527F0092C57D /* RotationGestureView.swift */; };
 		27ED8C1729AA53A50092C57D /* DragGestureView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27ED8C1629AA53A50092C57D /* DragGestureView.swift */; };
 		27ED8C1929AA549B0092C57D /* LongPressAndDragGestureView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27ED8C1829AA549B0092C57D /* LongPressAndDragGestureView.swift */; };
+		27F896F529AA5B5400ED1B18 /* ParallaxMotionModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27F896F429AA5B5400ED1B18 /* ParallaxMotionModifier.swift */; };
+		27F896F729AA5B8E00ED1B18 /* ParallaxMotionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27F896F629AA5B8E00ED1B18 /* ParallaxMotionView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -70,6 +72,8 @@
 		27ED8C1429AA527F0092C57D /* RotationGestureView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RotationGestureView.swift; sourceTree = "<group>"; };
 		27ED8C1629AA53A50092C57D /* DragGestureView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DragGestureView.swift; sourceTree = "<group>"; };
 		27ED8C1829AA549B0092C57D /* LongPressAndDragGestureView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LongPressAndDragGestureView.swift; sourceTree = "<group>"; };
+		27F896F429AA5B5400ED1B18 /* ParallaxMotionModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParallaxMotionModifier.swift; sourceTree = "<group>"; };
+		27F896F629AA5B8E00ED1B18 /* ParallaxMotionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParallaxMotionView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -119,6 +123,7 @@
 		27ED8BD029AA47A50092C57D /* UIGallery */ = {
 			isa = PBXGroup;
 			children = (
+				27F896F229AA5B2100ED1B18 /* Effects */,
 				27ED8BFD29AA4A090092C57D /* SwiftUI */,
 				27ED8BFB29AA49130092C57D /* GalleryRootView.swift */,
 				27ED8BD129AA47A50092C57D /* UIGalleryApp.swift */,
@@ -188,6 +193,23 @@
 				27ED8C1829AA549B0092C57D /* LongPressAndDragGestureView.swift */,
 			);
 			path = Gestures;
+			sourceTree = "<group>";
+		};
+		27F896F229AA5B2100ED1B18 /* Effects */ = {
+			isa = PBXGroup;
+			children = (
+				27F896F329AA5B3100ED1B18 /* ParallaxMotionEffect */,
+			);
+			path = Effects;
+			sourceTree = "<group>";
+		};
+		27F896F329AA5B3100ED1B18 /* ParallaxMotionEffect */ = {
+			isa = PBXGroup;
+			children = (
+				27F896F429AA5B5400ED1B18 /* ParallaxMotionModifier.swift */,
+				27F896F629AA5B8E00ED1B18 /* ParallaxMotionView.swift */,
+			);
+			path = ParallaxMotionEffect;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -321,6 +343,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				27ED8C0F29AA51130092C57D /* TapGestureView.swift in Sources */,
+				27F896F529AA5B5400ED1B18 /* ParallaxMotionModifier.swift in Sources */,
 				27ED8C0229AA4B4E0092C57D /* ShapeRectangleView.swift in Sources */,
 				27ED8C0429AA4BA80092C57D /* ShapePathView.swift in Sources */,
 				27ED8C1929AA549B0092C57D /* LongPressAndDragGestureView.swift in Sources */,
@@ -334,6 +357,7 @@
 				27ED8C1729AA53A50092C57D /* DragGestureView.swift in Sources */,
 				27ED8C0A29AA4DB20092C57D /* AngularGradientView.swift in Sources */,
 				27ED8C1529AA527F0092C57D /* RotationGestureView.swift in Sources */,
+				27F896F729AA5B8E00ED1B18 /* ParallaxMotionView.swift in Sources */,
 				27ED8C1129AA51B30092C57D /* DoubleTapGestureView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

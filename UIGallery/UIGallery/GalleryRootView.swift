@@ -5,6 +5,14 @@ struct GalleryRootView: View {
         NavigationView {
             List {
                 Section {
+                    NavigationLink("Parallax Motion") {
+                        ParallaxMotionView()
+                    }
+                } header: {
+                    Text("Effect Samples")
+                }
+                
+                Section {
                     NavigationLink("Tap") {
                         TapGestureView()
                     }

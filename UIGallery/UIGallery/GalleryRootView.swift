@@ -5,6 +5,14 @@ struct GalleryRootView: View {
         NavigationView {
             List {
                 Section {
+                    NavigationLink("ProgressView") {
+                        SampleProgressView()
+                    }
+                } header: {
+                    Text("Custom Controls")
+                }
+                
+                Section {
                     NavigationLink("Parallax Motion") {
                         ParallaxMotionView()
                     }

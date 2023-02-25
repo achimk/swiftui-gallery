@@ -2,6 +2,7 @@ import SwiftUI
 
 struct LongPressGestureView: View {
     @GestureState var isLongPressed = false
+    @State var isPressed = false
     
     var body: some View {
         let longPressGesture = LongPressGesture()
@@ -10,14 +11,16 @@ struct LongPressGestureView: View {
                 state = value
             }
             .onEnded { (value) in
-                print(value)
+                withAnimation(.spring()) {
+                    isPressed.toggle()
+                }
             }
         
         Circle()
             .fill(Color.purple)
             .frame(width: 240, height: 240)
             .gesture(longPressGesture)
-            .scaleEffect(isLongPressed ? 1.4 : 1)
+            .scaleEffect(isPressed ? 1.4 : 1)
     }
 }
 

@@ -1,22 +1,21 @@
 import SwiftUI
 
 struct RotationGestureView: View {
-    @State var angle = 0.0
+    @State var degree = 0.0
     
     var body: some View {
-        let rotationGesture = RotationGesture(minimumAngleDelta: Angle.init(degrees: 20))
-            .onChanged({ (angle) in
-                self.angle += angle.animatableData
-            }).onEnded { (angle) in
-                print(self.angle)
+        let rotationGesture = RotationGesture(minimumAngleDelta: Angle(degrees: 1))
+            .onChanged { (angle) in
+                degree = angle.degrees
             }
         
         Rectangle()
             .frame(width: 240, height: 240)
             .foregroundColor(.purple)
             .cornerRadius(10)
+            .rotationEffect(Angle(degrees: degree))
             .gesture(rotationGesture)
-            .rotationEffect(Angle(degrees: angle))
+            
     }
 }
 

@@ -9,7 +9,9 @@ struct DoubleTapGestureView: View {
             .frame(width: 240, height: 240)
             .scaleEffect(isPressed ? 1.4 : 1)
             .onTapGesture(count: 2) {
-                isPressed.toggle()
+                withAnimation {
+                    isPressed.toggle()
+                }
             }
     }
     

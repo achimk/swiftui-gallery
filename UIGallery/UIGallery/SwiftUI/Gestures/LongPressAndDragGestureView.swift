@@ -18,13 +18,13 @@ struct LongPressAndDragGestureView: View {
         let dragGesture = DragGesture()
             .onChanged { (value) in
                 print(value.startLocation, value.location, value.translation)
-                self.offset = value.translation
+                offset = value.translation
             }
             .onEnded { (value) in
                 if(abs(value.translation.width) >= 40 || abs(value.translation.height - (-260)) >= 40) {
-                    self.offset = .zero
+                    offset = .zero
                 } else {
-                    self.offset = CGSize(width: 0, height: -260)
+                    offset = CGSize(width: 0, height: -260)
                 }
             }
             .simultaneously(with: longPressGesture)
@@ -36,14 +36,12 @@ struct LongPressAndDragGestureView: View {
                 .frame(width: 200, height: 200)
                 .offset(CGSize(width: 0, height: -50))
             
-            withAnimation(.spring()) {
-                Circle()
-                    .fill(Color.purple)
-                    .frame(width: 200, height: 200)
-                    .offset(offset)
-                    .gesture(dragGesture)
-                    .scaleEffect(isLongPressed ? 1.4 : 1)
-            }
+            Circle()
+                .fill(Color.purple)
+                .frame(width: 200, height: 200)
+                .offset(offset)
+                .gesture(dragGesture)
+                .scaleEffect(isLongPressed ? 1.4 : 1)
         }
         
     }

@@ -25,13 +25,11 @@ struct DragGestureView: View {
                 .frame(width: 200, height: 200)
                 .offset(CGSize(width: 0, height: -50))
             
-            withAnimation(.spring()) {
-                Circle()
-                    .fill(Color.purple)
-                    .frame(width: 200, height: 200)
-                    .offset(offset)
-                    .gesture(dragGesture)
-            }
+            Circle()
+                .fill(Color.purple)
+                .frame(width: 200, height: 200)
+                .offset(offset)
+                .gesture(dragGesture)
         }
         
     }

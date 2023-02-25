@@ -21,6 +21,20 @@ struct GalleryRootView: View {
                 }
                 
                 Section {
+                    NavigationLink("Repeat scale animations") {
+                        RepeatAnimationsView()
+                    }
+                    NavigationLink("Rotate animations") {
+                        RotateAnimationsView()
+                    }
+                    NavigationLink("Rotate 3D animations") {
+                        Rotate3DAnimationsView()
+                    }
+                } header: {
+                    Text("Animation Samples")
+                }
+                
+                Section {
                     NavigationLink("Tap") {
                         TapGestureView()
                     }
@@ -38,6 +52,15 @@ struct GalleryRootView: View {
                     }
                     NavigationLink("Long press and drag") {
                         LongPressAndDragGestureView()
+                    }
+                    NavigationLink("Magnification") {
+                        MagnificationGestureView()
+                    }
+                    NavigationLink("Exclusive gesture") {
+                        ExclusiveGestureView()
+                    }
+                    NavigationLink("Sequence gesture") {
+                        SequenceGestureView()
                     }
                 } header: {
                     Text("Gesture Samples")
@@ -96,20 +119,6 @@ struct GalleryRootView: View {
                     }
                 } header: {
                     Text("Layout Samples")
-                }
-                
-                Section {
-                    NavigationLink("Sample") {
-                        // Preview
-                    }
-                    NavigationLink("Sample") {
-                        // Preview
-                    }
-                    NavigationLink("Sample") {
-                        // Preview
-                    }
-                } header: {
-                    Text("Animation Samples")
                 }
                  */
             }

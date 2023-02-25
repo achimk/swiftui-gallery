@@ -9,6 +9,12 @@
 /* Begin PBXBuildFile section */
 		2710687029AA9A1B0057A90B /* ProgressView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2710686F29AA9A1B0057A90B /* ProgressView.swift */; };
 		2710687229AA9AA10057A90B /* SampleProgressView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2710687129AA9AA10057A90B /* SampleProgressView.swift */; };
+		2710687429AAB1AA0057A90B /* MagnificationGestureView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2710687329AAB1AA0057A90B /* MagnificationGestureView.swift */; };
+		2710687629AAB3040057A90B /* ExclusiveGestureView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2710687529AAB3040057A90B /* ExclusiveGestureView.swift */; };
+		2710687829AAB4270057A90B /* SequenceGestureView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2710687729AAB4270057A90B /* SequenceGestureView.swift */; };
+		2710687B29AAB6350057A90B /* RepeatAnimationsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2710687A29AAB6350057A90B /* RepeatAnimationsView.swift */; };
+		2710687E29AAC10D0057A90B /* RotateAnimationsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2710687D29AAC10D0057A90B /* RotateAnimationsView.swift */; };
+		2710688229AAC33F0057A90B /* Rotate3DAnimationsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2710688129AAC33F0057A90B /* Rotate3DAnimationsView.swift */; };
 		27ED8BD229AA47A50092C57D /* UIGalleryApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27ED8BD129AA47A50092C57D /* UIGalleryApp.swift */; };
 		27ED8BD629AA47A70092C57D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 27ED8BD529AA47A70092C57D /* Assets.xcassets */; };
 		27ED8BD929AA47A70092C57D /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 27ED8BD829AA47A70092C57D /* Preview Assets.xcassets */; };
@@ -53,6 +59,12 @@
 /* Begin PBXFileReference section */
 		2710686F29AA9A1B0057A90B /* ProgressView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgressView.swift; sourceTree = "<group>"; };
 		2710687129AA9AA10057A90B /* SampleProgressView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SampleProgressView.swift; sourceTree = "<group>"; };
+		2710687329AAB1AA0057A90B /* MagnificationGestureView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MagnificationGestureView.swift; sourceTree = "<group>"; };
+		2710687529AAB3040057A90B /* ExclusiveGestureView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExclusiveGestureView.swift; sourceTree = "<group>"; };
+		2710687729AAB4270057A90B /* SequenceGestureView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SequenceGestureView.swift; sourceTree = "<group>"; };
+		2710687A29AAB6350057A90B /* RepeatAnimationsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RepeatAnimationsView.swift; sourceTree = "<group>"; };
+		2710687D29AAC10D0057A90B /* RotateAnimationsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RotateAnimationsView.swift; sourceTree = "<group>"; };
+		2710688129AAC33F0057A90B /* Rotate3DAnimationsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Rotate3DAnimationsView.swift; sourceTree = "<group>"; };
 		27ED8BCE29AA47A50092C57D /* UIGallery.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = UIGallery.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		27ED8BD129AA47A50092C57D /* UIGalleryApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIGalleryApp.swift; sourceTree = "<group>"; };
 		27ED8BD529AA47A70092C57D /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -122,6 +134,16 @@
 			path = ProgressView;
 			sourceTree = "<group>";
 		};
+		2710687929AAB60C0057A90B /* Animations */ = {
+			isa = PBXGroup;
+			children = (
+				2710687A29AAB6350057A90B /* RepeatAnimationsView.swift */,
+				2710687D29AAC10D0057A90B /* RotateAnimationsView.swift */,
+				2710688129AAC33F0057A90B /* Rotate3DAnimationsView.swift */,
+			);
+			path = Animations;
+			sourceTree = "<group>";
+		};
 		27ED8BC529AA47A50092C57D = {
 			isa = PBXGroup;
 			children = (
@@ -184,6 +206,7 @@
 		27ED8BFD29AA4A090092C57D /* SwiftUI */ = {
 			isa = PBXGroup;
 			children = (
+				2710687929AAB60C0057A90B /* Animations */,
 				27ED8C0D29AA50FD0092C57D /* Gestures */,
 				27ED8BFE29AA4A220092C57D /* Views */,
 			);
@@ -213,6 +236,9 @@
 				27ED8C1429AA527F0092C57D /* RotationGestureView.swift */,
 				27ED8C1629AA53A50092C57D /* DragGestureView.swift */,
 				27ED8C1829AA549B0092C57D /* LongPressAndDragGestureView.swift */,
+				2710687329AAB1AA0057A90B /* MagnificationGestureView.swift */,
+				2710687529AAB3040057A90B /* ExclusiveGestureView.swift */,
+				2710687729AAB4270057A90B /* SequenceGestureView.swift */,
 			);
 			path = Gestures;
 			sourceTree = "<group>";
@@ -366,22 +392,28 @@
 			files = (
 				27ED8C0F29AA51130092C57D /* TapGestureView.swift in Sources */,
 				27F896F529AA5B5400ED1B18 /* ParallaxMotionModifier.swift in Sources */,
+				2710687E29AAC10D0057A90B /* RotateAnimationsView.swift in Sources */,
 				27ED8C0229AA4B4E0092C57D /* ShapeRectangleView.swift in Sources */,
 				27ED8C0429AA4BA80092C57D /* ShapePathView.swift in Sources */,
 				27ED8C1929AA549B0092C57D /* LongPressAndDragGestureView.swift in Sources */,
 				27ED8C0829AA4CE40092C57D /* LinearGradientView.swift in Sources */,
 				27ED8C1329AA52010092C57D /* LongPressGestureView.swift in Sources */,
 				27ED8C0029AA4A4A0092C57D /* ShapeCircleView.swift in Sources */,
+				2710687629AAB3040057A90B /* ExclusiveGestureView.swift in Sources */,
 				27ED8C0C29AA4E6C0092C57D /* RadialGradientView.swift in Sources */,
 				27ED8BD229AA47A50092C57D /* UIGalleryApp.swift in Sources */,
+				2710688229AAC33F0057A90B /* Rotate3DAnimationsView.swift in Sources */,
+				2710687829AAB4270057A90B /* SequenceGestureView.swift in Sources */,
 				27ED8C0629AA4C620092C57D /* TextAddingView.swift in Sources */,
 				27ED8BFC29AA49130092C57D /* GalleryRootView.swift in Sources */,
+				2710687429AAB1AA0057A90B /* MagnificationGestureView.swift in Sources */,
 				27ED8C1729AA53A50092C57D /* DragGestureView.swift in Sources */,
 				27ED8C0A29AA4DB20092C57D /* AngularGradientView.swift in Sources */,
 				27ED8C1529AA527F0092C57D /* RotationGestureView.swift in Sources */,
 				27F896F729AA5B8E00ED1B18 /* ParallaxMotionView.swift in Sources */,
 				2710687229AA9AA10057A90B /* SampleProgressView.swift in Sources */,
 				27ED8C1129AA51B30092C57D /* DoubleTapGestureView.swift in Sources */,
+				2710687B29AAB6350057A90B /* RepeatAnimationsView.swift in Sources */,
 				2710687029AA9A1B0057A90B /* ProgressView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

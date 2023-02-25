@@ -32,6 +32,5 @@ class MotionManager: ObservableObject {
                 self.roll = motionData.attitude.roll
             }
         }
-
     }
 }

@@ -1,6 +1,7 @@
 import SwiftUI
 
 struct DragGestureView: View {
+    @Environment(\.colorScheme) var colorScheme
     @State var offset: CGSize = .zero
     
     var body: some View {
@@ -19,7 +20,7 @@ struct DragGestureView: View {
         
         VStack {
             Circle()
-                .fill(Color.black)
+                .fill(colorScheme == .dark ? Color.white : Color.black)
                 .opacity(0.1)
                 .frame(width: 200, height: 200)
                 .offset(CGSize(width: 0, height: -50))

@@ -50,6 +50,32 @@ struct CompletionOfPublishersInCombineLatestSample {
     }
 }
 
+struct CompletionOfSharedPublisherSample {
+    
+    static func execute() {
+        var cancelablesBag: Set<AnyCancellable> = []
+        let input = PassthroughSubject<Int, Never>()
+        let shared = input.share()
+        
+        shared.sink { value in
+            print("-> value: \(value)")
+        }
+        .store(in: &cancelablesBag)
+        
+        input.send(1)
+        input.send(2)
+        input.send(3)
+        input.send(completion: .finished)
+        input.send(4)
+        input.send(5)
+        
+        shared.sink { value in
+            print("-> finished value: \(value)")
+        }
+        .store(in: &cancelablesBag)
+    }
+}
+
 struct FormValidationSample {
     
     class UsernameAvailabilityService {
@@ -152,4 +178,5 @@ struct FormValidationSample {
 // Test Cases
 //SubscribePublisherSample.execute()
 //CompletionOfPublishersInCombineLatestSample.execute()
+//CompletionOfSharedPublisherSample.execute()
 FormValidationSample.execute()

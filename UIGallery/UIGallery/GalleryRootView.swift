@@ -92,21 +92,18 @@ struct GalleryRootView: View {
                     Text("View Samples")
                 }
                 
-                /*
                 Section {
-                    NavigationLink("Sample") {
-                        // Preview
+                    NavigationLink("Buttons") {
+                         ButtonsView()
                     }
-                    NavigationLink("Sample") {
-                        // Preview
-                    }
-                    NavigationLink("Sample") {
-                        // Preview
+                    NavigationLink("TextFields") {
+                        TextFieldsView()
                     }
                 } header: {
                     Text("Control Samples")
                 }
                 
+                /*
                 Section {
                     NavigationLink("Sample") {
                         // Preview

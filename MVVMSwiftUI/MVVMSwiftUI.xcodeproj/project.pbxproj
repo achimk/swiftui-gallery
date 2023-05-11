@@ -8,12 +8,21 @@
 
 /* Begin PBXBuildFile section */
 		27CB9D4A2A0CD67A00F3E077 /* MVVMSwiftUIApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27CB9D492A0CD67A00F3E077 /* MVVMSwiftUIApp.swift */; };
-		27CB9D4C2A0CD67A00F3E077 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27CB9D4B2A0CD67A00F3E077 /* ContentView.swift */; };
 		27CB9D4E2A0CD67B00F3E077 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 27CB9D4D2A0CD67B00F3E077 /* Assets.xcassets */; };
 		27CB9D512A0CD67B00F3E077 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 27CB9D502A0CD67B00F3E077 /* Preview Assets.xcassets */; };
 		27CB9D5B2A0CD67B00F3E077 /* MVVMSwiftUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27CB9D5A2A0CD67B00F3E077 /* MVVMSwiftUITests.swift */; };
 		27CB9D652A0CD67B00F3E077 /* MVVMSwiftUIUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27CB9D642A0CD67B00F3E077 /* MVVMSwiftUIUITests.swift */; };
 		27CB9D672A0CD67B00F3E077 /* MVVMSwiftUIUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27CB9D662A0CD67B00F3E077 /* MVVMSwiftUIUITestsLaunchTests.swift */; };
+		27CB9DAE2A0CD79000F3E077 /* UserRegisterViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27CB9DAD2A0CD79000F3E077 /* UserRegisterViewModel.swift */; };
+		27CB9DB12A0CD7CE00F3E077 /* UsernameAvailabilityService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27CB9DB02A0CD7CE00F3E077 /* UsernameAvailabilityService.swift */; };
+		27CB9DB42A0CD81400F3E077 /* MockUsernameAvailabilityService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27CB9DB32A0CD81400F3E077 /* MockUsernameAvailabilityService.swift */; };
+		27CB9DB72A0CDFDB00F3E077 /* RootView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27CB9DB62A0CDFDB00F3E077 /* RootView.swift */; };
+		27CB9DB92A0CE06A00F3E077 /* UserRegisterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27CB9DB82A0CE06A00F3E077 /* UserRegisterView.swift */; };
+		27CB9DC02A0CF1E200F3E077 /* LoadingPublisher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27CB9DBF2A0CF1E200F3E077 /* LoadingPublisher.swift */; };
+		27CB9DCD2A0D223900F3E077 /* FormField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27CB9DCC2A0D223900F3E077 /* FormField.swift */; };
+		27CB9DCF2A0D2F8100F3E077 /* RequiredText.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27CB9DCE2A0D2F8100F3E077 /* RequiredText.swift */; };
+		27CB9DD12A0D44E800F3E077 /* GradientButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27CB9DD02A0D44E800F3E077 /* GradientButton.swift */; };
+		27CB9DD32A0D475500F3E077 /* TextButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27CB9DD22A0D475500F3E077 /* TextButton.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -36,7 +45,6 @@
 /* Begin PBXFileReference section */
 		27CB9D462A0CD67A00F3E077 /* MVVMSwiftUI.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MVVMSwiftUI.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		27CB9D492A0CD67A00F3E077 /* MVVMSwiftUIApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MVVMSwiftUIApp.swift; sourceTree = "<group>"; };
-		27CB9D4B2A0CD67A00F3E077 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		27CB9D4D2A0CD67B00F3E077 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		27CB9D502A0CD67B00F3E077 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		27CB9D562A0CD67B00F3E077 /* MVVMSwiftUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MVVMSwiftUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -44,6 +52,16 @@
 		27CB9D602A0CD67B00F3E077 /* MVVMSwiftUIUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MVVMSwiftUIUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		27CB9D642A0CD67B00F3E077 /* MVVMSwiftUIUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MVVMSwiftUIUITests.swift; sourceTree = "<group>"; };
 		27CB9D662A0CD67B00F3E077 /* MVVMSwiftUIUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MVVMSwiftUIUITestsLaunchTests.swift; sourceTree = "<group>"; };
+		27CB9DAD2A0CD79000F3E077 /* UserRegisterViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserRegisterViewModel.swift; sourceTree = "<group>"; };
+		27CB9DB02A0CD7CE00F3E077 /* UsernameAvailabilityService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UsernameAvailabilityService.swift; sourceTree = "<group>"; };
+		27CB9DB32A0CD81400F3E077 /* MockUsernameAvailabilityService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockUsernameAvailabilityService.swift; sourceTree = "<group>"; };
+		27CB9DB62A0CDFDB00F3E077 /* RootView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootView.swift; sourceTree = "<group>"; };
+		27CB9DB82A0CE06A00F3E077 /* UserRegisterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserRegisterView.swift; sourceTree = "<group>"; };
+		27CB9DBF2A0CF1E200F3E077 /* LoadingPublisher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingPublisher.swift; sourceTree = "<group>"; };
+		27CB9DCC2A0D223900F3E077 /* FormField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FormField.swift; sourceTree = "<group>"; };
+		27CB9DCE2A0D2F8100F3E077 /* RequiredText.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequiredText.swift; sourceTree = "<group>"; };
+		27CB9DD02A0D44E800F3E077 /* GradientButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GradientButton.swift; sourceTree = "<group>"; };
+		27CB9DD22A0D475500F3E077 /* TextButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextButton.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -94,8 +112,10 @@
 		27CB9D482A0CD67A00F3E077 /* MVVMSwiftUI */ = {
 			isa = PBXGroup;
 			children = (
+				27CB9DBA2A0CED5700F3E077 /* Common */,
+				27CB9DA92A0CD75800F3E077 /* Features */,
 				27CB9D492A0CD67A00F3E077 /* MVVMSwiftUIApp.swift */,
-				27CB9D4B2A0CD67A00F3E077 /* ContentView.swift */,
+				27CB9DB62A0CDFDB00F3E077 /* RootView.swift */,
 				27CB9D4D2A0CD67B00F3E077 /* Assets.xcassets */,
 				27CB9D4F2A0CD67B00F3E077 /* Preview Content */,
 			);
@@ -125,6 +145,93 @@
 				27CB9D662A0CD67B00F3E077 /* MVVMSwiftUIUITestsLaunchTests.swift */,
 			);
 			path = MVVMSwiftUIUITests;
+			sourceTree = "<group>";
+		};
+		27CB9DA92A0CD75800F3E077 /* Features */ = {
+			isa = PBXGroup;
+			children = (
+				27CB9DAA2A0CD76700F3E077 /* User */,
+			);
+			path = Features;
+			sourceTree = "<group>";
+		};
+		27CB9DAA2A0CD76700F3E077 /* User */ = {
+			isa = PBXGroup;
+			children = (
+				27CB9DAB2A0CD76D00F3E077 /* Register */,
+			);
+			path = User;
+			sourceTree = "<group>";
+		};
+		27CB9DAB2A0CD76D00F3E077 /* Register */ = {
+			isa = PBXGroup;
+			children = (
+				27CB9DAF2A0CD7BA00F3E077 /* Domain */,
+				27CB9DAC2A0CD78000F3E077 /* Presentation */,
+				27CB9DB52A0CDEED00F3E077 /* UI */,
+				27CB9DB22A0CD7FA00F3E077 /* Infrastructure */,
+			);
+			path = Register;
+			sourceTree = "<group>";
+		};
+		27CB9DAC2A0CD78000F3E077 /* Presentation */ = {
+			isa = PBXGroup;
+			children = (
+				27CB9DAD2A0CD79000F3E077 /* UserRegisterViewModel.swift */,
+			);
+			path = Presentation;
+			sourceTree = "<group>";
+		};
+		27CB9DAF2A0CD7BA00F3E077 /* Domain */ = {
+			isa = PBXGroup;
+			children = (
+				27CB9DB02A0CD7CE00F3E077 /* UsernameAvailabilityService.swift */,
+			);
+			path = Domain;
+			sourceTree = "<group>";
+		};
+		27CB9DB22A0CD7FA00F3E077 /* Infrastructure */ = {
+			isa = PBXGroup;
+			children = (
+				27CB9DB32A0CD81400F3E077 /* MockUsernameAvailabilityService.swift */,
+			);
+			path = Infrastructure;
+			sourceTree = "<group>";
+		};
+		27CB9DB52A0CDEED00F3E077 /* UI */ = {
+			isa = PBXGroup;
+			children = (
+				27CB9DB82A0CE06A00F3E077 /* UserRegisterView.swift */,
+			);
+			path = UI;
+			sourceTree = "<group>";
+		};
+		27CB9DBA2A0CED5700F3E077 /* Common */ = {
+			isa = PBXGroup;
+			children = (
+				27CB9DBE2A0CF1C300F3E077 /* Combine */,
+				27CB9DBB2A0CED5D00F3E077 /* UI */,
+			);
+			path = Common;
+			sourceTree = "<group>";
+		};
+		27CB9DBB2A0CED5D00F3E077 /* UI */ = {
+			isa = PBXGroup;
+			children = (
+				27CB9DCC2A0D223900F3E077 /* FormField.swift */,
+				27CB9DCE2A0D2F8100F3E077 /* RequiredText.swift */,
+				27CB9DD02A0D44E800F3E077 /* GradientButton.swift */,
+				27CB9DD22A0D475500F3E077 /* TextButton.swift */,
+			);
+			path = UI;
+			sourceTree = "<group>";
+		};
+		27CB9DBE2A0CF1C300F3E077 /* Combine */ = {
+			isa = PBXGroup;
+			children = (
+				27CB9DBF2A0CF1E200F3E077 /* LoadingPublisher.swift */,
+			);
+			path = Combine;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -257,7 +364,16 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				27CB9D4C2A0CD67A00F3E077 /* ContentView.swift in Sources */,
+				27CB9DD32A0D475500F3E077 /* TextButton.swift in Sources */,
+				27CB9DB42A0CD81400F3E077 /* MockUsernameAvailabilityService.swift in Sources */,
+				27CB9DB92A0CE06A00F3E077 /* UserRegisterView.swift in Sources */,
+				27CB9DCF2A0D2F8100F3E077 /* RequiredText.swift in Sources */,
+				27CB9DD12A0D44E800F3E077 /* GradientButton.swift in Sources */,
+				27CB9DB12A0CD7CE00F3E077 /* UsernameAvailabilityService.swift in Sources */,
+				27CB9DB72A0CDFDB00F3E077 /* RootView.swift in Sources */,
+				27CB9DAE2A0CD79000F3E077 /* UserRegisterViewModel.swift in Sources */,
+				27CB9DCD2A0D223900F3E077 /* FormField.swift in Sources */,
+				27CB9DC02A0CF1E200F3E077 /* LoadingPublisher.swift in Sources */,
 				27CB9D4A2A0CD67A00F3E077 /* MVVMSwiftUIApp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

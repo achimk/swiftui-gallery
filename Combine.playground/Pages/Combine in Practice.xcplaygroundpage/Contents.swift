@@ -171,7 +171,45 @@ struct FormValidationSample {
         
         print("-> after form fulfilment, signup is possible: \(form.signupButton.isEnabled)")
     }
+}
+
+struct AssignSelfInViewModelSample {
     
+    class ViewModel: ObservableObject {
+        private var cancellableSet: Set<AnyCancellable> = []
+        
+        // Input
+        @Published var username: String = ""
+        
+        // Output
+        @Published private(set) var isUsernameValid: Bool = false
+        
+        init() {
+            $username
+                .map { !$0.isEmpty }
+                .sink(receiveValue: { [weak self] in self?.isUsernameValid = $0 })
+                .store(in: &cancellableSet)
+            
+            
+        }
+        
+        deinit {
+            print("-> ViewModel deinit...")
+        }
+    }
+    
+    static func execute() {
+        var viewModel = ViewModel()
+        weak var refViewModel = viewModel
+        viewModel.username = "abc"
+        print("-> username: \(viewModel.username), is valid: \(viewModel.isUsernameValid)")
+        viewModel = ViewModel()
+        if refViewModel == nil {
+            print("-> ViewModel has been released without issues")
+        } else {
+            print("-> Unable to release ViewModel!")
+        }
+    }
 }
 
 
@@ -179,4 +217,5 @@ struct FormValidationSample {
 //SubscribePublisherSample.execute()
 //CompletionOfPublishersInCombineLatestSample.execute()
 //CompletionOfSharedPublisherSample.execute()
-FormValidationSample.execute()
+//FormValidationSample.execute()
+AssignSelfInViewModelSample.execute()

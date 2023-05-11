@@ -183,7 +183,7 @@ struct Previews: View {
 //            LazyStacksSample.Preview()
 //            LazyGridsSample.Preview()
 //            OutlineGroupSample.Preview()
-            DisclosureGroupSample.Preview()
+//            DisclosureGroupSample.Preview()
         }
         .frame(width: 420, height: 680)
         .background(Color(uiColor: .secondarySystemBackground))

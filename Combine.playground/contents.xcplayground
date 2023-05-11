@@ -4,5 +4,7 @@
         <page name='Basic Types'/>
         <page name='Introducing Combine'/>
         <page name='Combine in Practice'/>
+        <page name='Loading State'/>
+        <page name='Operators'/>
     </pages>
 </playground>

@@ -27,6 +27,12 @@
 		27CB9DDF2A0E368300F3E077 /* UserLoginService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27CB9DDE2A0E368200F3E077 /* UserLoginService.swift */; };
 		27CB9DE22A0E48A100F3E077 /* MockUserLoginService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27CB9DE12A0E48A100F3E077 /* MockUserLoginService.swift */; };
 		27CB9DE42A0E4BD900F3E077 /* ProgressButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27CB9DE32A0E4BD900F3E077 /* ProgressButton.swift */; };
+		27CB9DE62A0E5E9F00F3E077 /* UserLoginViewFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27CB9DE52A0E5E9F00F3E077 /* UserLoginViewFactory.swift */; };
+		27CB9DE92A0E5F4A00F3E077 /* Container.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27CB9DE82A0E5F4A00F3E077 /* Container.swift */; };
+		27CB9DEB2A0E5F7300F3E077 /* udefined.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27CB9DEA2A0E5F7300F3E077 /* udefined.swift */; };
+		27CB9DED2A0E5FEA00F3E077 /* UserDependenciesAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27CB9DEC2A0E5FEA00F3E077 /* UserDependenciesAssembly.swift */; };
+		27CB9DF02A0E609E00F3E077 /* ApplicationDependenciesAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27CB9DEF2A0E609E00F3E077 /* ApplicationDependenciesAssembly.swift */; };
+		27CB9DF22A0E61F700F3E077 /* UserRegisterViewFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27CB9DF12A0E61F700F3E077 /* UserRegisterViewFactory.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -70,6 +76,12 @@
 		27CB9DDE2A0E368200F3E077 /* UserLoginService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserLoginService.swift; sourceTree = "<group>"; };
 		27CB9DE12A0E48A100F3E077 /* MockUserLoginService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockUserLoginService.swift; sourceTree = "<group>"; };
 		27CB9DE32A0E4BD900F3E077 /* ProgressButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgressButton.swift; sourceTree = "<group>"; };
+		27CB9DE52A0E5E9F00F3E077 /* UserLoginViewFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserLoginViewFactory.swift; sourceTree = "<group>"; };
+		27CB9DE82A0E5F4A00F3E077 /* Container.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Container.swift; sourceTree = "<group>"; };
+		27CB9DEA2A0E5F7300F3E077 /* udefined.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = udefined.swift; sourceTree = "<group>"; };
+		27CB9DEC2A0E5FEA00F3E077 /* UserDependenciesAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDependenciesAssembly.swift; sourceTree = "<group>"; };
+		27CB9DEF2A0E609E00F3E077 /* ApplicationDependenciesAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApplicationDependenciesAssembly.swift; sourceTree = "<group>"; };
+		27CB9DF12A0E61F700F3E077 /* UserRegisterViewFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserRegisterViewFactory.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -120,6 +132,7 @@
 		27CB9D482A0CD67A00F3E077 /* MVVMSwiftUI */ = {
 			isa = PBXGroup;
 			children = (
+				27CB9DEE2A0E608500F3E077 /* Application */,
 				27CB9DBA2A0CED5700F3E077 /* Common */,
 				27CB9DA92A0CD75800F3E077 /* Features */,
 				27CB9D492A0CD67A00F3E077 /* MVVMSwiftUIApp.swift */,
@@ -168,6 +181,7 @@
 			children = (
 				27CB9DD42A0E247100F3E077 /* Login */,
 				27CB9DAB2A0CD76D00F3E077 /* Register */,
+				27CB9DEC2A0E5FEA00F3E077 /* UserDependenciesAssembly.swift */,
 			);
 			path = User;
 			sourceTree = "<group>";
@@ -179,6 +193,7 @@
 				27CB9DAC2A0CD78000F3E077 /* Presentation */,
 				27CB9DB52A0CDEED00F3E077 /* UI */,
 				27CB9DB22A0CD7FA00F3E077 /* Infrastructure */,
+				27CB9DF12A0E61F700F3E077 /* UserRegisterViewFactory.swift */,
 			);
 			path = Register;
 			sourceTree = "<group>";
@@ -218,7 +233,9 @@
 		27CB9DBA2A0CED5700F3E077 /* Common */ = {
 			isa = PBXGroup;
 			children = (
+				27CB9DE72A0E5F3F00F3E077 /* DI */,
 				27CB9DBB2A0CED5D00F3E077 /* UI */,
+				27CB9DEA2A0E5F7300F3E077 /* udefined.swift */,
 			);
 			path = Common;
 			sourceTree = "<group>";
@@ -242,6 +259,7 @@
 				27CB9DD52A0E248100F3E077 /* Presentation */,
 				27CB9DD62A0E24ED00F3E077 /* UI */,
 				27CB9DE02A0E488C00F3E077 /* Insfrastructure */,
+				27CB9DE52A0E5E9F00F3E077 /* UserLoginViewFactory.swift */,
 			);
 			path = Login;
 			sourceTree = "<group>";
@@ -276,6 +294,22 @@
 				27CB9DE12A0E48A100F3E077 /* MockUserLoginService.swift */,
 			);
 			path = Insfrastructure;
+			sourceTree = "<group>";
+		};
+		27CB9DE72A0E5F3F00F3E077 /* DI */ = {
+			isa = PBXGroup;
+			children = (
+				27CB9DE82A0E5F4A00F3E077 /* Container.swift */,
+			);
+			path = DI;
+			sourceTree = "<group>";
+		};
+		27CB9DEE2A0E608500F3E077 /* Application */ = {
+			isa = PBXGroup;
+			children = (
+				27CB9DEF2A0E609E00F3E077 /* ApplicationDependenciesAssembly.swift */,
+			);
+			path = Application;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -408,12 +442,15 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				27CB9DE62A0E5E9F00F3E077 /* UserLoginViewFactory.swift in Sources */,
 				27CB9DD32A0D475500F3E077 /* TextButton.swift in Sources */,
 				27CB9DB42A0CD81400F3E077 /* MockUsernameAvailabilityService.swift in Sources */,
+				27CB9DEB2A0E5F7300F3E077 /* udefined.swift in Sources */,
 				27CB9DB92A0CE06A00F3E077 /* UserRegisterView.swift in Sources */,
 				27CB9DCF2A0D2F8100F3E077 /* RequiredText.swift in Sources */,
 				27CB9DDF2A0E368300F3E077 /* UserLoginService.swift in Sources */,
 				27CB9DD12A0D44E800F3E077 /* GradientButton.swift in Sources */,
+				27CB9DF22A0E61F700F3E077 /* UserRegisterViewFactory.swift in Sources */,
 				27CB9DB12A0CD7CE00F3E077 /* UsernameAvailabilityService.swift in Sources */,
 				27CB9DE22A0E48A100F3E077 /* MockUserLoginService.swift in Sources */,
 				27CB9DE42A0E4BD900F3E077 /* ProgressButton.swift in Sources */,
@@ -421,8 +458,11 @@
 				27CB9DAE2A0CD79000F3E077 /* UserRegisterViewModel.swift in Sources */,
 				27CB9DCD2A0D223900F3E077 /* FormField.swift in Sources */,
 				27CB9DD92A0E255100F3E077 /* UserLoginView.swift in Sources */,
+				27CB9DF02A0E609E00F3E077 /* ApplicationDependenciesAssembly.swift in Sources */,
 				27CB9DDD2A0E347300F3E077 /* UserLoginViewModel.swift in Sources */,
+				27CB9DED2A0E5FEA00F3E077 /* UserDependenciesAssembly.swift in Sources */,
 				27CB9D4A2A0CD67A00F3E077 /* MVVMSwiftUIApp.swift in Sources */,
+				27CB9DE92A0E5F4A00F3E077 /* Container.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

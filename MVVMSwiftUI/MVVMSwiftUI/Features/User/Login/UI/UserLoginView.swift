@@ -9,8 +9,6 @@ import SwiftUI
 
 struct UserLoginView: View {
     @ObservedObject var viewModel: UserLoginViewModel
-    @State private var username: String = ""
-    @State private var password: String = ""
     
     var body: some View {
         ScrollView {

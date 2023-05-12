@@ -10,7 +10,8 @@ import SwiftUI
 struct RootView: View {
     var body: some View {
         NavigationView {
-//            UserRegisterView()
+//            UserLoginViewFactory.make()
+            UserRegisterViewFactory.make()
         }
         .navigationViewStyle(.stack)
     }

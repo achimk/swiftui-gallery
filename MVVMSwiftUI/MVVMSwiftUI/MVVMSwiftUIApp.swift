@@ -9,6 +9,11 @@ import SwiftUI
 
 @main
 struct MVVMSwiftUIApp: App {
+    
+    init() {
+        ApplicationDependenciesAssembly.assemble(with: .shared)
+    }
+    
     var body: some Scene {
         WindowGroup {
             RootView()

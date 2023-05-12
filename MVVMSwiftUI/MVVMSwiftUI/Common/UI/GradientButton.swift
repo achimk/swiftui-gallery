@@ -31,9 +31,7 @@ struct GradientButton: View {
                 .cornerRadius(10)
                 .padding(.horizontal)
                 .disabled(disabled)
-                
         }
-
     }
 }
 

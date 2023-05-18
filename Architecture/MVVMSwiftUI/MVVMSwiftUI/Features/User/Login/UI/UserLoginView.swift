@@ -51,8 +51,11 @@ struct UserLoginView: View {
 
 struct UserLoginView_Previews: PreviewProvider {
     static var previews: some View {
+        let coordinator = UserCoordinator()
         let userLoginService = MockUserLoginService()
-        let viewModel = UserLoginViewModel(userLoginService: userLoginService)
+        let viewModel = UserLoginViewModel(
+            coordinator: coordinator,
+            userLoginService: userLoginService)
         UserLoginView(viewModel: viewModel)
     }
 }

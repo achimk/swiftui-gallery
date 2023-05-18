@@ -5,6 +5,14 @@ struct GalleryRootView: View {
         NavigationView {
             List {
                 Section {
+                    NavigationLink("Navigation") {
+                        GalleryNavigationView()
+                    }
+                } header: {
+                    Text("")
+                }
+                
+                Section {
                     NavigationLink("ProgressView") {
                         SampleProgressView()
                     }

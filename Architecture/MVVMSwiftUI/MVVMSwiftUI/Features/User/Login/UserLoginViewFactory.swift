@@ -9,9 +9,12 @@ import SwiftUI
 
 struct UserLoginViewFactory {
     
-    static func make(container: Container = .shared) -> some View {
+    static func make(
+        coordinator: UserLoginCoordinating,
+        container: Container = .shared
+    ) -> some View {
         let userLoginService = container.resolve(UserLoginService.self)
-        let viewModel = UserLoginViewModel(userLoginService: userLoginService)
+        let viewModel = UserLoginViewModel(coordinator: coordinator, userLoginService: userLoginService)
         return UserLoginView(viewModel: viewModel)
     }
 }

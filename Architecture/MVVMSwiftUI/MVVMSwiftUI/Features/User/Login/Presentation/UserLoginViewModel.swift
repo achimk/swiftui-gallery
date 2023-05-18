@@ -16,6 +16,7 @@ enum UserLoginState {
 }
 
 class UserLoginViewModel: ObservableObject {
+    private let coordinator: UserLoginCoordinating
     private let userLoginService: UserLoginService
     private var loginCancellable: AnyCancellable?
     private var cancellablesSet: Set<AnyCancellable> = []
@@ -25,7 +26,11 @@ class UserLoginViewModel: ObservableObject {
     @Published private(set) var loginState: UserLoginState = .idle
     @Published private(set) var isSignInEnabled: Bool = false
     
-    init(userLoginService: UserLoginService) {
+    init(
+        coordinator: UserLoginCoordinating,
+        userLoginService: UserLoginService
+    ) {
+        self.coordinator = coordinator
         self.userLoginService = userLoginService
         makeBindings()
     }
@@ -47,6 +52,10 @@ class UserLoginViewModel: ObservableObject {
                     self?.loginState = .failure
                 }
             }
+    }
+    
+    func signUp() {
+        coordinator.presentRegisterScreen()
     }
 }
 

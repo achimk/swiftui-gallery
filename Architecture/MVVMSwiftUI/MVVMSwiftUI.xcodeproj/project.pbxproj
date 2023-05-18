@@ -33,6 +33,7 @@
 		27CB9DED2A0E5FEA00F3E077 /* UserDependenciesAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27CB9DEC2A0E5FEA00F3E077 /* UserDependenciesAssembly.swift */; };
 		27CB9DF02A0E609E00F3E077 /* ApplicationDependenciesAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27CB9DEF2A0E609E00F3E077 /* ApplicationDependenciesAssembly.swift */; };
 		27CB9DF22A0E61F700F3E077 /* UserRegisterViewFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27CB9DF12A0E61F700F3E077 /* UserRegisterViewFactory.swift */; };
+		27CB9DF62A0E670C00F3E077 /* UserCoordinatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27CB9DF52A0E670C00F3E077 /* UserCoordinatorView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -82,6 +83,7 @@
 		27CB9DEC2A0E5FEA00F3E077 /* UserDependenciesAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDependenciesAssembly.swift; sourceTree = "<group>"; };
 		27CB9DEF2A0E609E00F3E077 /* ApplicationDependenciesAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApplicationDependenciesAssembly.swift; sourceTree = "<group>"; };
 		27CB9DF12A0E61F700F3E077 /* UserRegisterViewFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserRegisterViewFactory.swift; sourceTree = "<group>"; };
+		27CB9DF52A0E670C00F3E077 /* UserCoordinatorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserCoordinatorView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -182,6 +184,7 @@
 				27CB9DD42A0E247100F3E077 /* Login */,
 				27CB9DAB2A0CD76D00F3E077 /* Register */,
 				27CB9DEC2A0E5FEA00F3E077 /* UserDependenciesAssembly.swift */,
+				27CB9DF52A0E670C00F3E077 /* UserCoordinatorView.swift */,
 			);
 			path = User;
 			sourceTree = "<group>";
@@ -456,6 +459,7 @@
 				27CB9DE42A0E4BD900F3E077 /* ProgressButton.swift in Sources */,
 				27CB9DB72A0CDFDB00F3E077 /* RootView.swift in Sources */,
 				27CB9DAE2A0CD79000F3E077 /* UserRegisterViewModel.swift in Sources */,
+				27CB9DF62A0E670C00F3E077 /* UserCoordinatorView.swift in Sources */,
 				27CB9DCD2A0D223900F3E077 /* FormField.swift in Sources */,
 				27CB9DD92A0E255100F3E077 /* UserLoginView.swift in Sources */,
 				27CB9DF02A0E609E00F3E077 /* ApplicationDependenciesAssembly.swift in Sources */,

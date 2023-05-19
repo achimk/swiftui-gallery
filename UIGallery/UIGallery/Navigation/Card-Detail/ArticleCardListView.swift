@@ -7,7 +7,7 @@ struct ArticleCardListView: View {
         ScrollView {
             Spacer(minLength: 40)
             
-            VStack(spacing: 40) {
+            LazyVStack(spacing: 40) {
                 ForEach(articles) { article in
                     ArticleCardView(article: article)
                         .padding(.horizontal, 20)

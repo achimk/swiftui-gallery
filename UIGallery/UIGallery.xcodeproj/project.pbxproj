@@ -26,6 +26,7 @@
 		27238CC12A161BB000957132 /* ColorListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27238CC02A161BB000957132 /* ColorListView.swift */; };
 		27238CC32A161CBE00957132 /* ColorDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27238CC22A161CBE00957132 /* ColorDetailView.swift */; };
 		27238CC52A161CD800957132 /* ColorRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27238CC42A161CD800957132 /* ColorRowView.swift */; };
+		275434E42A1782C000972B0B /* HeroView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 275434E32A1782C000972B0B /* HeroView.swift */; };
 		27CB9DC52A0CF4DA00F3E077 /* ButtonsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27CB9DC42A0CF4DA00F3E077 /* ButtonsView.swift */; };
 		27CB9DCB2A0D149B00F3E077 /* TextFieldsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27CB9DCA2A0D149B00F3E077 /* TextFieldsView.swift */; };
 		27ED8BD229AA47A50092C57D /* UIGalleryApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27ED8BD129AA47A50092C57D /* UIGalleryApp.swift */; };
@@ -89,6 +90,7 @@
 		27238CC02A161BB000957132 /* ColorListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorListView.swift; sourceTree = "<group>"; };
 		27238CC22A161CBE00957132 /* ColorDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorDetailView.swift; sourceTree = "<group>"; };
 		27238CC42A161CD800957132 /* ColorRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorRowView.swift; sourceTree = "<group>"; };
+		275434E32A1782C000972B0B /* HeroView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeroView.swift; sourceTree = "<group>"; };
 		27CB9DC42A0CF4DA00F3E077 /* ButtonsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ButtonsView.swift; sourceTree = "<group>"; };
 		27CB9DCA2A0D149B00F3E077 /* TextFieldsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextFieldsView.swift; sourceTree = "<group>"; };
 		27ED8BCE29AA47A50092C57D /* UIGallery.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = UIGallery.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -235,6 +237,14 @@
 			path = "List-Detail";
 			sourceTree = "<group>";
 		};
+		275434E22A17826900972B0B /* HeroEffect */ = {
+			isa = PBXGroup;
+			children = (
+				275434E32A1782C000972B0B /* HeroView.swift */,
+			);
+			path = HeroEffect;
+			sourceTree = "<group>";
+		};
 		27CB9DC12A0CF4B100F3E077 /* Buttons */ = {
 			isa = PBXGroup;
 			children = (
@@ -357,6 +367,7 @@
 		27F896F229AA5B2100ED1B18 /* Effects */ = {
 			isa = PBXGroup;
 			children = (
+				275434E22A17826900972B0B /* HeroEffect */,
 				27F896F329AA5B3100ED1B18 /* ParallaxMotionEffect */,
 			);
 			path = Effects;
@@ -524,6 +535,7 @@
 				2717E28F2A163C550066DA0C /* View+Unwrap.swift in Sources */,
 				27ED8C0629AA4C620092C57D /* TextAddingView.swift in Sources */,
 				27ED8BFC29AA49130092C57D /* GalleryRootView.swift in Sources */,
+				275434E42A1782C000972B0B /* HeroView.swift in Sources */,
 				2710687429AAB1AA0057A90B /* MagnificationGestureView.swift in Sources */,
 				2717E2862A1623340066DA0C /* ColorModel.swift in Sources */,
 				27ED8C1729AA53A50092C57D /* DragGestureView.swift in Sources */,

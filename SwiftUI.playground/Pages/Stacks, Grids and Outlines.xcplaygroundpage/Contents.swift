@@ -180,7 +180,7 @@ enum DisclosureGroupSample {
 struct Previews: View {
     var body: some View {
         VStack {
-//            LazyStacksSample.Preview()
+            LazyStacksSample.Preview()
 //            LazyGridsSample.Preview()
 //            OutlineGroupSample.Preview()
 //            DisclosureGroupSample.Preview()

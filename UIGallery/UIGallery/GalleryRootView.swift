@@ -21,6 +21,12 @@ struct GalleryRootView: View {
                 }
                 
                 Section {
+                    NavigationLink("Simple hero") {
+                        SimpleHeroView()
+                    }
+                    NavigationLink("Card hero") {
+                        CardHeroView()
+                    }
                     NavigationLink("Parallax Motion") {
                         ParallaxMotionView()
                     }

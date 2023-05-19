@@ -298,7 +298,7 @@ struct ListItemTintSample: View {
 //PlaygroundPage.current.setLiveView(progressViews.frame(width: 320, height: 480))
 //PlaygroundPage.current.setLiveView(GeometryEffectSample(unselectedAlbums: Album.generate(), selectedAlbums: []).frame(width: 320, height: 480))
 //PlaygroundPage.current.setLiveView(DynamicTypeScalingSample().frame(width: 320, height: 480))
-PlaygroundPage.current.setLiveView(ListItemTintSample().frame(width: 320, height: 480))
+//PlaygroundPage.current.setLiveView(ListItemTintSample().frame(width: 320, height: 480))
 
 // Helpers
 

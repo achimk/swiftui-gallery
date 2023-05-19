@@ -19,6 +19,8 @@
 		2717E2892A1635A40066DA0C /* DismissViewModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2717E2882A1635A40066DA0C /* DismissViewModifier.swift */; };
 		2717E28C2A1638D50066DA0C /* GalleryNavigationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2717E28B2A1638D50066DA0C /* GalleryNavigationView.swift */; };
 		2717E28F2A163C550066DA0C /* View+Unwrap.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2717E28E2A163C550066DA0C /* View+Unwrap.swift */; };
+		2717E2932A1755380066DA0C /* ArticleModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2717E2922A1755380066DA0C /* ArticleModel.swift */; };
+		2717E2952A175EC60066DA0C /* ArticleCardListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2717E2942A175EC60066DA0C /* ArticleCardListView.swift */; };
 		27238CB72A1614D800957132 /* SearchBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27238CB62A1614D800957132 /* SearchBar.swift */; };
 		27238CBA2A16198E00957132 /* NavigationAppearance.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27238CB92A16198E00957132 /* NavigationAppearance.swift */; };
 		27238CC12A161BB000957132 /* ColorListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27238CC02A161BB000957132 /* ColorListView.swift */; };
@@ -80,6 +82,8 @@
 		2717E2882A1635A40066DA0C /* DismissViewModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DismissViewModifier.swift; sourceTree = "<group>"; };
 		2717E28B2A1638D50066DA0C /* GalleryNavigationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GalleryNavigationView.swift; sourceTree = "<group>"; };
 		2717E28E2A163C550066DA0C /* View+Unwrap.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "View+Unwrap.swift"; sourceTree = "<group>"; };
+		2717E2922A1755380066DA0C /* ArticleModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArticleModel.swift; sourceTree = "<group>"; };
+		2717E2942A175EC60066DA0C /* ArticleCardListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArticleCardListView.swift; sourceTree = "<group>"; };
 		27238CB62A1614D800957132 /* SearchBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchBar.swift; sourceTree = "<group>"; };
 		27238CB92A16198E00957132 /* NavigationAppearance.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationAppearance.swift; sourceTree = "<group>"; };
 		27238CC02A161BB000957132 /* ColorListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorListView.swift; sourceTree = "<group>"; };
@@ -193,6 +197,15 @@
 			path = Utilities;
 			sourceTree = "<group>";
 		};
+		2717E2912A164EEC0066DA0C /* Card-Detail */ = {
+			isa = PBXGroup;
+			children = (
+				2717E2922A1755380066DA0C /* ArticleModel.swift */,
+				2717E2942A175EC60066DA0C /* ArticleCardListView.swift */,
+			);
+			path = "Card-Detail";
+			sourceTree = "<group>";
+		};
 		27238CB52A1614BC00957132 /* SarchBar */ = {
 			isa = PBXGroup;
 			children = (
@@ -204,6 +217,7 @@
 		27238CB82A16190000957132 /* Navigation */ = {
 			isa = PBXGroup;
 			children = (
+				2717E2912A164EEC0066DA0C /* Card-Detail */,
 				27238CBB2A161B1800957132 /* List-Detail */,
 				2717E28B2A1638D50066DA0C /* GalleryNavigationView.swift */,
 			);
@@ -491,6 +505,7 @@
 				27ED8C0F29AA51130092C57D /* TapGestureView.swift in Sources */,
 				27F896F529AA5B5400ED1B18 /* ParallaxMotionModifier.swift in Sources */,
 				2717E28C2A1638D50066DA0C /* GalleryNavigationView.swift in Sources */,
+				2717E2932A1755380066DA0C /* ArticleModel.swift in Sources */,
 				2710687E29AAC10D0057A90B /* RotateAnimationsView.swift in Sources */,
 				27ED8C0229AA4B4E0092C57D /* ShapeRectangleView.swift in Sources */,
 				27ED8C0429AA4BA80092C57D /* ShapePathView.swift in Sources */,
@@ -523,6 +538,7 @@
 				2710687029AA9A1B0057A90B /* ProgressView.swift in Sources */,
 				27238CBA2A16198E00957132 /* NavigationAppearance.swift in Sources */,
 				27238CC52A161CD800957132 /* ColorRowView.swift in Sources */,
+				2717E2952A175EC60066DA0C /* ArticleCardListView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

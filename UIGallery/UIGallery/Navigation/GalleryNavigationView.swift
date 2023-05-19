@@ -8,6 +8,7 @@ struct GalleryNavigationView: View {
         }
         
         case listDetailFlow
+        case cardDetailFlow
         case modalSheet
         case bottomSheet
         case alert
@@ -20,6 +21,7 @@ struct GalleryNavigationView: View {
         List {
             Section {
                 makeListDetailFlow()
+                makeCardDetailFlow()
                 makeModalSheetFlow()
                 makeBottomSheetFlow()
                 makeAlertFlow()
@@ -30,7 +32,6 @@ struct GalleryNavigationView: View {
         .navigationBarTitleDisplayMode(.inline)
     }
     
-    @ViewBuilder
     private func makeListDetailFlow() -> some View {
         Button {
             route = .listDetailFlow
@@ -42,7 +43,17 @@ struct GalleryNavigationView: View {
         }
     }
     
-    @ViewBuilder
+    private func makeCardDetailFlow() -> some View {
+        Button {
+            route = .cardDetailFlow
+        } label: {
+            Text("Card - Detail flow")
+        }
+        .sheet(unwrap: $route, condition: { $0 == .cardDetailFlow }) { _ in
+            ArticleCardListView(articles: ArticleModel.generate(count: 10))
+        }
+    }
+    
     private func makeModalSheetFlow() -> some View {
         Button {
             route = .modalSheet
@@ -76,7 +87,6 @@ struct GalleryNavigationView: View {
         }
     }
     
-    @ViewBuilder
     private func makeAlertFlow() -> some View {
         Button {
             route = .alert
@@ -91,7 +101,6 @@ struct GalleryNavigationView: View {
             message: { _ in Text("Message") })
     }
     
-    @ViewBuilder
     private func makeConfirmationDialogFlow() -> some View {
         Button {
             route = .confirmationDialog

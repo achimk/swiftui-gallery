@@ -28,6 +28,7 @@
 		27238CC52A161CD800957132 /* ColorRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27238CC42A161CD800957132 /* ColorRowView.swift */; };
 		275434E42A1782C000972B0B /* HeroView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 275434E32A1782C000972B0B /* HeroView.swift */; };
 		275CD4292A1B5EC100BC549E /* SimpleHeroView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 275CD4282A1B5EC100BC549E /* SimpleHeroView.swift */; };
+		275CD42B2A1B63F900BC549E /* ScrollHeroView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 275CD42A2A1B63F900BC549E /* ScrollHeroView.swift */; };
 		27CB9DC52A0CF4DA00F3E077 /* ButtonsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27CB9DC42A0CF4DA00F3E077 /* ButtonsView.swift */; };
 		27CB9DCB2A0D149B00F3E077 /* TextFieldsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27CB9DCA2A0D149B00F3E077 /* TextFieldsView.swift */; };
 		27ED8BD229AA47A50092C57D /* UIGalleryApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27ED8BD129AA47A50092C57D /* UIGalleryApp.swift */; };
@@ -93,6 +94,7 @@
 		27238CC42A161CD800957132 /* ColorRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorRowView.swift; sourceTree = "<group>"; };
 		275434E32A1782C000972B0B /* HeroView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeroView.swift; sourceTree = "<group>"; };
 		275CD4282A1B5EC100BC549E /* SimpleHeroView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SimpleHeroView.swift; sourceTree = "<group>"; };
+		275CD42A2A1B63F900BC549E /* ScrollHeroView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScrollHeroView.swift; sourceTree = "<group>"; };
 		27CB9DC42A0CF4DA00F3E077 /* ButtonsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ButtonsView.swift; sourceTree = "<group>"; };
 		27CB9DCA2A0D149B00F3E077 /* TextFieldsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextFieldsView.swift; sourceTree = "<group>"; };
 		27ED8BCE29AA47A50092C57D /* UIGallery.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = UIGallery.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -244,6 +246,7 @@
 			children = (
 				275434E32A1782C000972B0B /* HeroView.swift */,
 				275CD4282A1B5EC100BC549E /* SimpleHeroView.swift */,
+				275CD42A2A1B63F900BC549E /* ScrollHeroView.swift */,
 			);
 			path = HeroEffect;
 			sourceTree = "<group>";
@@ -529,6 +532,7 @@
 				27ED8C0829AA4CE40092C57D /* LinearGradientView.swift in Sources */,
 				27ED8C1329AA52010092C57D /* LongPressGestureView.swift in Sources */,
 				27ED8C0029AA4A4A0092C57D /* ShapeCircleView.swift in Sources */,
+				275CD42B2A1B63F900BC549E /* ScrollHeroView.swift in Sources */,
 				2710687629AAB3040057A90B /* ExclusiveGestureView.swift in Sources */,
 				27ED8C0C29AA4E6C0092C57D /* RadialGradientView.swift in Sources */,
 				27ED8BD229AA47A50092C57D /* UIGalleryApp.swift in Sources */,

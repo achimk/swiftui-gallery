@@ -24,6 +24,9 @@ struct GalleryRootView: View {
                     NavigationLink("Simple hero") {
                         SimpleHeroView()
                     }
+                    NavigationLink("Scroll hero") {
+                        ScrollHeroView()
+                    }
                     NavigationLink("Card hero") {
                         CardHeroView()
                     }

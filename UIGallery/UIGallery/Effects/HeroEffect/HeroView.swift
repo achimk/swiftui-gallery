@@ -1,41 +1,5 @@
 import SwiftUI
 
-struct SimpleHeroView: View {
-    @Namespace private var animation
-    @State private var isRevealed = false
-    
-    var body: some View {
-        VStack {
-            if isRevealed {
-                Rectangle()
-                    .fill(.mint)
-                    .mask {
-                        RoundedRectangle(cornerRadius: 0)
-                            .matchedGeometryEffect(
-                                id: "heroEffect",
-                                in: animation)
-                    }
-            } else {
-                Rectangle()
-                    .fill(.mint)
-                    .frame(width: 200, height: 200)
-                    .mask {
-                        RoundedRectangle(cornerRadius: 14)
-                            .matchedGeometryEffect(
-                                id: "heroEffect",
-                                in: animation)
-                    }
-                    .shadow(radius: 15)
-            }
-        }
-        .onTapGesture {
-            withAnimation(.spring()) {
-                isRevealed.toggle()
-            }
-        }
-    }
-}
-
 struct CardHeroView: View {
     @Namespace private var animation
     @State private var isShowingDetail = false
@@ -123,8 +87,19 @@ extension CardHeroView {
         
         var body: some View {
             VStack(spacing: 0) {
-                Avatar()
-                    .matchedGeometryEffect(id: CardHeroAnimationId.avatar, in: animation)
+                VStack {
+                    HStack {
+                        Spacer()
+                        Avatar()
+                            .matchedGeometryEffect(id: CardHeroAnimationId.avatar, in: animation)
+                        Spacer()
+                    }
+                }
+                .background(
+                    Color.mint
+                        .matchedGeometryEffect(id: CardHeroAnimationId.backgroundColor, in: animation)
+                )
+                
                 VStack(alignment: .leading) {
                     Title(text: "Learing hero animation on card view.")
                         .matchedGeometryEffect(id: CardHeroAnimationId.title, in: animation)
@@ -144,10 +119,6 @@ extension CardHeroView {
                 )
             }
             .frame(width: 200)
-            .background(
-                Color.mint
-                    .matchedGeometryEffect(id: CardHeroAnimationId.backgroundColor, in: animation)
-            )
             .mask {
                 RoundedRectangle(cornerRadius: 14)
                     .matchedGeometryEffect(
@@ -170,42 +141,41 @@ extension CardHeroView {
         var body: some View {
             ZStack {
                 ScrollView {
-                    VStack(alignment: .leading) {
-                        ZStack {
-                            HStack {
-                                Spacer()
-                                Avatar()
-                                    .matchedGeometryEffect(id: CardHeroAnimationId.avatar, in: animation)
-                                Spacer()
-                            }
+                    VStack(alignment: .leading, spacing: 0) {
+                        HStack {
+                            Spacer()
+                            Avatar()
+                                .matchedGeometryEffect(id: CardHeroAnimationId.avatar, in: animation)
+                            Spacer()
                         }
+                        
                         .frame(height: 180)
                         .background(
                             Color.mint
                                 .matchedGeometryEffect(id: CardHeroAnimationId.backgroundColor, in: animation)
                         )
-                        
-                        
-                        VStack(alignment: .leading) {
-                            HStack {
-                                TagLabel(text: "Learn")
-                                    .matchedGeometryEffect(id: CardHeroAnimationId.tagLabel1, in: animation)
-                                TagLabel(text: "Test")
-                                    .matchedGeometryEffect(id: CardHeroAnimationId.tagLabel2, in: animation)
-                                
-                                Spacer()
-                            }
-                            
-                            Title(text: "Learing hero animation on card view.")
-                                .matchedGeometryEffect(id: CardHeroAnimationId.title, in: animation)
-                        }
-                        .background(
-                            Color.white
-                                .matchedGeometryEffect(id: CardHeroAnimationId.backgroundContent, in: animation)
-                        )
-                        .padding()
-                        
                     }
+                    
+                    VStack(alignment: .leading, spacing: 0) {
+                        HStack {
+                            TagLabel(text: "Learn")
+                                .matchedGeometryEffect(id: CardHeroAnimationId.tagLabel1, in: animation)
+                            TagLabel(text: "Test")
+                                .matchedGeometryEffect(id: CardHeroAnimationId.tagLabel2, in: animation)
+                            
+                            Spacer()
+                        }
+                        
+                        Title(text: "Learing hero animation on card view.")
+                            .matchedGeometryEffect(id: CardHeroAnimationId.title, in: animation)
+                        
+                        Spacer()
+                    }
+                    .padding()
+                    .background(
+                        Color.white
+                            .matchedGeometryEffect(id: CardHeroAnimationId.backgroundContent, in: animation)
+                    )
                 }
                 .mask {
                     RoundedRectangle(cornerRadius: 0)
@@ -221,7 +191,6 @@ extension CardHeroView {
                         CloseButton(isPresenting: $isShowingDetail)
                             .padding()
                     }
-                    
                     Spacer()
                 }
             }

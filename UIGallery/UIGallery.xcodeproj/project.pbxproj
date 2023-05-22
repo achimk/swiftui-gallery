@@ -27,6 +27,7 @@
 		27238CC32A161CBE00957132 /* ColorDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27238CC22A161CBE00957132 /* ColorDetailView.swift */; };
 		27238CC52A161CD800957132 /* ColorRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27238CC42A161CD800957132 /* ColorRowView.swift */; };
 		275434E42A1782C000972B0B /* HeroView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 275434E32A1782C000972B0B /* HeroView.swift */; };
+		275CD4292A1B5EC100BC549E /* SimpleHeroView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 275CD4282A1B5EC100BC549E /* SimpleHeroView.swift */; };
 		27CB9DC52A0CF4DA00F3E077 /* ButtonsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27CB9DC42A0CF4DA00F3E077 /* ButtonsView.swift */; };
 		27CB9DCB2A0D149B00F3E077 /* TextFieldsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27CB9DCA2A0D149B00F3E077 /* TextFieldsView.swift */; };
 		27ED8BD229AA47A50092C57D /* UIGalleryApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27ED8BD129AA47A50092C57D /* UIGalleryApp.swift */; };
@@ -91,6 +92,7 @@
 		27238CC22A161CBE00957132 /* ColorDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorDetailView.swift; sourceTree = "<group>"; };
 		27238CC42A161CD800957132 /* ColorRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorRowView.swift; sourceTree = "<group>"; };
 		275434E32A1782C000972B0B /* HeroView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeroView.swift; sourceTree = "<group>"; };
+		275CD4282A1B5EC100BC549E /* SimpleHeroView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SimpleHeroView.swift; sourceTree = "<group>"; };
 		27CB9DC42A0CF4DA00F3E077 /* ButtonsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ButtonsView.swift; sourceTree = "<group>"; };
 		27CB9DCA2A0D149B00F3E077 /* TextFieldsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextFieldsView.swift; sourceTree = "<group>"; };
 		27ED8BCE29AA47A50092C57D /* UIGallery.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = UIGallery.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -241,6 +243,7 @@
 			isa = PBXGroup;
 			children = (
 				275434E32A1782C000972B0B /* HeroView.swift */,
+				275CD4282A1B5EC100BC549E /* SimpleHeroView.swift */,
 			);
 			path = HeroEffect;
 			sourceTree = "<group>";
@@ -546,6 +549,7 @@
 				27F896F729AA5B8E00ED1B18 /* ParallaxMotionView.swift in Sources */,
 				2710687229AA9AA10057A90B /* SampleProgressView.swift in Sources */,
 				27ED8C1129AA51B30092C57D /* DoubleTapGestureView.swift in Sources */,
+				275CD4292A1B5EC100BC549E /* SimpleHeroView.swift in Sources */,
 				2710687B29AAB6350057A90B /* RepeatAnimationsView.swift in Sources */,
 				2710687029AA9A1B0057A90B /* ProgressView.swift in Sources */,
 				27238CBA2A16198E00957132 /* NavigationAppearance.swift in Sources */,

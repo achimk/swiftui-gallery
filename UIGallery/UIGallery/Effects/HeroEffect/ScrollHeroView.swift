@@ -3,6 +3,9 @@ import SwiftUI
 struct ScrollHeroView: View {
     @Namespace private var animation
     @State private var selectedIndex: Int?
+    @State private var animateFromCardToDetail = false
+    
+    var isMatchFromCardToDetail: Bool { !animateFromCardToDetail && selectedIndex != nil }
     
     var body: some View {
         ZStack {
@@ -47,7 +50,7 @@ struct ScrollHeroView: View {
         .frame(width: 200, height: 200)
         .mask {
             RoundedRectangle(cornerRadius: 14)
-                .matchedGeometryEffect(id: index, in: animation)
+                .matchedGeometryEffect(id: index, in: animation, isSource: true)
         }
         .shadow(radius: 15)
     }
@@ -69,8 +72,10 @@ struct ScrollHeroView: View {
         }
         .mask {
             RoundedRectangle(cornerRadius: 0)
-                .matchedGeometryEffect(id: index, in: animation)
+                .matchedGeometryEffect(id: isMatchFromCardToDetail ? index : 0, in: animation, isSource: false)
         }
+        .onAppear { animateFromCardToDetail = true }
+        .onDisappear { animateFromCardToDetail = false }
     }
 }
 

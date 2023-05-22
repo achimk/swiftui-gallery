@@ -2,17 +2,21 @@ import SwiftUI
 
 struct GalleryNavigationView: View {
     
-    enum Route: Int, Identifiable {
-        var id: Int {
-            return rawValue
-        }
-        
+    struct Box: Identifiable {
+        var value: Int
+        var id: Int { return value }
+    }
+    
+    enum Route: Equatable {
         case listDetailFlow
         case cardDetailFlow
         case modalSheet
         case bottomSheet
         case alert
         case confirmationDialog
+        case associatedAlert(Int)
+        case associatedDialog(Int)
+        case associatedSheet(Int)
     }
     
     @State private var route: Route? = nil
@@ -24,8 +28,14 @@ struct GalleryNavigationView: View {
                 makeCardDetailFlow()
                 makeModalSheetFlow()
                 makeBottomSheetFlow()
-                makeAlertFlow()
                 makeConfirmationDialogFlow()
+                makeAlertFlow()
+            }
+            
+            Section {
+                makeAssociatedAlertFlow()
+                makeAssociatedDialogFlow()
+                makeAssociatedSheetFlow()
             }
         }
         .navigationTitle("Navigation")
@@ -38,7 +48,7 @@ struct GalleryNavigationView: View {
         } label: {
             Text("List - Detail flow")
         }
-        .sheet(unwrap: $route, condition: { $0 == .listDetailFlow }) { _ in
+        .sheet(isPresented: $route.isPresent { $0 == .listDetailFlow }) {
             ColorListView(colors: ColorModel.generate(count: 100))
         }
     }
@@ -49,7 +59,7 @@ struct GalleryNavigationView: View {
         } label: {
             Text("Card - Detail flow")
         }
-        .sheet(unwrap: $route, condition: { $0 == .cardDetailFlow }) { _ in
+        .sheet(isPresented: $route.isPresent { $0 == .cardDetailFlow }) {
             ArticleCardListView(articles: ArticleModel.generate(count: 10))
         }
     }
@@ -60,7 +70,7 @@ struct GalleryNavigationView: View {
         } label: {
             Text("Modal sheet")
         }
-        .sheet(unwrap: $route, condition: { $0 == .modalSheet }) { _ in
+        .sheet(isPresented: $route.isPresent { $0 == .modalSheet }) {
             ColorDetailView(
                 colorModel: .constant(ColorModel.generate()),
                 dismissContext: .modal)
@@ -75,7 +85,7 @@ struct GalleryNavigationView: View {
             } label: {
                 Text("Bottom sheet (iOS 16)")
             }
-            .sheet(unwrap: $route, condition: { $0 == .bottomSheet }) { _ in
+            .sheet(isPresented: $route.isPresent { $0 == .bottomSheet }) {
                 ColorDetailView(
                     colorModel: .constant(ColorModel.generate()),
                     dismissContext: .bottomSheet
@@ -93,12 +103,12 @@ struct GalleryNavigationView: View {
         } label: {
             Text("Alert")
         }
-        .alert(
-            title: { _ in Text("Title") },
-            unwrap: $route,
-            condition: { $0 == .alert },
-            actions: { _ in },
-            message: { _ in Text("Message") })
+        .alert(isPresented: $route.isPresent { $0 == .alert }) {
+            Alert(
+                title: Text("Title"),
+                message: Text("Message")
+            )
+        }
     }
     
     private func makeConfirmationDialogFlow() -> some View {
@@ -108,16 +118,90 @@ struct GalleryNavigationView: View {
             Text("Confirmation dialog")
         }
         .confirmationDialog(
-            title: { _ in Text("Title")},
-            unwrap: $route,
-            condition: { $0 == .confirmationDialog },
+            "Title",
+            isPresented: $route.isPresent { $0 == .confirmationDialog },
+            actions: {
+                Button("Option 1") { }
+                Button("Option 2") { }
+                Button("Option 3") { }
+                Button("Cancel", role: .cancel) { }
+            },
+            message: {
+                Text("Message")
+            })
+    }
+    
+    private func makeAssociatedAlertFlow() -> some View {
+        Button {
+            route = .associatedAlert((1...10).randomElement() ?? 0)
+        } label: {
+            Text("Associated value dialog")
+        }
+        .alert(
+            title: {
+                Text("Title: \($0)")
+            },
+            presenting: $route.isPresent {
+                if case .associatedAlert(let value) = $0 {
+                    return value
+                } else {
+                    return nil
+                }
+            },
+            actions: { _ in
+                Button("Ok") { }
+                Button("Cancel", role: .cancel) { }
+            },
+            message: {
+                Text("Message: \($0)")
+            })
+    }
+    
+    private func makeAssociatedDialogFlow() -> some View {
+        Button {
+            route = .associatedDialog((1...10).randomElement() ?? 0)
+        } label: {
+            Text("Confirmation dialog")
+        }
+        .confirmationDialog(
+            title: {
+                Text("Title: \($0)")
+            },
+            presenting: $route.isPresent(with: {
+                if case .associatedDialog(let value) = $0 {
+                    return value
+                } else {
+                    return nil
+                }
+            }),
             actions: { _ in
                 Button("Option 1") { }
                 Button("Option 2") { }
                 Button("Option 3") { }
                 Button("Cancel", role: .cancel) { }
             },
-            message: { _ in Text("Message") })
+            message: {
+                Text("Message: \($0)")
+            })
+    }
+    
+    private func makeAssociatedSheetFlow() -> some View {
+        Button {
+            route = .associatedSheet((1...10).randomElement() ?? 0)
+        } label: {
+            Text("Confirmation dialog")
+        }
+        .sheet(
+            item: $route.isPresent {
+                if case .associatedSheet(let value) = $0 {
+                    return Box(value: value)
+                } else {
+                    return nil
+                }
+            },
+            content: { box in
+                Text("Message: \(box.value)")
+            })
     }
 }
 

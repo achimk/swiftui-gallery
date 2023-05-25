@@ -27,21 +27,28 @@ class LoadingPublisher<Action, Value, Error: Swift.Error>: Publisher {
             return
         }
         
-        currentState.value = .loading
+        let loading = Just(Output.loading)
+            .eraseToAnyPublisher()
         
-        cancellable = createPublisher(action)
+        let completion = createPublisher(action)
             .first()
-            .receive(on: scheduler)
-            .sink(receiveCompletion: { [currentState] completion in
-                switch completion {
-                case .finished:
-                    break
-                case .failure(let error):
-                    currentState.value = .failure(error)
-                }
-            }, receiveValue: { [currentState] value in
-                currentState.value = .success(value)
-            })
+            .map {
+                Output.success($0)
+            }
+            .catch {
+                Just(Output.failure($0))
+                    .setFailureType(to: Never.self)
+                    .eraseToAnyPublisher()
+            }
+            .eraseToAnyPublisher()
+        
+        cancellable = Publishers.Concatenate(
+            prefix: loading,
+            suffix: completion)
+        .receive(on: scheduler)
+        .sink(receiveValue: { [currentState] in
+            currentState.value = $0
+        })
     }
     
     func receive<S>(subscriber: S) where S : Subscriber, Failure == S.Failure, Output == S.Input {

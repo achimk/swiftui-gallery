@@ -6,5 +6,7 @@
         <page name='Combine in Practice'/>
         <page name='Loading State'/>
         <page name='Operators'/>
+        <page name='AnyPublisher (Create)'/>
+        <page name='ObservableObject (nested)'/>
     </pages>
 </playground>

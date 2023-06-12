@@ -16,18 +16,17 @@ protocol UserRegisterCoordinating {
 }
 
 class UserCoordinator: ObservableObject, UserLoginCoordinating, UserRegisterCoordinating {
-    
     enum Scene {
         case login
         case register
     }
-    
+
     @Published private(set) var currentScene: Scene = .login
-    
+
     func presentLoginScreen() {
         currentScene = .login
     }
-    
+
     func presentRegisterScreen() {
         currentScene = .register
     }
@@ -35,13 +34,13 @@ class UserCoordinator: ObservableObject, UserLoginCoordinating, UserRegisterCoor
 
 struct UserCoordinatorView: View {
     @ObservedObject var coordinator: UserCoordinator
-    
+
     var body: some View {
         switch coordinator.currentScene {
         case .login:
             UserLoginViewFactory.make(coordinator: coordinator)
         case .register:
-            UserRegisterViewFactory.make()
+            UserRegisterViewFactory.make(coordinator: coordinator)
         }
     }
 }

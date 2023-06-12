@@ -8,10 +8,12 @@
 import SwiftUI
 
 struct UserRegisterViewFactory {
-    
-    static func make(container: Container = .shared) -> some View {
+    static func make(container: Container = .shared, coordinator: UserRegisterCoordinating) -> some View {
         let userAvailabilityService = container.resolve(UsernameAvailabilityService.self)
-        let viewModel = UserRegisterViewModel(usernameAvailabilityService: userAvailabilityService)
+        let viewModel = UserRegisterViewModel(
+            coordinator: coordinator,
+            usernameAvailabilityService: userAvailabilityService
+        )
         return UserRegisterView(viewModel: viewModel)
     }
 }

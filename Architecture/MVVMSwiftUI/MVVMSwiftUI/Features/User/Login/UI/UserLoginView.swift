@@ -9,7 +9,7 @@ import SwiftUI
 
 struct UserLoginView: View {
     @ObservedObject var viewModel: UserLoginViewModel
-    
+
     var body: some View {
         ScrollView {
             VStack {
@@ -17,30 +17,31 @@ struct UserLoginView: View {
                     .font(.system(.largeTitle, design: .rounded))
                     .bold()
                     .padding(.bottom, 30)
-                
+
                 FormField(fieldValue: $viewModel.username, fieldName: "Username", isSecure: false)
                     .padding()
-                
+
                 FormField(fieldValue: $viewModel.password, fieldName: "Password", isSecure: true)
                     .padding()
-                
+
                 Spacer(minLength: 50)
-                
+
                 ProgressButton(
                     text: "Sign In",
                     disabled: !viewModel.isSignInEnabled,
                     inProgress: viewModel.loginState == .progress,
-                    action: viewModel.signIn)
-                
+                    action: viewModel.signIn
+                )
+
                 Spacer(minLength: 50)
-                
+
                 HStack {
                     Text("Don't have an account?")
                         .font(.system(.body, design: .rounded))
                         .bold()
-                    
+
                     TextButton(text: "Sign up") {
-                        print("-> Sign Up")
+                        viewModel.signUp()
                     }
                 }
             }
@@ -55,7 +56,8 @@ struct UserLoginView_Previews: PreviewProvider {
         let userLoginService = MockUserLoginService()
         let viewModel = UserLoginViewModel(
             coordinator: coordinator,
-            userLoginService: userLoginService)
+            userLoginService: userLoginService
+        )
         UserLoginView(viewModel: viewModel)
     }
 }

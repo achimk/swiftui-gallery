@@ -16,7 +16,6 @@
 		27CB9DAE2A0CD79000F3E077 /* UserRegisterViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27CB9DAD2A0CD79000F3E077 /* UserRegisterViewModel.swift */; };
 		27CB9DB12A0CD7CE00F3E077 /* UsernameAvailabilityService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27CB9DB02A0CD7CE00F3E077 /* UsernameAvailabilityService.swift */; };
 		27CB9DB42A0CD81400F3E077 /* MockUsernameAvailabilityService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27CB9DB32A0CD81400F3E077 /* MockUsernameAvailabilityService.swift */; };
-		27CB9DB72A0CDFDB00F3E077 /* RootView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27CB9DB62A0CDFDB00F3E077 /* RootView.swift */; };
 		27CB9DB92A0CE06A00F3E077 /* UserRegisterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27CB9DB82A0CE06A00F3E077 /* UserRegisterView.swift */; };
 		27CB9DCD2A0D223900F3E077 /* FormField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27CB9DCC2A0D223900F3E077 /* FormField.swift */; };
 		27CB9DCF2A0D2F8100F3E077 /* RequiredText.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27CB9DCE2A0D2F8100F3E077 /* RequiredText.swift */; };
@@ -66,7 +65,6 @@
 		27CB9DAD2A0CD79000F3E077 /* UserRegisterViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserRegisterViewModel.swift; sourceTree = "<group>"; };
 		27CB9DB02A0CD7CE00F3E077 /* UsernameAvailabilityService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UsernameAvailabilityService.swift; sourceTree = "<group>"; };
 		27CB9DB32A0CD81400F3E077 /* MockUsernameAvailabilityService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockUsernameAvailabilityService.swift; sourceTree = "<group>"; };
-		27CB9DB62A0CDFDB00F3E077 /* RootView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootView.swift; sourceTree = "<group>"; };
 		27CB9DB82A0CE06A00F3E077 /* UserRegisterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserRegisterView.swift; sourceTree = "<group>"; };
 		27CB9DCC2A0D223900F3E077 /* FormField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FormField.swift; sourceTree = "<group>"; };
 		27CB9DCE2A0D2F8100F3E077 /* RequiredText.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequiredText.swift; sourceTree = "<group>"; };
@@ -138,7 +136,6 @@
 				27CB9DBA2A0CED5700F3E077 /* Common */,
 				27CB9DA92A0CD75800F3E077 /* Features */,
 				27CB9D492A0CD67A00F3E077 /* MVVMSwiftUIApp.swift */,
-				27CB9DB62A0CDFDB00F3E077 /* RootView.swift */,
 				27CB9D4D2A0CD67B00F3E077 /* Assets.xcassets */,
 				27CB9D4F2A0CD67B00F3E077 /* Preview Content */,
 			);
@@ -457,7 +454,6 @@
 				27CB9DB12A0CD7CE00F3E077 /* UsernameAvailabilityService.swift in Sources */,
 				27CB9DE22A0E48A100F3E077 /* MockUserLoginService.swift in Sources */,
 				27CB9DE42A0E4BD900F3E077 /* ProgressButton.swift in Sources */,
-				27CB9DB72A0CDFDB00F3E077 /* RootView.swift in Sources */,
 				27CB9DAE2A0CD79000F3E077 /* UserRegisterViewModel.swift in Sources */,
 				27CB9DF62A0E670C00F3E077 /* UserCoordinatorView.swift in Sources */,
 				27CB9DCD2A0D223900F3E077 /* FormField.swift in Sources */,

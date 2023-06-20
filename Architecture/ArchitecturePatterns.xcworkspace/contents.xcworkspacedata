@@ -2,6 +2,9 @@
 <Workspace
    version = "1.0">
    <FileRef
+      location = "group:FunWithCombine/FunWithCombine.xcodeproj">
+   </FileRef>
+   <FileRef
       location = "group:VIPSwiftUI/VIPSwiftUI.xcodeproj">
    </FileRef>
    <FileRef

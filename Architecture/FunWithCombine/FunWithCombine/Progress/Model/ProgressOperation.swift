@@ -4,7 +4,8 @@ typealias TimerInvalidate = () -> Void
 typealias TimerScheduler = (TimeInterval, @escaping () -> Void) -> TimerInvalidate
 
 final class ProgressOperation {
-    enum State {
+    @frozen
+    enum State: Equatable {
         case initial
         case running
         case cancelled
@@ -23,7 +24,9 @@ final class ProgressOperation {
         didSet { onUpdate?(currentStep, state) }
     }
 
-    var onUpdate: ((Int, State) -> Void)?
+    var onUpdate: ((Int, State) -> Void)? {
+        didSet { onUpdate?(currentStep, state) }
+    }
 
     init(
         numberOfSteps: Int,

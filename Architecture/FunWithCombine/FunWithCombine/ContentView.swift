@@ -2,13 +2,32 @@ import SwiftUI
 
 struct ContentView: View {
     var body: some View {
-        VStack {
-            Image(systemName: "globe")
-                .imageScale(.large)
-                .foregroundColor(.accentColor)
-            Text("Hello, world!")
+        NavigationView {
+            List {
+                // Tasks section
+                Section {
+                    NavigationLink("Plain operation") {
+                        ProgressFactory.make()
+                    }
+                } header: {
+                    Text("Tasks")
+                }
+
+                // Combine section
+                Section {
+                    NavigationLink("Buttons") {
+                        EmptyView()
+                    }
+                    NavigationLink("TextFields") {
+                        EmptyView()
+                    }
+                } header: {
+                    Text("Combine")
+                }
+            }
+            .navigationTitle("Examples")
         }
-        .padding()
+        .navigationViewStyle(.stack)
     }
 }
 

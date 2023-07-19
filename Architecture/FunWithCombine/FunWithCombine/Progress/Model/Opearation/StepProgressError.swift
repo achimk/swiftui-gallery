@@ -1,6 +1,6 @@
 import Foundation
 
-enum StepProgressError: Error {
+enum StepProgressError: Int, Error {
     case alreadyRunning
-    case cancelled
+    case cancelInvoked
 }

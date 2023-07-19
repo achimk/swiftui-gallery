@@ -9,8 +9,11 @@ struct ContentView: View {
                     NavigationLink("Operation") {
                         ProgressFactory(strategy: .operation).make()
                     }
+                    NavigationLink("Async") {
+                        ProgressFactory(strategy: .async).make()
+                    }
                     NavigationLink("Task") {
-                        ProgressFactory(strategy: .asyncTask).make()
+                        ProgressFactory(strategy: .task).make()
                     }
                 } header: {
                     Text("Tasks")

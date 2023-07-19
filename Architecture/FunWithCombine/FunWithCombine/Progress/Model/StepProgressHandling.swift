@@ -41,7 +41,7 @@ final class StepProgressOperationHandler: StepProgressHandling {
     }
 }
 
-final class StepProgressTaskHandler: StepProgressHandling {
+final class StepProgressAsyncHandler: StepProgressHandling {
     private let task: StepProgressTask
 
     weak var delegate: StepProgressDelegate?
@@ -66,13 +66,56 @@ final class StepProgressTaskHandler: StepProgressHandling {
                 assert(Thread.isMainThread)
                 try await task.start()
             } catch {
-                // ignored
+                print("=> failed: \(error)")
             }
         }
     }
 
     func cancel() {
         task.cancel()
+    }
+
+    private func taskUpdated(step: Int, state: StepProgressState) {
+        delegate?.progressDidUpdate(self, step: step, state: state)
+    }
+}
+
+final class StepProgressTaskHandler: StepProgressHandling {
+    private var task: Task<Void, Error>?
+    private let stepProgressTask: StepProgressTask
+
+    weak var delegate: StepProgressDelegate?
+
+    init(
+        request: StepProgressRequest,
+        timerScheduler: @escaping TimerScheduler = ProgressTimer.schedule(with:block:)
+    ) {
+        stepProgressTask = StepProgressTask(
+            request: request,
+            timerScheduler: timerScheduler
+        )
+
+        stepProgressTask.onUpdate = { [weak self] step, state in
+            self?.taskUpdated(step: step, state: state)
+        }
+    }
+
+    func start() {
+        task = Task { @MainActor in
+            do {
+                assert(Thread.isMainThread)
+                try await stepProgressTask.start()
+                try Task.checkCancellation()
+            } catch is CancellationError {
+                print("=> cancelled")
+            } catch {
+                print("=> failed: \(error)")
+            }
+        }
+    }
+
+    func cancel() {
+        task?.cancel()
     }
 
     private func taskUpdated(step: Int, state: StepProgressState) {

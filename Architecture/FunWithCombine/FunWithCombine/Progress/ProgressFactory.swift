@@ -4,7 +4,8 @@ import SwiftUI
 struct ProgressFactory {
     enum Strategy {
         case operation
-        case asyncTask
+        case async
+        case task
     }
 
     let strategy: Strategy
@@ -41,7 +42,11 @@ struct ProgressFactory {
                 let handler = StepProgressOperationHandler(request: request)
                 handler.delegate = delegate
                 return handler
-            case .asyncTask:
+            case .async:
+                let handler = StepProgressAsyncHandler(request: request)
+                handler.delegate = delegate
+                return handler
+            case .task:
                 let handler = StepProgressTaskHandler(request: request)
                 handler.delegate = delegate
                 return handler

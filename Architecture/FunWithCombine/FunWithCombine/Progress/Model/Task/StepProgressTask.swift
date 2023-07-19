@@ -26,14 +26,18 @@ final class StepProgressTask {
 
     @MainActor
     func start() async throws {
-        try await withCheckedThrowingContinuation { [operation] (continuation: CheckedContinuation<Void, Error>) in
-            assert(Thread.isMainThread)
-            guard operation.state == .initial else {
-                continuation.resume(throwing: StepProgressError.alreadyRunning)
-                return
+        try await withTaskCancellationHandler {
+            try await withCheckedThrowingContinuation { [operation] (continuation: CheckedContinuation<Void, Error>) in
+                assert(Thread.isMainThread)
+                guard operation.state == .initial else {
+                    continuation.resume(throwing: StepProgressError.alreadyRunning)
+                    return
+                }
+                self.continuation = continuation
+                operation.start()
             }
-            self.continuation = continuation
-            operation.start()
+        } onCancel: {
+            operation.cancel()
         }
     }
 
@@ -48,7 +52,7 @@ final class StepProgressTask {
         case .initial, .running:
             break
         case .cancelled:
-            continuation?.resume(throwing: StepProgressError.cancelled)
+            continuation?.resume(throwing: StepProgressError.cancelInvoked)
             continuation = nil
         case .finished:
             continuation?.resume(returning: ())

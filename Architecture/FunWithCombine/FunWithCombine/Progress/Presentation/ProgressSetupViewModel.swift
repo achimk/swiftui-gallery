@@ -13,8 +13,8 @@ class ProgressSetupViewModel {
 }
 
 extension ProgressSetupViewModel {
-    func toProgressRequest() -> ProgressRequest {
-        ProgressRequest(
+    func toProgressRequest() -> StepProgressRequest {
+        StepProgressRequest(
             numberOfSteps: Int(viewState.numberOfSteps),
             stepDuration: viewState.stepDuration
         )

@@ -1,31 +1,29 @@
 import Foundation
 
-typealias TimerInvalidate = () -> Void
-typealias TimerScheduler = (TimeInterval, @escaping () -> Void) -> TimerInvalidate
-
-final class ProgressOperation {
-    @frozen
-    enum State: Equatable {
-        case initial
-        case running
-        case cancelled
-        case finished
-    }
-
+final class StepProgressOperation {
     private let timerScheduler: TimerScheduler
-    private let numberOfSteps: Int
-    private let stepDuration: TimeInterval
     private var invalidate: (() -> Void)?
     private(set) var currentStep: Int = 0 {
         didSet { onUpdate?(currentStep, state) }
     }
 
-    private(set) var state: State = .initial {
+    private(set) var state: StepProgressState = .initial {
         didSet { onUpdate?(currentStep, state) }
     }
 
-    var onUpdate: ((Int, State) -> Void)? {
-        didSet { onUpdate?(currentStep, state) }
+    let numberOfSteps: Int
+    let stepDuration: TimeInterval
+    var onUpdate: ((Int, StepProgressState) -> Void)?
+
+    convenience init(
+        request: StepProgressRequest,
+        timerScheduler: @escaping TimerScheduler = ProgressTimer.schedule(with:block:)
+    ) {
+        self.init(
+            numberOfSteps: request.numberOfSteps,
+            stepDuration: request.stepDuration,
+            timerScheduler: timerScheduler
+        )
     }
 
     init(
@@ -72,30 +70,5 @@ final class ProgressOperation {
         } else {
             state = .finished
         }
-    }
-}
-
-final class ProgressTimer {
-    private var timer: Timer?
-
-    deinit {
-        invalidate()
-    }
-
-    func schedule(with timeInterval: TimeInterval, block: @escaping () -> Void) {
-        timer = Timer.scheduledTimer(withTimeInterval: timeInterval, repeats: false) { _ in block() }
-    }
-
-    func invalidate() {
-        timer?.invalidate()
-        timer = nil
-    }
-}
-
-extension ProgressTimer {
-    static func schedule(with timeInterval: TimeInterval, block: @escaping () -> Void) -> TimerInvalidate {
-        let timer = ProgressTimer()
-        timer.schedule(with: timeInterval, block: block)
-        return timer.invalidate
     }
 }

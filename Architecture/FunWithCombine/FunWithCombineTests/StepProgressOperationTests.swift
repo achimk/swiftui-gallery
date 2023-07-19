@@ -2,11 +2,22 @@ import Foundation
 @testable import FunWithCombine
 import XCTest
 
-class ProgressOperationTests: XCTestCase {
+class StepProgressOperationTests: XCTestCase {
     func test_initialise_shouldInitWithValidValues() {
-        let operation = ProgressOperation(numberOfSteps: 1, stepDuration: 1.0)
+        let operation = StepProgressOperation(numberOfSteps: 1, stepDuration: 1.0)
         XCTAssertEqual(operation.state, .initial)
         XCTAssertEqual(operation.currentStep, 0)
+        XCTAssertEqual(operation.numberOfSteps, 1)
+        XCTAssertEqual(operation.stepDuration, 1.0)
+    }
+
+    func test_initialiseWithStepProgressRequest_shouldInitWithValidValues() {
+        let request = StepProgressRequest(numberOfSteps: 1, stepDuration: 1.0)
+        let operation = StepProgressOperation(request: request)
+        XCTAssertEqual(operation.state, .initial)
+        XCTAssertEqual(operation.currentStep, 0)
+        XCTAssertEqual(operation.numberOfSteps, 1)
+        XCTAssertEqual(operation.stepDuration, 1.0)
     }
 
     func test_start_shouldUpdateStateToRunning() {
@@ -182,15 +193,15 @@ class ProgressOperationTests: XCTestCase {
     }
 }
 
-extension ProgressOperationTests {
+extension StepProgressOperationTests {
     private struct TestComponents {
         let timerScheduler: TestTimerScheduler
-        let operation: ProgressOperation
+        let operation: StepProgressOperation
     }
 
     private func makeTestComponents(numberOfSteps: Int) -> TestComponents {
         let timerScheduler = TestTimerScheduler()
-        let operation = ProgressOperation(
+        let operation = StepProgressOperation(
             numberOfSteps: numberOfSteps,
             stepDuration: 1.0,
             timerScheduler: timerScheduler.schedule(with:block:)

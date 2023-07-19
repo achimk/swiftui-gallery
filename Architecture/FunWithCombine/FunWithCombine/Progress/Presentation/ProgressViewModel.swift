@@ -10,11 +10,16 @@ class ProgressViewState: ObservableObject {
 }
 
 class ProgressViewModel {
-    private let requestProvider: () -> ProgressRequest
+    private let manager: StepProgressManager
+    private let requestProvider: () -> StepProgressRequest
     private(set) var viewState = ProgressViewState()
-    private var operation: ProgressOperation?
+    private var cancelToken: StepProgressCancelation?
 
-    init(requestProvider: @escaping () -> ProgressRequest) {
+    init(
+        manager: StepProgressManager,
+        requestProvider: @escaping () -> StepProgressRequest
+    ) {
+        self.manager = manager
         self.requestProvider = requestProvider
     }
 
@@ -23,63 +28,65 @@ class ProgressViewModel {
     }
 
     func start() {
-        guard canStart(operation) else {
+        guard canStart() else {
             return
         }
-
+        cancel()
+        renderEmpty()
         let request = requestProvider()
-
-        operation = ProgressOperation(
-            numberOfSteps: request.numberOfSteps,
-            stepDuration: request.stepDuration
-        )
-
-        operation?.onUpdate = { [weak self] currentStep, state in
-            self?.operationDidUpdate(
-                currentStep: currentStep,
-                operationState: state,
-                stepDuration: request.stepDuration
-            )
+        renderRequested(request: request)
+        do {
+            cancelToken = try manager.schedule(with: request, delegate: self)
+        } catch {
+            renderEmpty()
         }
-
-        operation?.start()
     }
 
     func cancel() {
-        operation?.cancel()
+        cancelToken?()
+        cancelToken = nil
     }
 
-    private func canStart(_ operation: ProgressOperation?) -> Bool {
-        guard let operation else {
-            return true
-        }
+    private func canStart() -> Bool {
+        manager.canSchedule()
+    }
+}
 
-        switch operation.state {
-        case .cancelled, .finished:
-            return true
-        default:
-            return false
-        }
+extension ProgressViewModel: StepProgressDelegate {
+    func progressDidUpdate(_: StepProgressHandling, step: Int, state: StepProgressState) {
+        renderUpdated(step: step, state: state)
+    }
+}
+
+extension ProgressViewModel {
+    func renderEmpty() {
+        viewState.step = 0
+        viewState.stepDuration = 0.0
+        viewState.stateName = "-"
+        viewState.canStart = true
+        viewState.canCancel = false
     }
 
-    private func operationDidUpdate(
-        currentStep: Int,
-        operationState: ProgressOperation.State,
-        stepDuration: TimeInterval
-    ) {
-        viewState.step = currentStep
-        viewState.stepDuration = stepDuration
-        viewState.stateName = operationStateName(operationState)
-        viewState.canStart = operationState != .running
-        viewState.canCancel = operationState == .running
+    func renderRequested(request: StepProgressRequest) {
+        viewState.step = 0
+        viewState.stepDuration = request.stepDuration
+        viewState.canStart = false
+        viewState.canCancel = true
     }
 
-    private func operationStateName(_ state: ProgressOperation.State) -> String {
-        switch state {
-        case .initial: return "Initial"
-        case .running: return "Running"
-        case .cancelled: return "Cancelled"
-        case .finished: return "Finished"
-        }
+    func renderUpdated(step: Int, state: StepProgressState) {
+        viewState.step = step
+        viewState.stateName = stepProgressStateName(from: state)
+        viewState.canStart = !(state == .running)
+        viewState.canCancel = state == .running
+    }
+}
+
+private func stepProgressStateName(from state: StepProgressState) -> String {
+    switch state {
+    case .initial: return "Initial"
+    case .running: return "Running"
+    case .cancelled: return "Cancelled"
+    case .finished: return "Finished"
     }
 }

@@ -29,9 +29,13 @@ struct ProgressView: View {
 }
 
 struct ProgressView_Previews: PreviewProvider {
-    static let viewModel = ProgressViewModel {
-        ProgressRequest(numberOfSteps: 5, stepDuration: 1.0)
-    }
+    static var viewModel: ProgressViewModel = .init(manager: StepProgressManager(stepHandlerFactory: { request, delegate in
+        let handler = StepProgressOperationHandler(request: request)
+        handler.delegate = delegate
+        return handler
+    }), requestProvider: {
+        StepProgressRequest(numberOfSteps: 5, stepDuration: 1.0)
+    })
 
     static var previews: some View {
         ProgressView(

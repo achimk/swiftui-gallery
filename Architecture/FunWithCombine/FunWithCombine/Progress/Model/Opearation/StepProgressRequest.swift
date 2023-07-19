@@ -1,6 +1,6 @@
 import Foundation
 
-struct ProgressRequest {
+struct StepProgressRequest {
     let numberOfSteps: Int
     let stepDuration: TimeInterval
 

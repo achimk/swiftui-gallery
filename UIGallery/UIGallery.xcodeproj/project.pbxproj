@@ -31,12 +31,14 @@
 		275CD42D2A1B80D500BC549E /* Binding+Additions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 275CD42C2A1B80D500BC549E /* Binding+Additions.swift */; };
 		275CD42F2A1B8B3800BC549E /* View+Alert.swift in Sources */ = {isa = PBXBuildFile; fileRef = 275CD42E2A1B8B3800BC549E /* View+Alert.swift */; };
 		275CD4312A1B8BA000BC549E /* View+ConfirmationDialog.swift in Sources */ = {isa = PBXBuildFile; fileRef = 275CD4302A1B8BA000BC549E /* View+ConfirmationDialog.swift */; };
-		276C3FCE2A1CBCF700701571 /* LoadingPublisher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 276C3FCD2A1CBCF700701571 /* LoadingPublisher.swift */; };
+		276C3FCE2A1CBCF700701571 /* ContentLoadingPublisher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 276C3FCD2A1CBCF700701571 /* ContentLoadingPublisher.swift */; };
 		27A884652A1CD01400B22DE7 /* ImmediateScheduler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27A884642A1CD01400B22DE7 /* ImmediateScheduler.swift */; };
 		27A884672A1CDB3D00B22DE7 /* Scheduler+Any.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27A884662A1CDB3D00B22DE7 /* Scheduler+Any.swift */; };
 		27A884692A1CDC7F00B22DE7 /* AnyScheduler+Additions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27A884682A1CDC7F00B22DE7 /* AnyScheduler+Additions.swift */; };
 		27A8846C2A1CDCE600B22DE7 /* LoadingState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27A8846B2A1CDCE600B22DE7 /* LoadingState.swift */; };
 		27AAFD3D2A1CCB6D004589E5 /* AnyScheduler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27AAFD3C2A1CCB6D004589E5 /* AnyScheduler.swift */; };
+		27B28B252A695EC8006FCCD4 /* Once.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27B28B242A695EC8006FCCD4 /* Once.swift */; };
+		27B28B292A69626E006FCCD4 /* ContentLoadingPublisherTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27B28B282A69626E006FCCD4 /* ContentLoadingPublisherTests.swift */; };
 		27CB9DC52A0CF4DA00F3E077 /* ButtonsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27CB9DC42A0CF4DA00F3E077 /* ButtonsView.swift */; };
 		27CB9DCB2A0D149B00F3E077 /* TextFieldsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27CB9DCA2A0D149B00F3E077 /* TextFieldsView.swift */; };
 		27ED8BD229AA47A50092C57D /* UIGalleryApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27ED8BD129AA47A50092C57D /* UIGalleryApp.swift */; };
@@ -105,12 +107,14 @@
 		275CD42C2A1B80D500BC549E /* Binding+Additions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Binding+Additions.swift"; sourceTree = "<group>"; };
 		275CD42E2A1B8B3800BC549E /* View+Alert.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "View+Alert.swift"; sourceTree = "<group>"; };
 		275CD4302A1B8BA000BC549E /* View+ConfirmationDialog.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "View+ConfirmationDialog.swift"; sourceTree = "<group>"; };
-		276C3FCD2A1CBCF700701571 /* LoadingPublisher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingPublisher.swift; sourceTree = "<group>"; };
+		276C3FCD2A1CBCF700701571 /* ContentLoadingPublisher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentLoadingPublisher.swift; sourceTree = "<group>"; };
 		27A884642A1CD01400B22DE7 /* ImmediateScheduler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImmediateScheduler.swift; sourceTree = "<group>"; };
 		27A884662A1CDB3D00B22DE7 /* Scheduler+Any.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Scheduler+Any.swift"; sourceTree = "<group>"; };
 		27A884682A1CDC7F00B22DE7 /* AnyScheduler+Additions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AnyScheduler+Additions.swift"; sourceTree = "<group>"; };
 		27A8846B2A1CDCE600B22DE7 /* LoadingState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingState.swift; sourceTree = "<group>"; };
 		27AAFD3C2A1CCB6D004589E5 /* AnyScheduler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnyScheduler.swift; sourceTree = "<group>"; };
+		27B28B242A695EC8006FCCD4 /* Once.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Once.swift; sourceTree = "<group>"; };
+		27B28B282A69626E006FCCD4 /* ContentLoadingPublisherTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentLoadingPublisherTests.swift; sourceTree = "<group>"; };
 		27CB9DC42A0CF4DA00F3E077 /* ButtonsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ButtonsView.swift; sourceTree = "<group>"; };
 		27CB9DCA2A0D149B00F3E077 /* TextFieldsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextFieldsView.swift; sourceTree = "<group>"; };
 		27ED8BCE29AA47A50092C57D /* UIGallery.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = UIGallery.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -275,7 +279,7 @@
 			isa = PBXGroup;
 			children = (
 				27A884632A1CCFE300B22DE7 /* Schedulers */,
-				276C3FCD2A1CBCF700701571 /* LoadingPublisher.swift */,
+				276C3FCD2A1CBCF700701571 /* ContentLoadingPublisher.swift */,
 			);
 			path = Combine;
 			sourceTree = "<group>";
@@ -295,8 +299,25 @@
 			isa = PBXGroup;
 			children = (
 				27A8846B2A1CDCE600B22DE7 /* LoadingState.swift */,
+				27B28B242A695EC8006FCCD4 /* Once.swift */,
 			);
 			path = Types;
+			sourceTree = "<group>";
+		};
+		27B28B262A696251006FCCD4 /* Utilities */ = {
+			isa = PBXGroup;
+			children = (
+				27B28B272A69625C006FCCD4 /* Combine */,
+			);
+			path = Utilities;
+			sourceTree = "<group>";
+		};
+		27B28B272A69625C006FCCD4 /* Combine */ = {
+			isa = PBXGroup;
+			children = (
+				27B28B282A69626E006FCCD4 /* ContentLoadingPublisherTests.swift */,
+			);
+			path = Combine;
 			sourceTree = "<group>";
 		};
 		27CB9DC12A0CF4B100F3E077 /* Buttons */ = {
@@ -362,6 +383,7 @@
 		27ED8BE129AA47A70092C57D /* UIGalleryTests */ = {
 			isa = PBXGroup;
 			children = (
+				27B28B262A696251006FCCD4 /* Utilities */,
 				27ED8BE229AA47A70092C57D /* UIGalleryTests.swift */,
 			);
 			path = UIGalleryTests;
@@ -568,6 +590,7 @@
 			files = (
 				2717E2892A1635A40066DA0C /* DismissViewModifier.swift in Sources */,
 				27ED8C0F29AA51130092C57D /* TapGestureView.swift in Sources */,
+				27B28B252A695EC8006FCCD4 /* Once.swift in Sources */,
 				27F896F529AA5B5400ED1B18 /* ParallaxMotionModifier.swift in Sources */,
 				2717E28C2A1638D50066DA0C /* GalleryNavigationView.swift in Sources */,
 				2717E2932A1755380066DA0C /* ArticleModel.swift in Sources */,
@@ -589,7 +612,7 @@
 				2710688229AAC33F0057A90B /* Rotate3DAnimationsView.swift in Sources */,
 				27238CC12A161BB000957132 /* ColorListView.swift in Sources */,
 				27A8846C2A1CDCE600B22DE7 /* LoadingState.swift in Sources */,
-				276C3FCE2A1CBCF700701571 /* LoadingPublisher.swift in Sources */,
+				276C3FCE2A1CBCF700701571 /* ContentLoadingPublisher.swift in Sources */,
 				27A884672A1CDB3D00B22DE7 /* Scheduler+Any.swift in Sources */,
 				27A884692A1CDC7F00B22DE7 /* AnyScheduler+Additions.swift in Sources */,
 				275CD4312A1B8BA000BC549E /* View+ConfirmationDialog.swift in Sources */,
@@ -623,6 +646,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				27ED8BE329AA47A70092C57D /* UIGalleryTests.swift in Sources */,
+				27B28B292A69626E006FCCD4 /* ContentLoadingPublisherTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

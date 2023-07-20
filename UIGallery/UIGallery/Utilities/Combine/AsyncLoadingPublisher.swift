@@ -1,7 +1,7 @@
 import Combine
 import Foundation
 
-final class ContentLoadingPublisher<Event, Value>: Publisher {
+final class AsyncLoadingPublisher<Event, Value>: Publisher {
     typealias State = LoadingState<Value, Error>
     typealias Output = (event: Event?, state: State)
     typealias Failure = Never
@@ -76,7 +76,7 @@ final class ContentLoadingPublisher<Event, Value>: Publisher {
     }
 }
 
-extension ContentLoadingPublisher where Event == Void {
+extension AsyncLoadingPublisher where Event == Void {
     convenience init(
         operation: @escaping () async throws -> Value,
         isSendAllowed: @escaping (State) -> Bool = ignoreLoadingState

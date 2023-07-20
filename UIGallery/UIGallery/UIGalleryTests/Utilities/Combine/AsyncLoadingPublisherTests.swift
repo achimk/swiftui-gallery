@@ -2,14 +2,7 @@ import Combine
 @testable import UIGallery
 import XCTest
 
-class ContentLoadingPublisherTests: XCTestCase {
-    private var cancellables = Set<AnyCancellable>()
-
-    override func tearDown() {
-        cancellables = Set<AnyCancellable>()
-        super.tearDown()
-    }
-
+class AsyncLoadingPublisherTests: XCTestCase {
     @MainActor
     func test_whenSuccessEvent_shouldReceiveStatesCorrectly() async throws {
         let components = makeTestComponents(operation: withEvent(Int.self))
@@ -68,9 +61,9 @@ class ContentLoadingPublisherTests: XCTestCase {
     }
 }
 
-extension ContentLoadingPublisherTests {
+extension AsyncLoadingPublisherTests {
     private struct TestComponents<Event, Value: Equatable> {
-        let publisher: ContentLoadingPublisher<Event, Value>
+        let publisher: AsyncLoadingPublisher<Event, Value>
         let stateRecorder: ValueRecoder<LoadingState<Value, String>, Never>
     }
 
@@ -78,44 +71,21 @@ extension ContentLoadingPublisherTests {
         operation: @escaping (Event) async throws -> Value,
         isSendAllowed: @escaping (Event, LoadingState<Value, Error>) -> Bool = ignoreLoadingState
     ) -> TestComponents<Event, Value> {
-        let publisher = makePublisher(operation: operation, isSendAllowed: isSendAllowed)
+        let publisher = AsyncLoadingPublisher(
+            operation: operation,
+            isSendAllowed: isSendAllowed
+        )
+
         let statePublisher: AnyPublisher<LoadingState<Value, String>, Never> = publisher
             .map { mapEquatable($0.state) }
             .eraseToAnyPublisher()
+
         let stateRecorder = ValueRecoder(statePublisher)
+
         return TestComponents(
             publisher: publisher,
             stateRecorder: stateRecorder
         )
-    }
-
-    private func makePublisher<Event, Value>(
-        operation: @escaping (Event) async throws -> Value,
-        isSendAllowed: @escaping (Event, LoadingState<Value, Error>) -> Bool = ignoreLoadingState
-    ) -> ContentLoadingPublisher<Event, Value> {
-        ContentLoadingPublisher(
-            operation: operation,
-            isSendAllowed: isSendAllowed
-        )
-    }
-}
-
-private class ValueRecoder<T: Equatable, E: Error> {
-    private let publisher: AnyPublisher<T, E>
-    private(set) var records: [T] = []
-    private var cancellable: AnyCancellable?
-
-    init(_ publisher: AnyPublisher<T, E>) {
-        self.publisher = publisher
-        cancellable = publisher.sink(receiveCompletion: { _ in
-            // ignored
-        }, receiveValue: { [weak self] value in
-            self?.records.append(value)
-        })
-    }
-
-    func clear() {
-        records = []
     }
 }
 
@@ -169,7 +139,26 @@ private func allowsAllStates(_: some Any, _: LoadingState<some Any, Error>) -> B
     true
 }
 
-// MARK: - Mappers
+// MARK: - Helpers
+
+private class ValueRecoder<T: Equatable, E: Error> {
+    private let publisher: AnyPublisher<T, E>
+    private(set) var records: [T] = []
+    private var cancellable: AnyCancellable?
+
+    init(_ publisher: AnyPublisher<T, E>) {
+        self.publisher = publisher
+        cancellable = publisher.sink(receiveCompletion: { _ in
+            // ignored
+        }, receiveValue: { [weak self] value in
+            self?.records.append(value)
+        })
+    }
+
+    func clear() {
+        records = []
+    }
+}
 
 private func mapEquatable<Value: Equatable>(_ state: LoadingState<Value, some Any>) -> LoadingState<Value, String> {
     switch state {

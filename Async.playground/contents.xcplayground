@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<playground version='6.0' target-platform='ios' buildActiveScheme='true' importAppTypes='true'>
+    <pages>
+        <page name='Async-Await to Future'/>
+        <page name='MainActor Sample'/>
+        <page name='Async-Await Sample'/>
+        <page name='LoadingState+Publisher'/>
+        <page name='Combine subscribe order'/>
+        <page name='Combine sink order'/>
+    </pages>
+</playground>

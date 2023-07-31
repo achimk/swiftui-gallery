@@ -8,10 +8,29 @@ struct GalleryRootView: View {
                     NavigationLink("Navigation") {
                         GalleryNavigationView()
                     }
+
+                    if #available(iOS 16.0, *) {
+                        NavigationLink("Routing with NavigationPath (iOS 16)") {
+                            RoutingExample.PathNavigationView()
+                        }
+
+                        NavigationLink("Routing with Destination (iOS 16)") {
+                            RoutingExample.DestinationNavigationStackView()
+                        }
+
+                        NavigationLink("Routing with filled Destinations (iOS 16)") {
+                            RoutingExample.DestinationNavigationStackView([.start, .count(1), .count(2), .count(3), .finish])
+                        }
+                    }
+
+                    NavigationLink("Routing with destination") {
+                        RoutingExample.DestinationView()
+                    }
+
                 } header: {
-                    Text("")
+                    Text("Flow")
                 }
-                
+
                 Section {
                     NavigationLink("ProgressView") {
                         SampleProgressView()
@@ -19,7 +38,7 @@ struct GalleryRootView: View {
                 } header: {
                     Text("Custom Controls")
                 }
-                
+
                 Section {
                     NavigationLink("Simple hero") {
                         SimpleHeroView()
@@ -36,7 +55,7 @@ struct GalleryRootView: View {
                 } header: {
                     Text("Effect Samples")
                 }
-                
+
                 Section {
                     NavigationLink("Repeat scale animations") {
                         RepeatAnimationsView()
@@ -50,7 +69,7 @@ struct GalleryRootView: View {
                 } header: {
                     Text("Animation Samples")
                 }
-                
+
                 Section {
                     NavigationLink("Tap") {
                         TapGestureView()
@@ -82,7 +101,7 @@ struct GalleryRootView: View {
                 } header: {
                     Text("Gesture Samples")
                 }
-                
+
                 Section {
                     NavigationLink("Text - Adding") {
                         TextAddingView()
@@ -108,10 +127,10 @@ struct GalleryRootView: View {
                 } header: {
                     Text("View Samples")
                 }
-                
+
                 Section {
                     NavigationLink("Buttons") {
-                         ButtonsView()
+                        ButtonsView()
                     }
                     NavigationLink("TextFields") {
                         TextFieldsView()
@@ -119,22 +138,22 @@ struct GalleryRootView: View {
                 } header: {
                     Text("Control Samples")
                 }
-                
+
                 /*
-                Section {
-                    NavigationLink("Sample") {
-                        // Preview
-                    }
-                    NavigationLink("Sample") {
-                        // Preview
-                    }
-                    NavigationLink("Sample") {
-                        // Preview
-                    }
-                } header: {
-                    Text("Layout Samples")
-                }
-                 */
+                 Section {
+                     NavigationLink("Sample") {
+                         // Preview
+                     }
+                     NavigationLink("Sample") {
+                         // Preview
+                     }
+                     NavigationLink("Sample") {
+                         // Preview
+                     }
+                 } header: {
+                     Text("Layout Samples")
+                 }
+                  */
             }
             .navigationTitle("SwiftUI Gallery")
         }

@@ -25,6 +25,7 @@
 		27238CC12A161BB000957132 /* ColorListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27238CC02A161BB000957132 /* ColorListView.swift */; };
 		27238CC32A161CBE00957132 /* ColorDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27238CC22A161CBE00957132 /* ColorDetailView.swift */; };
 		27238CC52A161CD800957132 /* ColorRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27238CC42A161CD800957132 /* ColorRowView.swift */; };
+		273375872A6FFF4300EAD43B /* RoutingExample.swift in Sources */ = {isa = PBXBuildFile; fileRef = 273375862A6FFF4300EAD43B /* RoutingExample.swift */; };
 		275434E42A1782C000972B0B /* HeroView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 275434E32A1782C000972B0B /* HeroView.swift */; };
 		275CD4292A1B5EC100BC549E /* SimpleHeroView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 275CD4282A1B5EC100BC549E /* SimpleHeroView.swift */; };
 		275CD42B2A1B63F900BC549E /* ScrollHeroView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 275CD42A2A1B63F900BC549E /* ScrollHeroView.swift */; };
@@ -103,6 +104,7 @@
 		27238CC02A161BB000957132 /* ColorListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorListView.swift; sourceTree = "<group>"; };
 		27238CC22A161CBE00957132 /* ColorDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorDetailView.swift; sourceTree = "<group>"; };
 		27238CC42A161CD800957132 /* ColorRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorRowView.swift; sourceTree = "<group>"; };
+		273375862A6FFF4300EAD43B /* RoutingExample.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoutingExample.swift; sourceTree = "<group>"; };
 		275434E32A1782C000972B0B /* HeroView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeroView.swift; sourceTree = "<group>"; };
 		275CD4282A1B5EC100BC549E /* SimpleHeroView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SimpleHeroView.swift; sourceTree = "<group>"; };
 		275CD42A2A1B63F900BC549E /* ScrollHeroView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScrollHeroView.swift; sourceTree = "<group>"; };
@@ -269,6 +271,14 @@
 			path = "List-Detail";
 			sourceTree = "<group>";
 		};
+		273375852A6FF4B300EAD43B /* Routing */ = {
+			isa = PBXGroup;
+			children = (
+				273375862A6FFF4300EAD43B /* RoutingExample.swift */,
+			);
+			path = Routing;
+			sourceTree = "<group>";
+		};
 		275434E22A17826900972B0B /* HeroEffect */ = {
 			isa = PBXGroup;
 			children = (
@@ -364,6 +374,7 @@
 		27ED8BD029AA47A50092C57D /* UIGallery */ = {
 			isa = PBXGroup;
 			children = (
+				273375852A6FF4B300EAD43B /* Routing */,
 				2717E2902A163D810066DA0C /* Utilities */,
 				27238CB82A16190000957132 /* Navigation */,
 				2710686D29AA99D70057A90B /* CustomControls */,
@@ -622,6 +633,7 @@
 				276C3FCE2A1CBCF700701571 /* AsyncLoadingPublisher.swift in Sources */,
 				27A884672A1CDB3D00B22DE7 /* Scheduler+Any.swift in Sources */,
 				27A884692A1CDC7F00B22DE7 /* AnyScheduler+Additions.swift in Sources */,
+				273375872A6FFF4300EAD43B /* RoutingExample.swift in Sources */,
 				275CD4312A1B8BA000BC549E /* View+ConfirmationDialog.swift in Sources */,
 				2710687829AAB4270057A90B /* SequenceGestureView.swift in Sources */,
 				27ED8C0629AA4C620092C57D /* TextAddingView.swift in Sources */,

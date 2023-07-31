@@ -36,6 +36,7 @@
 		27540F322A78533E00759007 /* ValidatedResultTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27540F312A78533E00759007 /* ValidatedResultTests.swift */; };
 		27540F332A78534200759007 /* ValidatedResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27540F2F2A78531E00759007 /* ValidatedResult.swift */; };
 		27540F352A78539A00759007 /* Support.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27540F342A78539A00759007 /* Support.swift */; };
+		2795C25E2A785816007BA54D /* Container.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2795C25D2A785816007BA54D /* Container.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -79,6 +80,7 @@
 		27540F2F2A78531E00759007 /* ValidatedResult.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ValidatedResult.swift; sourceTree = "<group>"; };
 		27540F312A78533E00759007 /* ValidatedResultTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ValidatedResultTests.swift; sourceTree = "<group>"; };
 		27540F342A78539A00759007 /* Support.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Support.swift; sourceTree = "<group>"; };
+		2795C25D2A785816007BA54D /* Container.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Container.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -125,6 +127,7 @@
 				27540F072A784ED600759007 /* Combine */,
 				27540EFC2A784DA500759007 /* Types */,
 				27540EF22A78476A00759007 /* UI */,
+				2795C25C2A785807007BA54D /* Utilities */,
 				27540F342A78539A00759007 /* Support.swift */,
 				27540ED92A7845A000759007 /* CommonUI.h */,
 				27540EDA2A7845A000759007 /* CommonUI.docc */,
@@ -272,6 +275,14 @@
 			path = Collections;
 			sourceTree = "<group>";
 		};
+		2795C25C2A785807007BA54D /* Utilities */ = {
+			isa = PBXGroup;
+			children = (
+				2795C25D2A785816007BA54D /* Container.swift */,
+			);
+			path = Utilities;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXHeadersBuildPhase section */
@@ -390,6 +401,7 @@
 				27540F062A784EC400759007 /* Once.swift in Sources */,
 				27540F272A7851ED00759007 /* Collection+Safe.swift in Sources */,
 				27540EF82A784C9A00759007 /* GradientButton.swift in Sources */,
+				2795C25E2A785816007BA54D /* Container.swift in Sources */,
 				27540F332A78534200759007 /* ValidatedResult.swift in Sources */,
 				27540EF62A784C7D00759007 /* RequiredText.swift in Sources */,
 				27540F262A7851ED00759007 /* Date+Additions.swift in Sources */,

@@ -37,6 +37,8 @@
 		27540F332A78534200759007 /* ValidatedResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27540F2F2A78531E00759007 /* ValidatedResult.swift */; };
 		27540F352A78539A00759007 /* Support.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27540F342A78539A00759007 /* Support.swift */; };
 		2795C25E2A785816007BA54D /* Container.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2795C25D2A785816007BA54D /* Container.swift */; };
+		2795C28D2A798AC0007BA54D /* PollingProcess.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2795C28C2A798AC0007BA54D /* PollingProcess.swift */; };
+		2795C2912A798F8B007BA54D /* PollingProcessTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2795C28F2A798F88007BA54D /* PollingProcessTests.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -81,6 +83,8 @@
 		27540F312A78533E00759007 /* ValidatedResultTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ValidatedResultTests.swift; sourceTree = "<group>"; };
 		27540F342A78539A00759007 /* Support.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Support.swift; sourceTree = "<group>"; };
 		2795C25D2A785816007BA54D /* Container.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Container.swift; sourceTree = "<group>"; };
+		2795C28C2A798AC0007BA54D /* PollingProcess.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PollingProcess.swift; sourceTree = "<group>"; };
+		2795C28F2A798F88007BA54D /* PollingProcessTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PollingProcessTests.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -141,6 +145,7 @@
 				27540F2B2A78527400759007 /* Core */,
 				27540F1A2A78513900759007 /* Types */,
 				27540F122A78508A00759007 /* Combine */,
+				2795C28E2A798F76007BA54D /* Utilities */,
 				27540EE52A7845A100759007 /* CommonUITests.swift */,
 			);
 			path = Tests;
@@ -279,6 +284,15 @@
 			isa = PBXGroup;
 			children = (
 				2795C25D2A785816007BA54D /* Container.swift */,
+				2795C28C2A798AC0007BA54D /* PollingProcess.swift */,
+			);
+			path = Utilities;
+			sourceTree = "<group>";
+		};
+		2795C28E2A798F76007BA54D /* Utilities */ = {
+			isa = PBXGroup;
+			children = (
+				2795C28F2A798F88007BA54D /* PollingProcessTests.swift */,
 			);
 			path = Utilities;
 			sourceTree = "<group>";
@@ -396,6 +410,7 @@
 				27540F0A2A784F0900759007 /* AnyScheduler.swift in Sources */,
 				27540F0C2A784F3500759007 /* ImmediateScheduler.swift in Sources */,
 				27540F222A7851C600759007 /* Optional+Present.swift in Sources */,
+				2795C28D2A798AC0007BA54D /* PollingProcess.swift in Sources */,
 				27540EF42A78479E00759007 /* FormField.swift in Sources */,
 				27540EFE2A784DBD00759007 /* Binding+Additions.swift in Sources */,
 				27540F062A784EC400759007 /* Once.swift in Sources */,
@@ -426,6 +441,7 @@
 				27540F322A78533E00759007 /* ValidatedResultTests.swift in Sources */,
 				27540F192A7850F000759007 /* LoadingPublisherTests.swift in Sources */,
 				27540F162A7850BB00759007 /* AsyncLoadingPublisherTests.swift in Sources */,
+				2795C2912A798F8B007BA54D /* PollingProcessTests.swift in Sources */,
 				27540EE62A7845A100759007 /* CommonUITests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

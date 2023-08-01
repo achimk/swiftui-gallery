@@ -13,31 +13,31 @@ class PollingProcessTests: XCTestCase {
         XCTAssertEqual(components.process.state, .running)
     }
 
-    func test_cancelStartedPolling_shouldUpdateToCancelled() {
+    func test_stopStartedPolling_shouldUpdateToCancelled() {
         let components = makeTestComponents()
         components.process.start()
-        components.process.cancel()
-        XCTAssertEqual(components.process.state, .cancelled)
+        components.process.stop()
+        XCTAssertEqual(components.process.state, .idle)
     }
 
-    func test_cancelDuringExecution_shouldUpdateToCancelled() {
+    func test_stopDuringExecution_shouldUpdateToCancelled() {
         let components = makeTestComponents()
         let process = components.process
         components.callbacks.onPerform = {
-            process.cancel()
+            process.stop()
         }
 
         components.process.start()
         components.scheduler.fire()
 
-        XCTAssertEqual(components.process.state, .cancelled)
+        XCTAssertEqual(components.process.state, .idle)
     }
 
-    func test_cancelDuringExection_shouldInvokeSchedulerCancellation() {
+    func test_stopDuringExection_shouldInvokeSchedulerCancellation() {
         let components = makeTestComponents()
         let process = components.process
         components.callbacks.onPerform = {
-            process.cancel()
+            process.stop()
         }
 
         components.process.start()
@@ -76,7 +76,7 @@ class PollingProcessTests: XCTestCase {
         XCTAssertEqual(counter, 3)
     }
 
-    func test_pollingAndCancel_shouldReturnCorrectState() {
+    func test_pollingAndStop_shouldReturnCorrectState() {
         let components = makeTestComponents()
         var counter = 0
         components.callbacks.onPerform = {
@@ -87,12 +87,12 @@ class PollingProcessTests: XCTestCase {
         components.scheduler.fire()
         components.scheduler.fire()
         components.scheduler.fire()
-        components.process.cancel()
+        components.process.stop()
 
-        XCTAssertEqual(components.process.state, .cancelled)
+        XCTAssertEqual(components.process.state, .idle)
     }
 
-    func test_pollingAndCancel_shouldInvokeCorrectCount() {
+    func test_pollingAndStop_shouldInvokeCorrectCount() {
         let components = makeTestComponents()
         var counter = 0
         components.callbacks.onPerform = {
@@ -103,7 +103,7 @@ class PollingProcessTests: XCTestCase {
         components.scheduler.fire()
         components.scheduler.fire()
         components.scheduler.fire()
-        components.process.cancel()
+        components.process.stop()
 
         XCTAssertEqual(counter, 3)
     }

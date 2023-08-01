@@ -3,7 +3,6 @@ import Foundation
 public enum PollingState {
     case idle
     case running
-    case cancelled
 }
 
 public typealias PollingCompletion = () -> Void
@@ -40,9 +39,9 @@ public final class PollingProcess {
         }
     }
 
-    public func cancel() {
+    public func stop() {
         if state == .running {
-            state = .cancelled
+            state = .idle
             invalidatePolling()
         }
     }

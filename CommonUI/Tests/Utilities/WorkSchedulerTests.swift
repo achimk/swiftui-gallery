@@ -24,7 +24,7 @@ class WorkSchedulerTests: XCTestCase {
     func test_scheduleWorkOnMainDispatcher_shouldCallInCorrectOrder() {
         var order: [Int] = []
         let expectation = XCTestExpectation()
-        let scheduler = WorkScheduler(workDispatcher: makeImmediateScheduler())
+        let scheduler = WorkScheduler()
 
         scheduler
             .schedule(at: .milliseconds(1)) {

@@ -39,6 +39,8 @@
 		2795C25E2A785816007BA54D /* Container.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2795C25D2A785816007BA54D /* Container.swift */; };
 		2795C28D2A798AC0007BA54D /* PollingProcess.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2795C28C2A798AC0007BA54D /* PollingProcess.swift */; };
 		2795C2912A798F8B007BA54D /* PollingProcessTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2795C28F2A798F88007BA54D /* PollingProcessTests.swift */; };
+		2795C2932A7A07D6007BA54D /* WorkScheduler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2795C2922A7A07D6007BA54D /* WorkScheduler.swift */; };
+		2795C2962A7A103D007BA54D /* WorkSchedulerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2795C2942A7A1037007BA54D /* WorkSchedulerTests.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -85,6 +87,8 @@
 		2795C25D2A785816007BA54D /* Container.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Container.swift; sourceTree = "<group>"; };
 		2795C28C2A798AC0007BA54D /* PollingProcess.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PollingProcess.swift; sourceTree = "<group>"; };
 		2795C28F2A798F88007BA54D /* PollingProcessTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PollingProcessTests.swift; sourceTree = "<group>"; };
+		2795C2922A7A07D6007BA54D /* WorkScheduler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkScheduler.swift; sourceTree = "<group>"; };
+		2795C2942A7A1037007BA54D /* WorkSchedulerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkSchedulerTests.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -285,6 +289,7 @@
 			children = (
 				2795C25D2A785816007BA54D /* Container.swift */,
 				2795C28C2A798AC0007BA54D /* PollingProcess.swift */,
+				2795C2922A7A07D6007BA54D /* WorkScheduler.swift */,
 			);
 			path = Utilities;
 			sourceTree = "<group>";
@@ -293,6 +298,7 @@
 			isa = PBXGroup;
 			children = (
 				2795C28F2A798F88007BA54D /* PollingProcessTests.swift */,
+				2795C2942A7A1037007BA54D /* WorkSchedulerTests.swift */,
 			);
 			path = Utilities;
 			sourceTree = "<group>";
@@ -418,6 +424,7 @@
 				27540EF82A784C9A00759007 /* GradientButton.swift in Sources */,
 				2795C25E2A785816007BA54D /* Container.swift in Sources */,
 				27540F332A78534200759007 /* ValidatedResult.swift in Sources */,
+				2795C2932A7A07D6007BA54D /* WorkScheduler.swift in Sources */,
 				27540EF62A784C7D00759007 /* RequiredText.swift in Sources */,
 				27540F262A7851ED00759007 /* Date+Additions.swift in Sources */,
 				27540EFA2A784CDF00759007 /* ProgressButton.swift in Sources */,
@@ -436,6 +443,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2795C2962A7A103D007BA54D /* WorkSchedulerTests.swift in Sources */,
 				27540F2E2A78528A00759007 /* NonEmptyTests.swift in Sources */,
 				27540F1D2A78514900759007 /* LoadingStateTests.swift in Sources */,
 				27540F322A78533E00759007 /* ValidatedResultTests.swift in Sources */,

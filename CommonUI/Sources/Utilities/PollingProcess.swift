@@ -32,10 +32,14 @@ public final class PollingProcess {
         invalidatePolling()
     }
 
-    public func start() {
+    public func start(immediately: Bool = false) {
         if state != .running {
             state = .running
-            schedulePolling()
+            if immediately {
+                runAndSchedule()
+            } else {
+                schedulePolling()
+            }
         }
     }
 
@@ -44,6 +48,18 @@ public final class PollingProcess {
             state = .idle
             invalidatePolling()
         }
+    }
+
+    private func runAndSchedule() {
+        guard state == .running else {
+            return
+        }
+
+        let completion: PollingCompletion = { [weak self] in
+            self?.schedulePolling()
+        }
+
+        invalidate = perform(completion)
     }
 
     private func schedulePolling() {

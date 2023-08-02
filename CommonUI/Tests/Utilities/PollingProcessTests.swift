@@ -107,6 +107,31 @@ class PollingProcessTests: XCTestCase {
 
         XCTAssertEqual(counter, 3)
     }
+
+    func test_startImmediately_shouldInvokeJustAfterStart() {
+        let components = makeTestComponents()
+        var counter = 0
+        components.callbacks.onPerform = {
+            counter += 1
+        }
+
+        components.process.start(immediately: true)
+
+        XCTAssertEqual(counter, 1)
+    }
+
+    func test_startImmediately_shouldScheduleNextPoll() {
+        let components = makeTestComponents()
+        var counter = 0
+        components.callbacks.onPerform = {
+            counter += 1
+        }
+
+        components.process.start(immediately: true)
+        components.scheduler.fire()
+
+        XCTAssertEqual(counter, 2)
+    }
 }
 
 extension PollingProcessTests {

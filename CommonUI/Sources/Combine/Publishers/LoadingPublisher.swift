@@ -9,18 +9,18 @@ public final class LoadingPublisher<Event, SuccessType, FailureType: Error>: Pub
 
     private let input = PassthroughSubject<Event, Never>()
     private let output = CurrentValueSubject<Output, Failure>((nil, .initial))
-    private let cancellable: AnyCancellable
+    private let cancellable: Cancellable
 
     public init(
         queue: DispatchQueue? = .main,
-        operation: @escaping (Event, @escaping Completion) -> AnyCancellable,
-        isAllowed: @escaping (Event, State) -> Bool
+        operation: @escaping (Event, @escaping Completion) -> Cancellable,
+        isAllowed: @escaping (Event, State) -> Bool = LoadingPublisher.whenNotLoading
     ) {
         cancellable = input
             .scheduleIfNeeded(with: queue)
             .map { [output] in ($0, output.value.state) }
             .filter(isAllowed)
-            .flatMap { event, _ in
+            .map { event, _ in
                 let loading = Just((event, State.loading))
                 let successOrFailure = createEventPublisher(
                     with: event,
@@ -37,8 +37,9 @@ public final class LoadingPublisher<Event, SuccessType, FailureType: Error>: Pub
                 return Publishers.Concatenate(
                     prefix: loading.eraseToAnyPublisher(),
                     suffix: successOrFailure.eraseToAnyPublisher()
-                ).eraseToAnyPublisher()
+                )
             }
+            .switchToLatest()
             .scheduleIfNeeded(with: queue)
             .sink { [output] result in
                 output.value = result
@@ -59,8 +60,8 @@ public final class LoadingPublisher<Event, SuccessType, FailureType: Error>: Pub
 public extension LoadingPublisher where Event == Void {
     convenience init(
         queue: DispatchQueue? = .main,
-        operation: @escaping (@escaping Completion) -> AnyCancellable,
-        isAllowed: @escaping (State) -> Bool
+        operation: @escaping (@escaping Completion) -> Cancellable,
+        isAllowed: @escaping (State) -> Bool = LoadingPublisher.whenNotLoading
     ) {
         self.init(
             queue: queue,
@@ -84,34 +85,21 @@ public extension LoadingPublisher where FailureType == Error {
     convenience init(
         queue: DispatchQueue? = .main,
         operation: @escaping (Event) async throws -> SuccessType,
-        isAllowed: @escaping (Event, State) -> Bool
+        isAllowed: @escaping (Event, State) -> Bool = LoadingPublisher.whenNotLoading
     ) {
-        var currentTask: Task<Void, Never>?
-        let exchangeTask: (() -> Task<Void, Never>?) -> Void = { taskProvider in
-            currentTask?.cancel()
-            currentTask = taskProvider()
-        }
-
-        let taskOperation: (Event, @escaping Completion) -> AnyCancellable = { event, completion in
-            exchangeTask {
-                Task { @MainActor in
-                    do {
-                        let value = try await operation(event)
-                        if !Task.isCancelled {
-                            completion(.success(value))
-                        }
-                    } catch {
-                        if !Task.isCancelled {
-                            completion(.failure(error))
-                        }
-                    }
+        let taskOperation: (Event, @escaping Completion) -> Cancellable = { event, completion in
+            let task = Task { @MainActor in
+                do {
+                    let value = try await operation(event)
+                    try Task.checkCancellation()
+                    completion(.success(value))
+                } catch {
+                    completion(.failure(error))
                 }
             }
-
-            // Cancellation occurs in exechangeTask function.
-            // For some reasons cancellation from AnyCancellable
-            // hasn't been propagated through the Combine stream.
-            return AnyCancellable {}
+            return AnyCancellable {
+                task.cancel()
+            }
         }
 
         self.init(
@@ -122,15 +110,33 @@ public extension LoadingPublisher where FailureType == Error {
     }
 }
 
-// MARK: - AnyPublisher cration support
+public extension LoadingPublisher where Event == Void, FailureType == Error {
+    convenience init(
+        queue: DispatchQueue? = .main,
+        operation: @escaping () async throws -> SuccessType,
+        isAllowed: @escaping (State) -> Bool = LoadingPublisher.whenNotLoading
+    ) {
+        let asyncOperation: (Event) async throws -> SuccessType = { @MainActor _ in
+            try await operation()
+        }
+
+        self.init(
+            queue: queue,
+            operation: asyncOperation,
+            isAllowed: { isAllowed($1) }
+        )
+    }
+}
+
+// MARK: - AnyPublisher support
 
 public extension LoadingPublisher {
     convenience init(
         queue: DispatchQueue? = .main,
         operation: @escaping (Event) -> AnyPublisher<SuccessType, FailureType>,
-        isAllowed: @escaping (Event, State) -> Bool
+        isAllowed: @escaping (Event, State) -> Bool = LoadingPublisher.whenNotLoading
     ) {
-        let createPublisherOperation: (Event, @escaping Completion) -> AnyCancellable = { event, completion in
+        let sinkOperation: (Event, @escaping Completion) -> Cancellable = { event, completion in
             operation(event)
                 .first()
                 .sink(receiveCompletion: { receivedCompletion in
@@ -147,9 +153,55 @@ public extension LoadingPublisher {
 
         self.init(
             queue: queue,
-            operation: createPublisherOperation,
+            operation: sinkOperation,
             isAllowed: isAllowed
         )
+    }
+}
+
+public extension LoadingPublisher where Event == Void {
+    convenience init(
+        queue: DispatchQueue? = .main,
+        operation: @escaping () -> AnyPublisher<SuccessType, FailureType>,
+        isAllowed: @escaping (State) -> Bool = LoadingPublisher.whenNotLoading
+    ) {
+        let sinkOperation: (Event) -> AnyPublisher<SuccessType, FailureType> = { _ in
+            operation()
+        }
+
+        self.init(
+            queue: queue,
+            operation: sinkOperation,
+            isAllowed: { isAllowed($1) }
+        )
+    }
+}
+
+// MARK: - Allow operation strategies
+
+public extension LoadingPublisher {
+    static func whenNotLoading(_ state: State) -> Bool {
+        !state.isLoading
+    }
+
+    static func whenNotLoading(_: Event, _ state: State) -> Bool {
+        !state.isLoading
+    }
+
+    static func untilNotSuccess(_ state: State) -> Bool {
+        state.isInitial || state.isFailure
+    }
+
+    static func untilNotSuccess(_: Event, _ state: State) -> Bool {
+        state.isInitial || state.isFailure
+    }
+
+    static func always(_: State) -> Bool {
+        true
+    }
+
+    static func always(_: Event, _: State) -> Bool {
+        true
     }
 }
 
@@ -167,10 +219,10 @@ private extension Publisher {
 
 private func createEventPublisher<Event, Output, Failure: Error>(
     with event: Event,
-    operation: @escaping (Event, @escaping (Result<Output, Failure>) -> Void) -> AnyCancellable
+    operation: @escaping (Event, @escaping (Result<Output, Failure>) -> Void) -> Cancellable
 ) -> AnyPublisher<Output, Failure> {
     Deferred {
-        var cancellation: AnyCancellable? = nil
+        var cancellation: Cancellable? = nil
         return Future<Output, Failure> { promise in
             cancellation = operation(event, promise)
         }.handleEvents(receiveCancel: {

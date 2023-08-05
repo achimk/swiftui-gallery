@@ -6,11 +6,16 @@ import XCTest
 // MARK: - Tests
 
 class LoadingPublisherTests: XCTestCase {
+    enum Const {
+        static let sleepTime: UInt64 = 300
+    }
+
+    @MainActor
     func test_whenSuccessEvent_shouldReceiveStatesCorrectly() async throws {
         let components = makeTestComponents(for: Int.self)
 
         components.publisher.send(.success(1))
-        try await Task.sleep(nanoseconds: NSEC_PER_SEC)
+        try await Task.sleep(nanoseconds: Const.sleepTime)
 
         XCTAssertEqual(components.stateRecorder.records, [
             .initial,
@@ -19,11 +24,12 @@ class LoadingPublisherTests: XCTestCase {
         ])
     }
 
+    @MainActor
     func test_whenThrowErrorEvent_shouldReceiveStatesCorrectly() async throws {
         let components = makeTestComponents(for: Int.self)
 
         components.publisher.send(.throwError(NSError(domain: "test", code: 0)))
-        try await Task.sleep(nanoseconds: NSEC_PER_SEC)
+        try await Task.sleep(nanoseconds: Const.sleepTime)
 
         XCTAssertEqual(components.stateRecorder.records, [
             .initial,
@@ -32,11 +38,12 @@ class LoadingPublisherTests: XCTestCase {
         ])
     }
 
+    @MainActor
     func test_whenUncompleteEvent_shouldReceiveStatesCorrectly() async throws {
         let components = makeTestComponents(for: Int.self)
 
         components.publisher.send(.uncomplete)
-        try await Task.sleep(nanoseconds: NSEC_PER_SEC)
+        try await Task.sleep(nanoseconds: Const.sleepTime)
 
         XCTAssertEqual(components.stateRecorder.records, [
             .initial,
@@ -44,12 +51,13 @@ class LoadingPublisherTests: XCTestCase {
         ])
     }
 
+    @MainActor
     func test_whenCancelEvent_shouldReceiveStatesCorrectly() async throws {
         let components = makeTestComponents(for: Int.self, isSendAllowed: { _, _ in true })
 
         components.publisher.send(.sleep(100, .success(1)))
         components.publisher.send(.success(2))
-        try await Task.sleep(nanoseconds: NSEC_PER_SEC)
+        try await Task.sleep(nanoseconds: Const.sleepTime)
 
         XCTAssertEqual(components.stateRecorder.records, [
             .initial,
@@ -58,6 +66,37 @@ class LoadingPublisherTests: XCTestCase {
             .success(2),
         ])
     }
+
+//    @MainActor
+//    func test_multipleCallsPerformance_shouldNotFail() async throws {
+//        @MainActor
+//        func makeTest() async throws {
+//            let components = makeTestComponents(for: Int.self, isSendAllowed: { _, _ in true })
+//
+//            components.publisher.send(.sleep(100, .success(1)))
+//            components.publisher.send(.success(2))
+//            try await Task.sleep(nanoseconds: 300)
+//
+//            let isEqual = (components.stateRecorder.records == [
+//                .initial,
+//                .loading,
+//                .loading,
+//                .success(2),
+//            ])
+//
+//            if !isEqual {
+//                throw NSError(domain: "Invalid order", code: 0, userInfo: ["records": components.stateRecorder.records])
+//            } else {
+//                print("test pass!")
+//            }
+//        }
+//
+//        let operations = Array(repeating: makeTest, count: 100)
+//
+//        for operation in operations {
+//            try await operation()
+//        }
+//    }
 
     // Override enabled
 
@@ -94,6 +133,7 @@ extension LoadingPublisherTests {
 
     private func withEvent<T>(_: T.Type) -> (_ event: Event<T>, _ completion: @escaping (Result<T, Error>) -> Void) -> AnyCancellable {
         { event, completion in
+            var invalidated = false
             switch event {
             case let .success(value):
                 completion(.success(value))
@@ -103,11 +143,15 @@ extension LoadingPublisherTests {
                 completion(.failure(error))
             case let .sleep(interval, result):
                 DispatchQueue.main.asyncAfter(deadline: .now() + .nanoseconds(Int(interval))) {
-                    completion(result)
+                    if !invalidated {
+                        completion(result)
+                    }
                 }
             }
 
-            return AnyCancellable {}
+            return AnyCancellable {
+                invalidated = true
+            }
         }
     }
 }

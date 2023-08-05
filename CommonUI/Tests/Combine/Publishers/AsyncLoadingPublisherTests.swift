@@ -44,7 +44,6 @@ class AsyncLoadingPublisherTests: XCTestCase {
         ])
     }
 
-    @MainActor
     func test_whenCancelEvent_shouldReceiveStatesCorrectly() async throws {
         let components = makeTestComponents(operation: withEvent(Int.self), isSendAllowed: allowsAllStates)
 
@@ -63,7 +62,7 @@ class AsyncLoadingPublisherTests: XCTestCase {
 
 extension AsyncLoadingPublisherTests {
     private struct TestComponents<Event, Value: Equatable> {
-        let publisher: AsyncLoadingPublisher<Event, Value>
+        let publisher: LoadingPublisher<Event, Value, Error>
         let stateRecorder: ValueRecoder<LoadingState<Value, String>, Never>
     }
 
@@ -71,9 +70,10 @@ extension AsyncLoadingPublisherTests {
         operation: @escaping (Event) async throws -> Value,
         isSendAllowed: @escaping (Event, LoadingState<Value, Error>) -> Bool = ignoreLoadingState
     ) -> TestComponents<Event, Value> {
-        let publisher = AsyncLoadingPublisher(
+        let publisher = LoadingPublisher(
+            queue: nil,
             operation: operation,
-            isSendAllowed: isSendAllowed
+            isAllowed: isSendAllowed
         )
 
         let statePublisher: AnyPublisher<LoadingState<Value, String>, Never> = publisher
@@ -118,8 +118,12 @@ private func withEvent<T>(_ type: T.Type) -> @MainActor (_ event: Event<T>) asyn
 
 @MainActor
 private func withResult<T>(_ result: Result<T, Error>, nanoseconds: UInt64) async throws -> T {
-    try await Task.sleep(nanoseconds: nanoseconds)
-    return try result.get()
+    try await withTaskCancellationHandler(operation: {
+        try await Task.sleep(nanoseconds: nanoseconds)
+        return try result.get()
+    }, onCancel: {
+//        print("=> Sleep task cancelled for:", result)
+    })
 }
 
 @MainActor

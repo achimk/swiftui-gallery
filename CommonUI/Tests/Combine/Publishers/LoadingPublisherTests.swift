@@ -1,6 +1,9 @@
 import Combine
 import CommonUI
+import Foundation
 import XCTest
+
+// MARK: - Tests
 
 class LoadingPublisherTests: XCTestCase {
     @MainActor
@@ -68,13 +71,13 @@ extension LoadingPublisherTests {
     }
 
     private func makeTestComponents<Event, Value: Equatable, Error: Swift.Error>(
-        createPublisher: @escaping (Event) -> AnyPublisher<Value, Error>,
+        createPublisher: @escaping (Event, @escaping (Result<Value, Error>) -> Void) -> AnyCancellable,
         isSendAllowed: @escaping (Event, LoadingState<Value, Error>) -> Bool = ignoreLoadingState
     ) -> TestComponents<Event, Value, Error> {
         let publisher = LoadingPublisher(
-            scheduler: .immediate,
-            createPublisher: createPublisher,
-            isSendAllowed: isSendAllowed
+            queue: nil, // Don't specify dispatch queue for test purposes
+            operation: createPublisher,
+            isAllowed: isSendAllowed
         )
 
         let statePublisher: AnyPublisher<LoadingState<Value, String>, Never> = publisher
@@ -100,30 +103,22 @@ private enum Event<T> {
     case sleep(TimeInterval, Result<T, Error>)
 }
 
-private func withEvent<T>(_ type: T.Type) -> @MainActor (_ event: Event<T>) -> AnyPublisher<T, Error> {
-    { event in
+private func withEvent<T>(_: T.Type) -> (_ event: Event<T>, _ completion: @escaping (Result<T, Error>) -> Void) -> AnyCancellable {
+    { event, completion in
         switch event {
         case let .success(value):
-            return Just(value)
-                .setFailureType(to: Error.self)
-                .eraseToAnyPublisher()
-        case let .throwError(error):
-            return Fail(error: error).eraseToAnyPublisher()
+            completion(.success(value))
         case .uncomplete:
-            return Empty().eraseToAnyPublisher()
-        case let .sleep(timeInteval, result):
-            switch result {
-            case let .success(value):
-                return Just(value)
-                    .delay(for: RunLoop.SchedulerTimeType.Stride(timeInteval), scheduler: RunLoop.main)
-                    .setFailureType(to: Error.self)
-                    .eraseToAnyPublisher()
-            case let .failure(error):
-                return Fail(error: error)
-                    .delay(for: RunLoop.SchedulerTimeType.Stride(timeInteval), scheduler: RunLoop.main)
-                    .eraseToAnyPublisher()
+            break
+        case let .throwError(error):
+            completion(.failure(error))
+        case let .sleep(interval, result):
+            DispatchQueue.main.asyncAfter(deadline: .now() + interval) {
+                completion(result)
             }
         }
+
+        return AnyCancellable {}
     }
 }
 

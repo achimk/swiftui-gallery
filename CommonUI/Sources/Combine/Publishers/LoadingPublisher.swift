@@ -17,7 +17,7 @@ public final class LoadingPublisher<Event, SuccessType, FailureType: Error>: Pub
         isAllowed: @escaping (Event, State) -> Bool = LoadingPublisher.whenNotLoading
     ) {
         cancellable = input
-            .scheduleIfNeeded(with: queue)
+            .receiveIfNeeded(on: queue)
             .map { [output] in ($0, output.value.state) }
             .filter(isAllowed)
             .map { event, _ in
@@ -40,7 +40,7 @@ public final class LoadingPublisher<Event, SuccessType, FailureType: Error>: Pub
                 )
             }
             .switchToLatest()
-            .scheduleIfNeeded(with: queue)
+            .receiveIfNeeded(on: queue)
             .sink { [output] result in
                 output.value = result
             }
@@ -208,7 +208,7 @@ public extension LoadingPublisher {
 // MARK: - Helpers
 
 private extension Publisher {
-    func scheduleIfNeeded(with queue: DispatchQueue?) -> AnyPublisher<Output, Failure> {
+    func receiveIfNeeded(on queue: DispatchQueue?) -> AnyPublisher<Output, Failure> {
         if let queue {
             return receive(on: queue).eraseToAnyPublisher()
         } else {

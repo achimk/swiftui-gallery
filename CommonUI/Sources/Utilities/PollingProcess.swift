@@ -6,11 +6,11 @@ public enum PollingState {
     case running
 }
 
-public typealias TimerScheduler = (TimeInterval, @escaping () -> Void) -> Cancellable
+public typealias PollingTimerScheduler = (TimeInterval, @escaping () -> Void) -> Cancellable
 
 public final class PollingProcess<Value> {
     private let timeInterval: TimeInterval
-    private let timerSchduler: TimerScheduler
+    private let timerSchduler: PollingTimerScheduler
     private let operation: (@escaping (Value) -> Void) -> Cancellable
     private let statePublisher = PassthroughSubject<PollingState, Never>()
     private let valuePublisher = PassthroughSubject<Value, Never>()
@@ -28,7 +28,7 @@ public final class PollingProcess<Value> {
 
     public init(
         timeInterval: TimeInterval,
-        timerScheduler: @escaping TimerScheduler = defaultTimerScheduler,
+        timerScheduler: @escaping PollingTimerScheduler = scheduleTimer(timeInterval:callback:),
         operation: @escaping (@escaping (Value) -> Void) -> Cancellable
     ) {
         self.timeInterval = timeInterval
@@ -104,7 +104,7 @@ public extension PollingProcess {
 public extension PollingProcess {
     convenience init(
         timeInterval: TimeInterval,
-        timerScheduler: @escaping TimerScheduler = defaultTimerScheduler,
+        timerScheduler: @escaping PollingTimerScheduler = scheduleTimer(timeInterval:callback:),
         operation: @escaping () async -> Value
     ) {
         let taskOperation: (@escaping (Value) -> Void) -> Cancellable = { completion in
@@ -132,7 +132,7 @@ public extension PollingProcess {
 public extension PollingProcess {
     convenience init(
         timeInterval: TimeInterval,
-        timerScheduler: @escaping TimerScheduler = defaultTimerScheduler,
+        timerScheduler: @escaping PollingTimerScheduler = scheduleTimer(timeInterval:callback:),
         operation: @escaping () -> AnyPublisher<Value, Never>
     ) {
         let publishOperation: (@escaping (Value) -> Void) -> Cancellable = { completion in
@@ -151,18 +151,20 @@ public extension PollingProcess {
 
 // MARK: - Helpers
 
-public func defaultTimerScheduler(
-    timeInterval: TimeInterval,
-    callback: @escaping () -> Void
-) -> Cancellable {
-    let timer = Timer.scheduledTimer(
-        withTimeInterval: timeInterval,
-        repeats: false,
-        block: { _ in
-            callback()
+public extension PollingProcess {
+    static func scheduleTimer(
+        timeInterval: TimeInterval,
+        callback: @escaping () -> Void
+    ) -> Cancellable {
+        let timer = Timer.scheduledTimer(
+            withTimeInterval: timeInterval,
+            repeats: false,
+            block: { _ in
+                callback()
+            }
+        )
+        return AnyCancellable {
+            timer.invalidate()
         }
-    )
-    return AnyCancellable {
-        timer.invalidate()
     }
 }

@@ -163,62 +163,8 @@ extension PollingProcessTests {
 
 // MARK: - Helpers
 
-private class TestTimerScheduler {
-    private(set) var records: [PollingRecord] = []
-
-    func schedule(
-        with timeInterval: TimeInterval,
-        callback: @escaping () -> Void
-    ) -> Cancellable {
-        let record = PollingRecord(
-            timeInterval: timeInterval,
-            callback: callback
-        )
-        records.append(record)
-        return AnyCancellable {
-            record.cancel()
-        }
-    }
-
-    @discardableResult
-    func fire() -> PollingRecord? {
-        guard let record = records.first else {
-            return nil
-        }
-        records.remove(at: 0)
-        record.run()
-        return record
-    }
-}
-
-private class PollingRecord {
-    private let timeInterval: TimeInterval
-    private let callback: () -> Void
-    private(set) var isCancelled: Bool = false
-
-    init(
-        timeInterval: TimeInterval,
-        callback: @escaping () -> Void
-    ) {
-        self.timeInterval = timeInterval
-        self.callback = callback
-    }
-
-    func run() {
-        if !isCancelled {
-            callback()
-        }
-    }
-
-    func cancel() {
-        isCancelled = true
-    }
-}
-
 private class PollingCallbacks<Value> {
-    var onBeforePerform: (() -> Void)?
     var onPerform: (() -> Void)?
-    var onAfterPerform: (() -> Void)?
     var onInvalidate: (() -> Void)?
     var shouldAutoComplete = true
     var value: Value
@@ -230,9 +176,7 @@ private class PollingCallbacks<Value> {
 
     func perform(_ completion: @escaping (Value) -> Void) -> Cancellable {
         self.completion = completion
-        onBeforePerform?()
         onPerform?()
-        onAfterPerform?()
         if shouldAutoComplete {
             complete()
         }

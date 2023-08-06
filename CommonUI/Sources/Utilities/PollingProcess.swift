@@ -28,7 +28,7 @@ public final class PollingProcess<Value> {
 
     public init(
         timeInterval: TimeInterval,
-        timerScheduler: @escaping TimerScheduler = defaultTimeScheduler,
+        timerScheduler: @escaping TimerScheduler = defaultTimerScheduler,
         operation: @escaping (@escaping (Value) -> Void) -> Cancellable
     ) {
         self.timeInterval = timeInterval
@@ -87,7 +87,9 @@ public final class PollingProcess<Value> {
     }
 }
 
-extension PollingProcess {
+// MARK: - Observing
+
+public extension PollingProcess {
     func observePollingState(_ callback: @escaping (PollingState) -> Void) -> Cancellable {
         statePublisher.sink(receiveValue: callback)
     }
@@ -97,7 +99,59 @@ extension PollingProcess {
     }
 }
 
-public func defaultTimeScheduler(
+// MARK: - Async / Await support
+
+public extension PollingProcess {
+    convenience init(
+        timeInterval: TimeInterval,
+        timerScheduler: @escaping TimerScheduler = defaultTimerScheduler,
+        operation: @escaping () async -> Value
+    ) {
+        let taskOperation: (@escaping (Value) -> Void) -> Cancellable = { completion in
+            let task = Task { @MainActor in
+                let value = await operation()
+                if !Task.isCancelled {
+                    completion(value)
+                }
+            }
+            return AnyCancellable {
+                task.cancel()
+            }
+        }
+
+        self.init(
+            timeInterval: timeInterval,
+            timerScheduler: timerScheduler,
+            operation: taskOperation
+        )
+    }
+}
+
+// MARK: - Publisher support
+
+public extension PollingProcess {
+    convenience init(
+        timeInterval: TimeInterval,
+        timerScheduler: @escaping TimerScheduler = defaultTimerScheduler,
+        operation: @escaping () -> AnyPublisher<Value, Never>
+    ) {
+        let publishOperation: (@escaping (Value) -> Void) -> Cancellable = { completion in
+            operation()
+                .first()
+                .sink(receiveValue: completion)
+        }
+
+        self.init(
+            timeInterval: timeInterval,
+            timerScheduler: timerScheduler,
+            operation: publishOperation
+        )
+    }
+}
+
+// MARK: - Helpers
+
+public func defaultTimerScheduler(
     timeInterval: TimeInterval,
     callback: @escaping () -> Void
 ) -> Cancellable {

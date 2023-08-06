@@ -1,3 +1,4 @@
+import Combine
 import CommonUI
 import XCTest
 
@@ -136,20 +137,20 @@ class PollingProcessTests: XCTestCase {
 
 extension PollingProcessTests {
     private struct TestComponents {
-        let process: PollingProcess
-        let scheduler: TestPollingScheduler
-        let callbacks: PollingCallbacks
+        let process: PollingProcess<Void>
+        let scheduler: TestTimerScheduler
+        let callbacks: PollingCallbacks<Void>
     }
 
     private func makeTestComponents(
         timeInterval: TimeInterval = 1
     ) -> TestComponents {
-        let scheduler = TestPollingScheduler()
-        let callbacks = PollingCallbacks()
-        let process = PollingProcess(
+        let scheduler = TestTimerScheduler()
+        let callbacks = PollingCallbacks<Void>(())
+        let process = PollingProcess<Void>(
             timeInterval: timeInterval,
-            perform: callbacks.perform,
-            pollingScheduler: scheduler.schedule(with:callback:)
+            timerScheduler: scheduler.schedule(with:callback:),
+            operation: callbacks.perform
         )
 
         return TestComponents(
@@ -162,19 +163,21 @@ extension PollingProcessTests {
 
 // MARK: - Helpers
 
-private class TestPollingScheduler {
+private class TestTimerScheduler {
     private(set) var records: [PollingRecord] = []
 
     func schedule(
         with timeInterval: TimeInterval,
-        callback: @escaping () -> PollingInvalidate
-    ) -> PollingInvalidate {
+        callback: @escaping () -> Void
+    ) -> Cancellable {
         let record = PollingRecord(
             timeInterval: timeInterval,
             callback: callback
         )
         records.append(record)
-        return record.cancel
+        return AnyCancellable {
+            record.cancel()
+        }
     }
 
     @discardableResult
@@ -189,39 +192,43 @@ private class TestPollingScheduler {
 }
 
 private class PollingRecord {
-    let timeInterval: TimeInterval
-    private let callback: () -> PollingInvalidate
+    private let timeInterval: TimeInterval
+    private let callback: () -> Void
     private(set) var isCancelled: Bool = false
-    private var cancellable: PollingInvalidate?
 
     init(
         timeInterval: TimeInterval,
-        callback: @escaping () -> PollingInvalidate
+        callback: @escaping () -> Void
     ) {
         self.timeInterval = timeInterval
         self.callback = callback
     }
 
     func run() {
-        cancellable = callback()
+        if !isCancelled {
+            callback()
+        }
     }
 
     func cancel() {
-        cancellable?()
-        cancellable = nil
         isCancelled = true
     }
 }
 
-private class PollingCallbacks {
+private class PollingCallbacks<Value> {
     var onBeforePerform: (() -> Void)?
     var onPerform: (() -> Void)?
     var onAfterPerform: (() -> Void)?
     var onInvalidate: (() -> Void)?
     var shouldAutoComplete = true
-    private var completion: PollingCompletion?
+    var value: Value
+    private var completion: ((Value) -> Void)?
 
-    func perform(_ completion: @escaping PollingCompletion) -> PollingInvalidate {
+    init(_ value: Value) {
+        self.value = value
+    }
+
+    func perform(_ completion: @escaping (Value) -> Void) -> Cancellable {
         self.completion = completion
         onBeforePerform?()
         onPerform?()
@@ -229,13 +236,13 @@ private class PollingCallbacks {
         if shouldAutoComplete {
             complete()
         }
-        return { [onInvalidate] in
+        return AnyCancellable { [onInvalidate] in
             onInvalidate?()
         }
     }
 
     func complete() {
-        completion?()
+        completion?(value)
         completion = nil
     }
 }

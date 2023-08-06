@@ -1,3 +1,4 @@
+import Combine
 import Foundation
 
 public enum PollingState {
@@ -5,27 +6,34 @@ public enum PollingState {
     case running
 }
 
-public typealias PollingCompletion = () -> Void
-public typealias PollingInvalidate = () -> Void
-public typealias PollingScheduler = (TimeInterval, @escaping () -> PollingInvalidate) -> PollingInvalidate
+public typealias TimerScheduler = (TimeInterval, @escaping () -> Void) -> Cancellable
 
-public final class PollingProcess {
+public final class PollingProcess<Value> {
     private let timeInterval: TimeInterval
-    private let pollingScheduler: PollingScheduler
-    private let perform: (@escaping PollingCompletion) -> PollingInvalidate
-    private var invalidate: PollingInvalidate?
+    private let timerSchduler: TimerScheduler
+    private let operation: (@escaping (Value) -> Void) -> Cancellable
+    private let statePublisher = PassthroughSubject<PollingState, Never>()
+    private let valuePublisher = PassthroughSubject<Value, Never>()
+    private var timerCancellable: Cancellable? {
+        willSet { timerCancellable?.cancel() }
+    }
 
-    @Published
-    public private(set) var state: PollingState = .idle
+    private var operationCancellable: Cancellable? {
+        willSet { operationCancellable?.cancel() }
+    }
+
+    public private(set) var state: PollingState = .idle {
+        didSet { statePublisher.send(state) }
+    }
 
     public init(
         timeInterval: TimeInterval,
-        perform: @escaping (@escaping PollingCompletion) -> PollingInvalidate,
-        pollingScheduler: @escaping PollingScheduler = PollingProcess.defaultScheduler
+        timerScheduler: @escaping TimerScheduler = defaultTimeScheduler,
+        operation: @escaping (@escaping (Value) -> Void) -> Cancellable
     ) {
         self.timeInterval = timeInterval
-        self.perform = perform
-        self.pollingScheduler = pollingScheduler
+        timerSchduler = timerScheduler
+        self.operation = operation
     }
 
     deinit {
@@ -54,73 +62,53 @@ public final class PollingProcess {
         guard state == .running else {
             return
         }
-
-        let completion: PollingCompletion = { [weak self] in
-            self?.schedulePolling()
-        }
-
-        invalidate = perform(completion)
+        handlePolling()
     }
 
     private func schedulePolling() {
         guard state == .running else {
             return
         }
-
-        let completion: PollingCompletion = { [weak self] in
-            self?.schedulePolling()
+        timerCancellable = timerSchduler(timeInterval) { [weak self] in
+            self?.handlePolling()
         }
+    }
 
-        invalidate = pollingScheduler(timeInterval) { [perform] in
-            perform(completion)
+    private func handlePolling() {
+        operationCancellable = operation { [weak self, valuePublisher] value in
+            valuePublisher.send(value)
+            self?.schedulePolling()
         }
     }
 
     private func invalidatePolling() {
-        invalidate?()
-        invalidate = nil
+        timerCancellable = nil
+        operationCancellable = nil
     }
 }
 
 extension PollingProcess {
-    private class PollingTimer {
-        private let timeInterval: TimeInterval
-        private let callback: () -> PollingInvalidate
-        private var timer: Timer?
-        private var cancellation: PollingInvalidate?
-
-        init(
-            timeInterval: TimeInterval,
-            callback: @escaping () -> PollingInvalidate
-        ) {
-            self.timeInterval = timeInterval
-            self.callback = callback
-        }
-
-        func schedule() {
-            timer = Timer.scheduledTimer(
-                withTimeInterval: timeInterval,
-                repeats: false,
-                block: { [weak self] _ in
-                    self?.perform()
-                }
-            )
-        }
-
-        func perform() {
-            cancellation = callback()
-        }
-
-        func invalidate() {
-            cancellation?()
-            timer?.invalidate()
-            timer = nil
-        }
+    func observePollingState(_ callback: @escaping (PollingState) -> Void) -> Cancellable {
+        statePublisher.sink(receiveValue: callback)
     }
 
-    public static let defaultScheduler: PollingScheduler = { timeInterval, callback in
-        let timer = PollingTimer(timeInterval: timeInterval, callback: callback)
-        timer.schedule()
-        return timer.invalidate
+    func observePollingValue(_ callback: @escaping (Value) -> Void) -> Cancellable {
+        valuePublisher.sink(receiveValue: callback)
+    }
+}
+
+public func defaultTimeScheduler(
+    timeInterval: TimeInterval,
+    callback: @escaping () -> Void
+) -> Cancellable {
+    let timer = Timer.scheduledTimer(
+        withTimeInterval: timeInterval,
+        repeats: false,
+        block: { _ in
+            callback()
+        }
+    )
+    return AnyCancellable {
+        timer.invalidate()
     }
 }

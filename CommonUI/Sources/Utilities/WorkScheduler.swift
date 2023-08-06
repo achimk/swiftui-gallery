@@ -6,7 +6,7 @@ public class WorkScheduler {
 
     private let workDispatcher: WorkDispatcher
     private var work: (@escaping Completion) -> Void = { $0() }
-    private(set) var isRunning = false
+    public private(set) var isRunning = false
 
     public static let defaultWorkDispatcher: WorkDispatcher = DispatchQueue.main.asyncAfter(deadline:execute:)
 
@@ -16,7 +16,9 @@ public class WorkScheduler {
 
     @discardableResult
     public func schedule(at timeInterval: DispatchTimeInterval, action: @escaping () -> Void) -> Self {
-        guard !isRunning else { return self }
+        guard !isRunning else {
+            return self
+        }
 
         let previousAction = work
         let nextAction: (@escaping Completion) -> Void = { [workDispatcher] completion in
@@ -27,7 +29,6 @@ public class WorkScheduler {
                 }))
             }
         }
-
         work = nextAction
         return self
     }

@@ -20,9 +20,15 @@ class PollingSchedulerTests: XCTestCase {
 
         var order: [Int] = []
         let expectation = XCTestExpectation()
-        scheduler.observePollingValue { value in
+        scheduler.observePollingValue { [weak scheduler] value in
             order.append(value)
             if order.count == 9 {
+                scheduler?.stop()
+            }
+        }.store(in: &cancellables)
+
+        scheduler.observePollingState { state in
+            if state == .idle {
                 expectation.fulfill()
             }
         }.store(in: &cancellables)

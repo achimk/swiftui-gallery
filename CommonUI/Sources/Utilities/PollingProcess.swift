@@ -1,17 +1,31 @@
 import Combine
 import Foundation
 
+public typealias PollingOperation<Value> = (@escaping (Value) -> Void) -> Cancellable
+public typealias PollingTimerScheduler = (TimeInterval, @escaping () -> Void) -> Cancellable
+
 public enum PollingState {
     case idle
     case running
 }
 
-public typealias PollingTimerScheduler = (TimeInterval, @escaping () -> Void) -> Cancellable
+public enum PollingTimeInterval {
+    case constant(TimeInterval)
+    case generate(() -> TimeInterval)
+
+    public func next() -> TimeInterval {
+        switch self {
+        case let .constant(timeInterval): return timeInterval
+        case let .generate(timeIntervalGenerator): return timeIntervalGenerator()
+        }
+    }
+}
 
 public final class PollingProcess<Value> {
-    private let timeInterval: TimeInterval
-    private let timerSchduler: PollingTimerScheduler
-    private let operation: (@escaping (Value) -> Void) -> Cancellable
+    private let timeInterval: PollingTimeInterval
+    private let timerScheduler: PollingTimerScheduler
+    private let canScheduleNext: () -> Bool
+    private let operation: PollingOperation<Value>
     private let statePublisher = PassthroughSubject<PollingState, Never>()
     private let valuePublisher = PassthroughSubject<Value, Never>()
     private var timerCancellable: Cancellable? {
@@ -27,12 +41,14 @@ public final class PollingProcess<Value> {
     }
 
     public init(
-        timeInterval: TimeInterval,
+        timeInterval: PollingTimeInterval,
         timerScheduler: @escaping PollingTimerScheduler = scheduleTimer(timeInterval:callback:),
-        operation: @escaping (@escaping (Value) -> Void) -> Cancellable
+        canScheduleNext: @escaping () -> Bool = { true },
+        operation: @escaping PollingOperation<Value>
     ) {
         self.timeInterval = timeInterval
-        timerSchduler = timerScheduler
+        self.timerScheduler = timerScheduler
+        self.canScheduleNext = canScheduleNext
         self.operation = operation
     }
 
@@ -69,7 +85,11 @@ public final class PollingProcess<Value> {
         guard state == .running else {
             return
         }
-        timerCancellable = timerSchduler(timeInterval) { [weak self] in
+        guard canScheduleNext() else {
+            stop()
+            return
+        }
+        timerCancellable = timerScheduler(timeInterval.next()) { [weak self] in
             self?.handlePolling()
         }
     }
@@ -103,8 +123,9 @@ public extension PollingProcess {
 
 public extension PollingProcess {
     convenience init(
-        timeInterval: TimeInterval,
+        timeInterval: PollingTimeInterval,
         timerScheduler: @escaping PollingTimerScheduler = scheduleTimer(timeInterval:callback:),
+        canScheduleNext: @escaping () -> Bool = { true },
         operation: @escaping () async -> Value
     ) {
         let taskOperation: (@escaping (Value) -> Void) -> Cancellable = { completion in
@@ -122,6 +143,7 @@ public extension PollingProcess {
         self.init(
             timeInterval: timeInterval,
             timerScheduler: timerScheduler,
+            canScheduleNext: canScheduleNext,
             operation: taskOperation
         )
     }
@@ -131,8 +153,9 @@ public extension PollingProcess {
 
 public extension PollingProcess {
     convenience init(
-        timeInterval: TimeInterval,
+        timeInterval: PollingTimeInterval,
         timerScheduler: @escaping PollingTimerScheduler = scheduleTimer(timeInterval:callback:),
+        canScheduleNext: @escaping () -> Bool = { true },
         operation: @escaping () -> AnyPublisher<Value, Never>
     ) {
         let publishOperation: (@escaping (Value) -> Void) -> Cancellable = { completion in
@@ -144,6 +167,7 @@ public extension PollingProcess {
         self.init(
             timeInterval: timeInterval,
             timerScheduler: timerScheduler,
+            canScheduleNext: canScheduleNext,
             operation: publishOperation
         )
     }

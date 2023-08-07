@@ -45,6 +45,9 @@
 		2795C2912A798F8B007BA54D /* PollingProcessTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2795C28F2A798F88007BA54D /* PollingProcessTests.swift */; };
 		2795C2932A7A07D6007BA54D /* WorkScheduler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2795C2922A7A07D6007BA54D /* WorkScheduler.swift */; };
 		2795C2962A7A103D007BA54D /* WorkSchedulerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2795C2942A7A1037007BA54D /* WorkSchedulerTests.swift */; };
+		27D44EB72A8171F600407574 /* PollingScheduler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27D44EB62A8171F600407574 /* PollingScheduler.swift */; };
+		27D44EB92A8195A700407574 /* PollingSchedulerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27D44EB82A8195A700407574 /* PollingSchedulerTests.swift */; };
+		27D44EBB2A81972D00407574 /* TimeInterval+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27D44EBA2A81972D00407574 /* TimeInterval+Extensions.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -97,6 +100,9 @@
 		2795C28F2A798F88007BA54D /* PollingProcessTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PollingProcessTests.swift; sourceTree = "<group>"; };
 		2795C2922A7A07D6007BA54D /* WorkScheduler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkScheduler.swift; sourceTree = "<group>"; };
 		2795C2942A7A1037007BA54D /* WorkSchedulerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkSchedulerTests.swift; sourceTree = "<group>"; };
+		27D44EB62A8171F600407574 /* PollingScheduler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PollingScheduler.swift; sourceTree = "<group>"; };
+		27D44EB82A8195A700407574 /* PollingSchedulerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PollingSchedulerTests.swift; sourceTree = "<group>"; };
+		27D44EBA2A81972D00407574 /* TimeInterval+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TimeInterval+Extensions.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -274,6 +280,7 @@
 				27540F242A7851ED00759007 /* Date+Additions.swift */,
 				27540F202A7851C600759007 /* Optional+Present.swift */,
 				27540F212A7851C600759007 /* Optional+Unwrap.swift */,
+				27D44EBA2A81972D00407574 /* TimeInterval+Extensions.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -307,6 +314,7 @@
 			children = (
 				2795C25D2A785816007BA54D /* Container.swift */,
 				2795C28C2A798AC0007BA54D /* PollingProcess.swift */,
+				27D44EB62A8171F600407574 /* PollingScheduler.swift */,
 				2795C2922A7A07D6007BA54D /* WorkScheduler.swift */,
 			);
 			path = Utilities;
@@ -319,6 +327,7 @@
 				2742E3392A7FC245000F6F65 /* AsyncPollingProcessTests.swift */,
 				2742E3422A7FEDB9000F6F65 /* PublisherPollingProcessTests.swift */,
 				2795C2942A7A1037007BA54D /* WorkSchedulerTests.swift */,
+				27D44EB82A8195A700407574 /* PollingSchedulerTests.swift */,
 			);
 			path = Utilities;
 			sourceTree = "<group>";
@@ -437,6 +446,7 @@
 				27540F0C2A784F3500759007 /* ImmediateScheduler.swift in Sources */,
 				27540F222A7851C600759007 /* Optional+Present.swift in Sources */,
 				2795C28D2A798AC0007BA54D /* PollingProcess.swift in Sources */,
+				27D44EB72A8171F600407574 /* PollingScheduler.swift in Sources */,
 				27540EF42A78479E00759007 /* FormField.swift in Sources */,
 				27540EFE2A784DBD00759007 /* Binding+Additions.swift in Sources */,
 				27540F062A784EC400759007 /* Once.swift in Sources */,
@@ -469,10 +479,12 @@
 				2742E33F2A7FC428000F6F65 /* TestTimerScheduler.swift in Sources */,
 				27540F322A78533E00759007 /* ValidatedResultTests.swift in Sources */,
 				27540F162A7850BB00759007 /* LoadingPublisherFromAsyncTests.swift in Sources */,
+				27D44EBB2A81972D00407574 /* TimeInterval+Extensions.swift in Sources */,
 				2742E33B2A7FC24A000F6F65 /* AsyncPollingProcessTests.swift in Sources */,
 				2742E3432A7FEDB9000F6F65 /* PublisherPollingProcessTests.swift in Sources */,
 				2742E3412A7FD2F3000F6F65 /* SnapshotsRecoder.swift in Sources */,
 				2742E3362A7EDE20000F6F65 /* LoadingPublisherFromAnyPublisherTests.swift in Sources */,
+				27D44EB92A8195A700407574 /* PollingSchedulerTests.swift in Sources */,
 				2795C2912A798F8B007BA54D /* PollingProcessTests.swift in Sources */,
 				27540EE62A7845A100759007 /* CommonUITests.swift in Sources */,
 			);

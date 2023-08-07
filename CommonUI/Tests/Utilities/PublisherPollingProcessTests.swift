@@ -56,7 +56,7 @@ extension PublisherPollingProcessTests {
     }
 
     private func makeTestComponents<Value>(
-        timeInterval: TimeInterval = 1,
+        timeInterval: PollingTimeInterval = .constant(1),
         operation: @escaping () -> AnyPublisher<Value, Never>
     ) -> TestComponents<Value> {
         let scheduler = TestTimerScheduler()

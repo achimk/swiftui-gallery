@@ -143,7 +143,7 @@ extension PollingProcessTests {
     }
 
     private func makeTestComponents(
-        timeInterval: TimeInterval = 1
+        timeInterval: PollingTimeInterval = .constant(1)
     ) -> TestComponents {
         let scheduler = TestTimerScheduler()
         let callbacks = PollingCallbacks<Void>(())

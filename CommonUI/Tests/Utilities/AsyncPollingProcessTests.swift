@@ -52,7 +52,7 @@ extension AsyncPollingProcessTests {
     }
 
     private func makeTestComponents<Value>(
-        timeInterval: TimeInterval = 1,
+        timeInterval: PollingTimeInterval = .constant(1),
         operation: @escaping () async -> Value
     ) -> TestComponents<Value> {
         let scheduler = TestTimerScheduler()

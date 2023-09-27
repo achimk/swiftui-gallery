@@ -35,6 +35,9 @@ struct GalleryRootView: View {
                     NavigationLink("ProgressView") {
                         SampleProgressView()
                     }
+                    NavigationLink("Bottom content") {
+                        BottomContentSampleView()
+                    }
                 } header: {
                     Text("Custom Controls")
                 }

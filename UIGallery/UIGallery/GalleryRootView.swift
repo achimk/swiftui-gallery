@@ -40,6 +40,9 @@ struct GalleryRootView: View {
                 }
 
                 Section {
+                    NavigationLink("Expandable items") {
+                        ExpadableItemsSampleView()
+                    }
                     NavigationLink("Simple hero") {
                         SimpleHeroView()
                     }

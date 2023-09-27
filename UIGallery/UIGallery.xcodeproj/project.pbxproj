@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		270C220C2AC3E60400B35B40 /* ExpadableItemsSampleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 270C220B2AC3E60400B35B40 /* ExpadableItemsSampleView.swift */; };
 		2710687029AA9A1B0057A90B /* ProgressView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2710686F29AA9A1B0057A90B /* ProgressView.swift */; };
 		2710687229AA9AA10057A90B /* SampleProgressView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2710687129AA9AA10057A90B /* SampleProgressView.swift */; };
 		2710687429AAB1AA0057A90B /* MagnificationGestureView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2710687329AAB1AA0057A90B /* MagnificationGestureView.swift */; };
@@ -86,6 +87,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		270C220B2AC3E60400B35B40 /* ExpadableItemsSampleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExpadableItemsSampleView.swift; sourceTree = "<group>"; };
 		2710686F29AA9A1B0057A90B /* ProgressView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgressView.swift; sourceTree = "<group>"; };
 		2710687129AA9AA10057A90B /* SampleProgressView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SampleProgressView.swift; sourceTree = "<group>"; };
 		2710687329AAB1AA0057A90B /* MagnificationGestureView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MagnificationGestureView.swift; sourceTree = "<group>"; };
@@ -175,6 +177,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		270C220A2AC3E52A00B35B40 /* RevealEffect */ = {
+			isa = PBXGroup;
+			children = (
+				270C220B2AC3E60400B35B40 /* ExpadableItemsSampleView.swift */,
+			);
+			path = RevealEffect;
+			sourceTree = "<group>";
+		};
 		2710686D29AA99D70057A90B /* CustomControls */ = {
 			isa = PBXGroup;
 			children = (
@@ -460,6 +470,7 @@
 		27F896F229AA5B2100ED1B18 /* Effects */ = {
 			isa = PBXGroup;
 			children = (
+				270C220A2AC3E52A00B35B40 /* RevealEffect */,
 				275434E22A17826900972B0B /* HeroEffect */,
 				27F896F329AA5B3100ED1B18 /* ParallaxMotionEffect */,
 			);
@@ -625,6 +636,7 @@
 				27ED8C0029AA4A4A0092C57D /* ShapeCircleView.swift in Sources */,
 				275CD42B2A1B63F900BC549E /* ScrollHeroView.swift in Sources */,
 				2710687629AAB3040057A90B /* ExclusiveGestureView.swift in Sources */,
+				270C220C2AC3E60400B35B40 /* ExpadableItemsSampleView.swift in Sources */,
 				27ED8C0C29AA4E6C0092C57D /* RadialGradientView.swift in Sources */,
 				27ED8BD229AA47A50092C57D /* UIGalleryApp.swift in Sources */,
 				2710688229AAC33F0057A90B /* Rotate3DAnimationsView.swift in Sources */,

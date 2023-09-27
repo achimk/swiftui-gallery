@@ -6,6 +6,7 @@ struct MVVMSwiftUIApp: App {
 
     init() {
         ApplicationDependenciesAssembly.assemble(with: .shared)
+        print("locale preferred languages:", Locale.preferredLanguages)
     }
 
     var body: some Scene {

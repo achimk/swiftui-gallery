@@ -70,6 +70,7 @@
 		27ED8C1929AA549B0092C57D /* LongPressAndDragGestureView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27ED8C1829AA549B0092C57D /* LongPressAndDragGestureView.swift */; };
 		27F896F529AA5B5400ED1B18 /* ParallaxMotionModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27F896F429AA5B5400ED1B18 /* ParallaxMotionModifier.swift */; };
 		27F896F729AA5B8E00ED1B18 /* ParallaxMotionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27F896F629AA5B8E00ED1B18 /* ParallaxMotionView.swift */; };
+		27F9B0532AD33FE4005A50F3 /* NestedNavigationLink.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27F9B0522AD33FE4005A50F3 /* NestedNavigationLink.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -156,6 +157,7 @@
 		27ED8C1829AA549B0092C57D /* LongPressAndDragGestureView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LongPressAndDragGestureView.swift; sourceTree = "<group>"; };
 		27F896F429AA5B5400ED1B18 /* ParallaxMotionModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParallaxMotionModifier.swift; sourceTree = "<group>"; };
 		27F896F629AA5B8E00ED1B18 /* ParallaxMotionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParallaxMotionView.swift; sourceTree = "<group>"; };
+		27F9B0522AD33FE4005A50F3 /* NestedNavigationLink.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NestedNavigationLink.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -302,6 +304,7 @@
 			isa = PBXGroup;
 			children = (
 				273375862A6FFF4300EAD43B /* RoutingExample.swift */,
+				27F9B0522AD33FE4005A50F3 /* NestedNavigationLink.swift */,
 			);
 			path = Routing;
 			sourceTree = "<group>";
@@ -669,6 +672,7 @@
 				27ED8C0629AA4C620092C57D /* TextAddingView.swift in Sources */,
 				270C22132AC3F19F00B35B40 /* View+When.swift in Sources */,
 				27ED8BFC29AA49130092C57D /* GalleryRootView.swift in Sources */,
+				27F9B0532AD33FE4005A50F3 /* NestedNavigationLink.swift in Sources */,
 				270C22112AC3EDE000B35B40 /* BottomContentSampleView.swift in Sources */,
 				275434E42A1782C000972B0B /* HeroView.swift in Sources */,
 				2710687429AAB1AA0057A90B /* MagnificationGestureView.swift in Sources */,

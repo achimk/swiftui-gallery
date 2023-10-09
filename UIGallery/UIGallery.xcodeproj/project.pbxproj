@@ -71,6 +71,7 @@
 		27F896F529AA5B5400ED1B18 /* ParallaxMotionModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27F896F429AA5B5400ED1B18 /* ParallaxMotionModifier.swift */; };
 		27F896F729AA5B8E00ED1B18 /* ParallaxMotionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27F896F629AA5B8E00ED1B18 /* ParallaxMotionView.swift */; };
 		27F9B0532AD33FE4005A50F3 /* NestedNavigationLink.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27F9B0522AD33FE4005A50F3 /* NestedNavigationLink.swift */; };
+		27F9B0552AD345C3005A50F3 /* RouterWithNavigationLink.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27F9B0542AD345C3005A50F3 /* RouterWithNavigationLink.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -158,6 +159,7 @@
 		27F896F429AA5B5400ED1B18 /* ParallaxMotionModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParallaxMotionModifier.swift; sourceTree = "<group>"; };
 		27F896F629AA5B8E00ED1B18 /* ParallaxMotionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParallaxMotionView.swift; sourceTree = "<group>"; };
 		27F9B0522AD33FE4005A50F3 /* NestedNavigationLink.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NestedNavigationLink.swift; sourceTree = "<group>"; };
+		27F9B0542AD345C3005A50F3 /* RouterWithNavigationLink.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RouterWithNavigationLink.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -305,6 +307,7 @@
 			children = (
 				273375862A6FFF4300EAD43B /* RoutingExample.swift */,
 				27F9B0522AD33FE4005A50F3 /* NestedNavigationLink.swift */,
+				27F9B0542AD345C3005A50F3 /* RouterWithNavigationLink.swift */,
 			);
 			path = Routing;
 			sourceTree = "<group>";
@@ -652,6 +655,7 @@
 				27238CC32A161CBE00957132 /* ColorDetailView.swift in Sources */,
 				27ED8C0829AA4CE40092C57D /* LinearGradientView.swift in Sources */,
 				27B28B2B2A698245006FCCD4 /* LoadingPublisher.swift in Sources */,
+				27F9B0552AD345C3005A50F3 /* RouterWithNavigationLink.swift in Sources */,
 				27ED8C1329AA52010092C57D /* LongPressGestureView.swift in Sources */,
 				27ED8C0029AA4A4A0092C57D /* ShapeCircleView.swift in Sources */,
 				275CD42B2A1B63F900BC549E /* ScrollHeroView.swift in Sources */,

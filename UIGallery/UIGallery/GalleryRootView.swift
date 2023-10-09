@@ -12,6 +12,10 @@ struct GalleryRootView: View {
                     NavigationLink("Nested Navigation Links") {
                         NestedNavigationLink()
                     }
+                    
+                    NavigationLink("Route Sample") {
+                        RouterWithNavigationLink()
+                    }
 
                     if #available(iOS 16.0, *) {
                         NavigationLink("Routing with NavigationPath (iOS 16)") {

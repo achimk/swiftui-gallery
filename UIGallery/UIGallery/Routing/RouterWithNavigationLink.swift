@@ -103,9 +103,9 @@ struct RouterWithNavigationLink: View {
             Binding(get: {
                 $path.wrappedValue.count > index + 1
             }, set: { isActive in
-                // Works only on POP and noot working when:
-                // - pop multiple screens
-                // - push multiple screens
+                // Works only on Back default functionality and not working when:
+                // - long press and pop multiple screens
+                // - push multiple screens at once (intermediate screens has been deactivated)
 //                if !isActive {
 //                    $path.wrappedValue.removeLast($path.wrappedValue.count - index - 1)
 //                }

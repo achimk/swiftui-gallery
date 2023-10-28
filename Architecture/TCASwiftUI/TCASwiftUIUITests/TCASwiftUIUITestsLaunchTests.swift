@@ -1,13 +1,6 @@
-//
-//  VIPSwiftUIUITestsLaunchTests.swift
-//  VIPSwiftUIUITests
-//
-//  Created by Joachim Kret on 11/05/2023.
-//
-
 import XCTest
 
-final class VIPSwiftUIUITestsLaunchTests: XCTestCase {
+final class TCASwiftUIUITestsLaunchTests: XCTestCase {
 
     override class var runsForEachTargetApplicationUIConfiguration: Bool {
         true

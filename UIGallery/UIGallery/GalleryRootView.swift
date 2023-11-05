@@ -5,6 +5,14 @@ struct GalleryRootView: View {
         NavigationView {
             List {
                 Section {
+                    NavigationLink("Paged List") {
+                        TransactionListView(viewModel: .makeStub())
+                    }
+                } header: {
+                    Text("Features")
+                }
+                
+                Section {
                     NavigationLink("Navigation") {
                         GalleryNavigationView()
                     }

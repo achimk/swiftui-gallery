@@ -96,6 +96,18 @@ extension LoadingState {
     }
 }
 
+extension LoadingState {
+ 
+    func toActivityState() -> ActivityState {
+        switch self {
+        case .initial: return .initial
+        case .loading: return .loading
+        case .success: return .success
+        case .failure: return .failure
+        }
+    }
+}
+
 extension LoadingState where Failure: Swift.Error {
     
     func toResult() -> Result<Success, Failure>? {

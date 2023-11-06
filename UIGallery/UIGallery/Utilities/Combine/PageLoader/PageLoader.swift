@@ -8,8 +8,8 @@ struct PageState<Data> {
         case load
         case loadMore
     }
-    
-    var request: Request? = nil
+
+    var request: Request?
     var loadState: LoadingState<PageResult<Data>, Error> = .initial
     var offset: PageOffset = .initial
 }
@@ -17,12 +17,12 @@ struct PageState<Data> {
 final class PageLoader<Query, Data>: Publisher {
     typealias Output = PageState<Data>
     typealias Failure = Never
-    
+
     private enum Event {
         case loadRequested
         case loadMoreRequested
     }
-    
+
     private let stateSubject = CurrentValueSubject<PageState<Data>, Never>(PageState())
     private let operation: (Query) async throws -> PageResult<Data>
     private var loadTask: Task<Void, Never>? {
@@ -30,41 +30,40 @@ final class PageLoader<Query, Data>: Publisher {
             loadTask?.cancel()
         }
     }
+
     private var loadMoreTask: Task<Void, Never>? {
         willSet {
             loadMoreTask?.cancel()
         }
     }
-    
+
     var state: PageState<Data> {
         stateSubject.value
     }
-    
+
     init(_ operation: @escaping (Query) async throws -> PageResult<Data>) {
         self.operation = operation
     }
-    
-    func receive<S>(subscriber: S) where S : Subscriber, Failure == S.Failure, Output == S.Input {
+
+    func receive<S>(subscriber: S) where S: Subscriber, Failure == S.Failure, Output == S.Input {
         stateSubject.receive(subscriber: subscriber)
     }
 }
 
 extension PageLoader {
-    
     func load(with query: Query) {
         dispatch(.loadRequested, with: query)
     }
-    
-    
+
     func loadMore(with query: Query) {
         dispatch(.loadMoreRequested, with: query)
     }
-    
+
     @MainActor
     func load(with query: Query) async {
         await dispatch(.loadRequested, with: query).value
     }
-    
+
     @MainActor
     func loadMore(with query: Query) async {
         await dispatch(.loadMoreRequested, with: query).value
@@ -72,7 +71,6 @@ extension PageLoader {
 }
 
 extension PageLoader {
-    
     @discardableResult
     private func dispatch(_ event: Event, with query: Query) -> Task<Void, Never> {
         Task { @MainActor in
@@ -93,7 +91,7 @@ extension PageLoader {
             }
         }
     }
-    
+
     @MainActor
     private func handleLoad(with query: Query) async {
         do {
@@ -117,13 +115,12 @@ extension PageLoader {
             }
         }
     }
-    
+
     @MainActor
     private func handleLoadMore(with query: Query) async {
         do {
             updateState {
                 Swift.print("=> load more...")
-                Swift.print("[state]", $0)
                 $0.loadState = .loading
                 $0.request = .loadMore
             }
@@ -142,11 +139,11 @@ extension PageLoader {
             }
         }
     }
-    
+
     private func canLoadMore() -> Bool {
         !state.loadState.isLoading && state.offset != .completed && state.offset != .initial
     }
-    
+
     private func updateState(_ builder: (inout PageState<Data>) -> Void) {
         var state = stateSubject.value
         builder(&state)
@@ -155,7 +152,6 @@ extension PageLoader {
 }
 
 extension PageLoader {
-    
     func asPagination() -> Pagination {
         Pagination(set: { offset in
             self.updateState {

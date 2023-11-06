@@ -62,6 +62,8 @@
 		27B28B292A69626E006FCCD4 /* AsyncLoadingPublisherTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27B28B282A69626E006FCCD4 /* AsyncLoadingPublisherTests.swift */; };
 		27B28B2B2A698245006FCCD4 /* LoadingPublisher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27B28B2A2A698245006FCCD4 /* LoadingPublisher.swift */; };
 		27B28B2E2A698560006FCCD4 /* LoadingPublisherTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27B28B2C2A698547006FCCD4 /* LoadingPublisherTests.swift */; };
+		27BFB9172AF901B40094DCD9 /* TransactionCategoryFilterNotifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27BFB9162AF901B40094DCD9 /* TransactionCategoryFilterNotifier.swift */; };
+		27BFB9192AF9048E0094DCD9 /* TransactionCategoryChangeNotifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27BFB9182AF9048E0094DCD9 /* TransactionCategoryChangeNotifier.swift */; };
 		27CB9DC52A0CF4DA00F3E077 /* ButtonsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27CB9DC42A0CF4DA00F3E077 /* ButtonsView.swift */; };
 		27CB9DCB2A0D149B00F3E077 /* TextFieldsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27CB9DCA2A0D149B00F3E077 /* TextFieldsView.swift */; };
 		27ED8BD229AA47A50092C57D /* UIGalleryApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27ED8BD129AA47A50092C57D /* UIGalleryApp.swift */; };
@@ -163,6 +165,8 @@
 		27B28B282A69626E006FCCD4 /* AsyncLoadingPublisherTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AsyncLoadingPublisherTests.swift; sourceTree = "<group>"; };
 		27B28B2A2A698245006FCCD4 /* LoadingPublisher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingPublisher.swift; sourceTree = "<group>"; };
 		27B28B2C2A698547006FCCD4 /* LoadingPublisherTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingPublisherTests.swift; sourceTree = "<group>"; };
+		27BFB9162AF901B40094DCD9 /* TransactionCategoryFilterNotifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionCategoryFilterNotifier.swift; sourceTree = "<group>"; };
+		27BFB9182AF9048E0094DCD9 /* TransactionCategoryChangeNotifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionCategoryChangeNotifier.swift; sourceTree = "<group>"; };
 		27CB9DC42A0CF4DA00F3E077 /* ButtonsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ButtonsView.swift; sourceTree = "<group>"; };
 		27CB9DCA2A0D149B00F3E077 /* TextFieldsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextFieldsView.swift; sourceTree = "<group>"; };
 		27ED8BCE29AA47A50092C57D /* UIGallery.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = UIGallery.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -378,6 +382,8 @@
 			children = (
 				2782C0A12AF832AB0098ACEF /* TransactionListView.swift */,
 				2782C0A32AF842050098ACEF /* TransactionListViewModel.swift */,
+				27BFB9162AF901B40094DCD9 /* TransactionCategoryFilterNotifier.swift */,
+				27BFB9182AF9048E0094DCD9 /* TransactionCategoryChangeNotifier.swift */,
 			);
 			path = PagedList;
 			sourceTree = "<group>";
@@ -767,6 +773,7 @@
 				27ED8C1329AA52010092C57D /* LongPressGestureView.swift in Sources */,
 				27ED8C0029AA4A4A0092C57D /* ShapeCircleView.swift in Sources */,
 				275CD42B2A1B63F900BC549E /* ScrollHeroView.swift in Sources */,
+				27BFB9192AF9048E0094DCD9 /* TransactionCategoryChangeNotifier.swift in Sources */,
 				2710687629AAB3040057A90B /* ExclusiveGestureView.swift in Sources */,
 				2782C09A2AF831ED0098ACEF /* TransactionRepository.swift in Sources */,
 				270C220C2AC3E60400B35B40 /* ExpadableItemsSampleView.swift in Sources */,
@@ -781,6 +788,7 @@
 				27A884692A1CDC7F00B22DE7 /* AnyScheduler+Additions.swift in Sources */,
 				270C220E2AC3EA4300B35B40 /* ForEachPreview.swift in Sources */,
 				2782C0932AF82FE80098ACEF /* Money.swift in Sources */,
+				27BFB9172AF901B40094DCD9 /* TransactionCategoryFilterNotifier.swift in Sources */,
 				2782C09E2AF832260098ACEF /* StubTransactionGenerator.swift in Sources */,
 				273375872A6FFF4300EAD43B /* RoutingExample.swift in Sources */,
 				275CD4312A1B8BA000BC549E /* View+ConfirmationDialog.swift in Sources */,

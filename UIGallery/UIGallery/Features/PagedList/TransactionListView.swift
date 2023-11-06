@@ -60,7 +60,7 @@ struct TransactionListView: View {
     private func makeContentList() -> some View {
         LazyVStack {
             ForEach(viewModel.transactions) { transaction in
-                TransactionItemView(transaction: transaction)
+                TransactionRowView(transaction: transaction)
             }
 
             if viewModel.hasPageAvailable {
@@ -68,35 +68,6 @@ struct TransactionListView: View {
             }
         }
         .padding(.horizontal, 24.0)
-    }
-}
-
-struct TransactionItemView: View {
-    let transaction: Transaction
-
-    var body: some View {
-        HStack(alignment: .center) {
-            ZStack {
-                Circle()
-                    .fill(.radialGradient(
-                        colors: [transaction.category.color, Color.white],
-                        center: .center,
-                        startRadius: 0.0,
-                        endRadius: 20.0
-                    ))
-                    .frame(width: 43.0)
-                    .padding(.top, 2)
-
-                Circle()
-                    .fill(transaction.category.color)
-                    .frame(width: 30.0)
-            }
-            Text(transaction.name)
-                .font(.system(.body, design: .rounded))
-                .foregroundColor(.primary)
-            Spacer()
-        }
-        .padding(.vertical, 24.0)
     }
 }
 

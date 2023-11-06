@@ -12,7 +12,6 @@ enum TransactionCategory: Int, Identifiable, Equatable, CaseIterable {
 }
 
 extension TransactionCategory {
-    
     var color: Color {
         switch self {
         case .income: return .cyan
@@ -21,6 +20,17 @@ extension TransactionCategory {
         case .lifeStyle: return .mint
         case .transport: return .indigo
         case .other: return .orange
+        }
+    }
+
+    var title: String {
+        switch self {
+        case .income: return "Income"
+        case .savings: return "Savings"
+        case .eat: return "Eat"
+        case .lifeStyle: return "Life style"
+        case .transport: return "Transport"
+        case .other: return "Other"
         }
     }
 }

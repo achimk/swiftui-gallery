@@ -25,15 +25,9 @@ final class PageLoader<Query, Data>: Publisher {
 
     private let stateSubject = CurrentValueSubject<PageState<Data>, Never>(PageState())
     private let operation: (Query) async throws -> PageResult<Data>
-    private var loadTask: Task<Void, Never>? {
+    private var operationTask: Task<PageResult<Data>, Error>? {
         willSet {
-            loadTask?.cancel()
-        }
-    }
-
-    private var loadMoreTask: Task<Void, Never>? {
-        willSet {
-            loadMoreTask?.cancel()
+            operationTask?.cancel()
         }
     }
 
@@ -76,18 +70,9 @@ extension PageLoader {
         Task { @MainActor in
             switch event {
             case .loadRequested:
-                loadMoreTask = nil
-                loadTask = Task { @MainActor in
-                    await handleLoad(with: query)
-                }
-                await loadTask?.value
+                await handleLoad(with: query)
             case .loadMoreRequested:
-                loadMoreTask = Task { @MainActor in
-                    if canLoadMore() {
-                        await handleLoadMore(with: query)
-                    }
-                }
-                await loadMoreTask?.value
+                await handleLoadMore(with: query)
             }
         }
     }
@@ -96,12 +81,11 @@ extension PageLoader {
     private func handleLoad(with query: Query) async {
         do {
             updateState {
-                Swift.print("=> load...")
                 $0.loadState = .loading
                 $0.request = .load
                 $0.offset = .available(offset: 0)
             }
-            let result = try await operation(query)
+            let result = try await handleLoadPage(with: query)
             updateState {
                 $0.loadState = .success(result)
                 $0.offset = result.nextOffset
@@ -118,13 +102,15 @@ extension PageLoader {
 
     @MainActor
     private func handleLoadMore(with query: Query) async {
+        guard canLoadMore() else {
+            return
+        }
         do {
             updateState {
-                Swift.print("=> load more...")
                 $0.loadState = .loading
                 $0.request = .loadMore
             }
-            let result = try await operation(query)
+            let result = try await handleLoadPage(with: query)
             updateState {
                 $0.loadState = .success(result)
                 $0.offset = result.nextOffset
@@ -138,6 +124,15 @@ extension PageLoader {
                 $0.offset = .completed
             }
         }
+    }
+
+    @MainActor
+    private func handleLoadPage(with query: Query) async throws -> PageResult<Data> {
+        let task = Task {
+            try await operation(query)
+        }
+        operationTask = task
+        return try await task.value
     }
 
     private func canLoadMore() -> Bool {

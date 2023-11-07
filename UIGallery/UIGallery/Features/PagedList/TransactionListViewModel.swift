@@ -3,7 +3,7 @@ import Foundation
 
 final class TransactionListViewModel: ObservableObject {
     private let loader: XPageDataLoader<TransactionQuery, [Transaction]>
-    private let listCollection: XPageDataListCollection<Transaction>
+    private let listCollection: XPageDataMutableListCollection<Transaction>
     private var cancellables = Set<AnyCancellable>()
 
     @Published private(set) var activity: ActivityState = .initial
@@ -13,7 +13,10 @@ final class TransactionListViewModel: ObservableObject {
     init(operation: @escaping (TransactionQuery, UInt) async throws -> XPageResult<[Transaction]>) {
         let loader = XPageDataLoader(operation)
         self.loader = loader
-        listCollection = XPageDataListCollection(pagePublisher: loader.eraseToAnyPublisher())
+        listCollection = XPageDataMutableListCollection(
+            pagination: loader.asPagination(),
+            pagePublisher: loader.eraseToAnyPublisher()
+        )
         setupBindings()
     }
 
@@ -30,6 +33,10 @@ final class TransactionListViewModel: ObservableObject {
         if let query = makeNextQuery() {
             loader.loadMore(with: query)
         }
+    }
+
+    func remove(at index: Int) {
+        listCollection.remove(at: index)
     }
 
     private func makeInitialQuery() -> TransactionQuery {
@@ -66,26 +73,24 @@ final class TransactionListViewModel: ObservableObject {
     }
 
     private func handlePageUpdate(_ state: XPagingState<[Transaction]>) {
-//        print("[Collection State]")
-//        print("-> request:", state.request)
-//        print("-> offset:", state.offset)
-//        print("-> status:", state.status)
-//        print("-> items:", state.data.count)
+        print("[Collection State]")
+        print("-> request:", state.request)
+        print("-> offset:", state.offset)
+        print("-> status:", state.status)
+        print("-> items:", state.data.count)
+
+        activity = state.status.toActivityState()
+        transactions = state.data
 
         switch state.request {
         case .load:
             hasPageAvailable = false
-            activity = state.status.toActivityState()
-            transactions = state.data
             if state.status == .success {
                 hasPageAvailable = true
             }
-
         case .loadMore:
-            activity = state.status.toActivityState()
             switch state.status {
             case .success:
-                transactions = state.data
                 hasPageAvailable = state.offset.isAvailable
             case .failure:
                 hasPageAvailable = false

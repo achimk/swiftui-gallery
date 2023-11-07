@@ -338,20 +338,23 @@ struct XPageDataListCollection<Item>: Publisher {
 
 // MARK: - XPageDataMutableListCollection
 
-final class XPageDataMutableListCollection<Item>: Publisher {
+struct XPageDataMutableListCollection<Item>: Publisher {
     typealias Output = XPagingState<[Item]>
     typealias Failure = Never
 
     private let pagination: XPagination
     private let stateSubject: CurrentValueSubject<Output, Never>
     private let pagePublisher: AnyPublisher<Output, Never>
-    private var cancellables = Set<AnyCancellable>()
+    private let cancellable: Cancellable
 
     var state: Output {
         stateSubject.value
     }
 
-    init(pagination: XPagination, pagePublisher: AnyPublisher<Output, Never>) {
+    init(
+        pagination: XPagination,
+        pagePublisher: AnyPublisher<Output, Never>
+    ) {
         self.pagination = pagination
         self.pagePublisher = pagePublisher
         stateSubject = CurrentValueSubject(
@@ -362,9 +365,17 @@ final class XPageDataMutableListCollection<Item>: Publisher {
                 data: []
             )
         )
-        setupBindings()
+        cancellable = pagePublisher
+            .map(Self.makeStateReducer())
+            .assign(to: \.value, on: stateSubject)
     }
 
+    func receive<S>(subscriber: S) where S: Subscriber, Failure == S.Failure, Output == S.Input {
+        stateSubject.receive(subscriber: subscriber)
+    }
+}
+
+extension XPageDataMutableListCollection {
     func insert(_ item: Item, at index: Int) {
         batchUpdate {
             $0.insert(item, at: index)
@@ -392,10 +403,6 @@ final class XPageDataMutableListCollection<Item>: Publisher {
             $0.data = data
         }
     }
-
-    func receive<S>(subscriber: S) where S: Subscriber, Failure == S.Failure, Output == S.Input {
-        stateSubject.receive(subscriber: subscriber)
-    }
 }
 
 extension XPageDataMutableListCollection {
@@ -408,29 +415,29 @@ extension XPageDataMutableListCollection {
         }
     }
 
-    private func setupBindings() {
-        pagePublisher.sink { [weak self] pageState in
-            self?.handleStateUpdate(pageState)
-        }.store(in: &cancellables)
-    }
-
-    private func handleStateUpdate(_ pageState: XPagingState<[Item]>) {
-        updateState {
-            switch pageState.request {
-            case .load:
-                $0.data = pageState.data
-            case .loadMore:
-                if pageState.status == .success {
-                    $0.data = $0.data + pageState.data
-                }
-            }
-        }
-    }
-
     private func updateState(_ builder: (inout Output) -> Void) {
         var state = stateSubject.value
         builder(&state)
         stateSubject.value = state
+    }
+
+    private static func makeStateReducer() -> (XPagingState<[Item]>) -> XPagingState<[Item]> {
+        var items: [Item] = []
+        return { pageState in
+            var newState = pageState
+            switch pageState.request {
+            case .load:
+                if pageState.status == .success {
+                    items = pageState.data
+                }
+            case .loadMore:
+                if pageState.status == .success {
+                    items = items + pageState.data
+                }
+            }
+            newState.data = items
+            return newState
+        }
     }
 }
 

@@ -34,9 +34,7 @@ final class XPagination {
     }
 
     func update(to pageOffset: XPageOffset) {
-        updateIfNotCompleted { _ in
-            pageOffset
-        }
+        currentOffset = pageOffset
     }
 
     func reset() {

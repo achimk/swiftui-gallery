@@ -40,14 +40,13 @@ final class TransactionListViewModel: ObservableObject {
     }
 
     private func makeInitialQuery() -> TransactionQuery {
-        TransactionQuery(offset: 0, category: nil)
+        TransactionQuery(category: nil)
     }
 
     private func makeNextQuery() -> TransactionQuery? {
         switch loader.state.offset {
-        case let .available(offset):
+        case .available:
             return TransactionQuery(
-                offset: offset,
                 category: nil
             )
         case .completed:
@@ -78,6 +77,7 @@ final class TransactionListViewModel: ObservableObject {
         print("-> offset:", state.offset)
         print("-> status:", state.status)
         print("-> items:", state.data.count)
+        print("-> offset:", loader.asPagination().currentOffset)
 
         activity = state.status.toActivityState()
         transactions = state.data
@@ -91,7 +91,7 @@ final class TransactionListViewModel: ObservableObject {
         case .loadMore:
             switch state.status {
             case .success:
-                hasPageAvailable = state.offset.isAvailable
+                hasPageAvailable = state.offset == .available
             case .failure:
                 hasPageAvailable = false
             default:
@@ -104,13 +104,13 @@ final class TransactionListViewModel: ObservableObject {
 extension TransactionListViewModel {
     static func makeStub() -> TransactionListViewModel {
         TransactionListViewModel(
-            operation: { query, _ in
+            operation: { query, offset in
                 let numberOfItems: UInt = 4
-                let nextOffset = query.offset + numberOfItems
+                let nextOffset = offset + numberOfItems
                 let repository = StubTransactionRepository()
                 repository.delayInSeconds = 3
                 repository.transactionGenerator.items = Int(numberOfItems)
-                repository.transactionGenerator.offset = Int(query.offset)
+                repository.transactionGenerator.offset = Int(offset)
                 let transactions = try await repository.findAll(for: query)
                 return .init(data: transactions, offset: .available(offset: nextOffset))
             }

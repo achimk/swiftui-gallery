@@ -51,8 +51,13 @@ struct XPageResult<Data> {
 }
 
 struct XPagingState<Data> {
+    enum Offset {
+        case available
+        case completed
+    }
+
     var request: XPageRequest
-    var offset: XPageOffset
+    var offset: Offset
     var status: XPageActivityStatus
     var data: Data
     var error: Error?
@@ -60,7 +65,7 @@ struct XPagingState<Data> {
     static func from(_ pageResult: XPageResult<Data>) -> XPagingState<Data> {
         XPagingState(
             request: .load,
-            offset: pageResult.offset,
+            offset: .available,
             status: .initial,
             data: pageResult.data,
             error: nil
@@ -85,6 +90,7 @@ final class XPageDataLoader<Query, Data>: Publisher {
         case loadMoreRequested
     }
 
+    private let pagination = XPagination()
     private let stateSubject: CurrentValueSubject<XPagingState<Data>, Never>
     private let emptyData: () -> Data
     private let operation: (Query, Offset) async throws -> XPageResult<Data>
@@ -164,17 +170,19 @@ extension XPageDataLoader {
     @MainActor
     private func handleLoad(with query: Query) async {
         do {
+            pagination.update(to: .initial)
             updateState {
                 $0.request = .load
                 $0.status = .loading
-                $0.offset = .available(offset: 0)
+                $0.offset = .available
                 $0.data = emptyData()
                 $0.error = nil
             }
             let result = try await handleLoadPage(with: query, offset: 0)
+            pagination.update(to: result.offset)
             updateState {
                 $0.status = .success
-                $0.offset = result.offset
+                $0.offset = result.offset.isAvailable ? .available : .completed
                 $0.data = result.data
             }
         } catch {
@@ -201,15 +209,17 @@ extension XPageDataLoader {
                 $0.error = nil
             }
             let result = try await handleLoadPage(with: query, offset: offset)
+            pagination.update(to: result.offset)
             updateState {
                 $0.status = .success
-                $0.offset = result.offset
+                $0.offset = result.offset.isAvailable ? .available : .completed
                 $0.data = result.data
             }
         } catch {
             if Task.isCancelled {
                 return
             }
+            pagination.update(to: .completed)
             updateState {
                 $0.status = .failure
                 $0.offset = .completed
@@ -228,11 +238,11 @@ extension XPageDataLoader {
     }
 
     private func canLoadMore() -> Bool {
-        state.status != .loading && state.offset != .completed && state.offset != .initial
+        state.status != .loading && pagination.currentOffset != .completed && pagination.currentOffset != .initial
     }
 
     private func currentOffset() -> UInt? {
-        switch state.offset {
+        switch pagination.currentOffset {
         case let .available(offset): return canLoadMore() ? offset : nil
         case .completed: return nil
         }
@@ -254,16 +264,7 @@ extension XPageDataLoader {
     }
 
     func asPagination() -> XPagination {
-        XPagination(
-            set: { offset in
-                self.updateState {
-                    $0.offset = offset
-                }
-            },
-            get: {
-                self.state.offset
-            }
-        )
+        pagination
     }
 }
 
@@ -302,7 +303,7 @@ struct XPageDataListCollection<Item>: Publisher {
         stateSubject = CurrentValueSubject(
             XPagingState(
                 request: .load,
-                offset: .initial,
+                offset: .available,
                 status: .initial,
                 data: []
             )
@@ -338,14 +339,18 @@ struct XPageDataListCollection<Item>: Publisher {
 
 // MARK: - XPageDataMutableListCollection
 
-struct XPageDataMutableListCollection<Item>: Publisher {
+final class XPageDataMutableListCollection<Item>: Publisher {
     typealias Output = XPagingState<[Item]>
     typealias Failure = Never
 
     private let pagination: XPagination
     private let stateSubject: CurrentValueSubject<Output, Never>
     private let pagePublisher: AnyPublisher<Output, Never>
-    private let cancellable: Cancellable
+    private var cancellables = Set<AnyCancellable>()
+
+    var items: [Item] {
+        state.data
+    }
 
     var state: Output {
         stateSubject.value
@@ -360,14 +365,12 @@ struct XPageDataMutableListCollection<Item>: Publisher {
         stateSubject = CurrentValueSubject(
             XPagingState(
                 request: .load,
-                offset: .initial,
+                offset: .available,
                 status: .initial,
                 data: []
             )
         )
-        cancellable = pagePublisher
-            .map(Self.makeStateReducer())
-            .assign(to: \.value, on: stateSubject)
+        setupBindings()
     }
 
     func receive<S>(subscriber: S) where S: Subscriber, Failure == S.Failure, Output == S.Input {
@@ -419,6 +422,32 @@ extension XPageDataMutableListCollection {
         var state = stateSubject.value
         builder(&state)
         stateSubject.value = state
+    }
+
+    private func setupBindings() {
+        pagePublisher.sink { [weak self] pageState in
+            self?.handleStateUpdate(pageState)
+        }.store(in: &cancellables)
+    }
+
+    private func handleStateUpdate(_ pageState: XPagingState<[Item]>) {
+        stateSubject.value = reduceItems(with: pageState)
+    }
+
+    private func reduceItems(with pageState: XPagingState<[Item]>) -> XPagingState<[Item]> {
+        var newState = pageState
+        newState.data = items
+        switch pageState.request {
+        case .load:
+            if pageState.status == .success {
+                newState.data = pageState.data
+            }
+        case .loadMore:
+            if pageState.status == .success {
+                newState.data = items + pageState.data
+            }
+        }
+        return newState
     }
 
     private static func makeStateReducer() -> (XPagingState<[Item]>) -> XPagingState<[Item]> {

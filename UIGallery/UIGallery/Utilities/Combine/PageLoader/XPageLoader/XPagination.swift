@@ -1,21 +1,21 @@
 import Foundation
 
-final class Pagination {
-    private let setHandler: (PageOffset) -> Void
-    private let getHandler: () -> PageOffset
+final class XPagination {
+    private let setHandler: (XPageOffset) -> Void
+    private let getHandler: () -> XPageOffset
 
-    private(set) var currentOffset: PageOffset {
+    private(set) var currentOffset: XPageOffset {
         get { getHandler() }
         set { setHandler(newValue) }
     }
 
-    init(set: @escaping (PageOffset) -> Void, get: @escaping () -> PageOffset) {
+    init(set: @escaping (XPageOffset) -> Void, get: @escaping () -> XPageOffset) {
         setHandler = set
         getHandler = get
     }
 
     init(offset: UInt = 0) {
-        var currentOffset = PageOffset.available(offset: offset)
+        var currentOffset = XPageOffset.available(offset: offset)
         setHandler = { currentOffset = $0 }
         getHandler = { currentOffset }
     }
@@ -33,7 +33,7 @@ final class Pagination {
         }
     }
 
-    func update(to pageOffset: PageOffset) {
+    func update(to pageOffset: XPageOffset) {
         updateIfNotCompleted { _ in
             pageOffset
         }
@@ -43,7 +43,7 @@ final class Pagination {
         currentOffset = .initial
     }
 
-    private func updateIfNotCompleted(_ builder: (UInt) -> PageOffset) {
+    private func updateIfNotCompleted(_ builder: (UInt) -> XPageOffset) {
         switch currentOffset {
         case .completed:
             break

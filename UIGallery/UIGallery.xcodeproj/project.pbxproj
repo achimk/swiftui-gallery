@@ -70,6 +70,8 @@
 		27BFB9252AF911F70094DCD9 /* TransactionRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27BFB9242AF911F70094DCD9 /* TransactionRowView.swift */; };
 		27CB9DC52A0CF4DA00F3E077 /* ButtonsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27CB9DC42A0CF4DA00F3E077 /* ButtonsView.swift */; };
 		27CB9DCB2A0D149B00F3E077 /* TextFieldsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27CB9DCA2A0D149B00F3E077 /* TextFieldsView.swift */; };
+		27D6E1592AFABD7000A031CB /* XPaging.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27D6E1582AFABD7000A031CB /* XPaging.swift */; };
+		27D6E15C2AFAC53600A031CB /* XPagination.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27D6E15B2AFAC53600A031CB /* XPagination.swift */; };
 		27ED8BD229AA47A50092C57D /* UIGalleryApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27ED8BD129AA47A50092C57D /* UIGalleryApp.swift */; };
 		27ED8BD629AA47A70092C57D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 27ED8BD529AA47A70092C57D /* Assets.xcassets */; };
 		27ED8BD929AA47A70092C57D /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 27ED8BD829AA47A70092C57D /* Preview Assets.xcassets */; };
@@ -177,6 +179,8 @@
 		27BFB9242AF911F70094DCD9 /* TransactionRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionRowView.swift; sourceTree = "<group>"; };
 		27CB9DC42A0CF4DA00F3E077 /* ButtonsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ButtonsView.swift; sourceTree = "<group>"; };
 		27CB9DCA2A0D149B00F3E077 /* TextFieldsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextFieldsView.swift; sourceTree = "<group>"; };
+		27D6E1582AFABD7000A031CB /* XPaging.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XPaging.swift; sourceTree = "<group>"; };
+		27D6E15B2AFAC53600A031CB /* XPagination.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XPagination.swift; sourceTree = "<group>"; };
 		27ED8BCE29AA47A50092C57D /* UIGallery.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = UIGallery.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		27ED8BD129AA47A50092C57D /* UIGalleryApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIGalleryApp.swift; sourceTree = "<group>"; };
 		27ED8BD529AA47A70092C57D /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -400,6 +404,7 @@
 		2782C0802AF7E5920098ACEF /* PageLoader */ = {
 			isa = PBXGroup;
 			children = (
+				27D6E15A2AFAC52B00A031CB /* XPageLoader */,
 				2782C0812AF7E5A50098ACEF /* PageLoader.swift */,
 				2782C0832AF7E5C00098ACEF /* PageOffset.swift */,
 				2782C0852AF7E5DB0098ACEF /* PageResult.swift */,
@@ -519,6 +524,15 @@
 				27CB9DCA2A0D149B00F3E077 /* TextFieldsView.swift */,
 			);
 			path = TextFields;
+			sourceTree = "<group>";
+		};
+		27D6E15A2AFAC52B00A031CB /* XPageLoader */ = {
+			isa = PBXGroup;
+			children = (
+				27D6E1582AFABD7000A031CB /* XPaging.swift */,
+				27D6E15B2AFAC53600A031CB /* XPagination.swift */,
+			);
+			path = XPageLoader;
 			sourceTree = "<group>";
 		};
 		27ED8BC529AA47A50092C57D = {
@@ -791,9 +805,11 @@
 				27ED8C0429AA4BA80092C57D /* ShapePathView.swift in Sources */,
 				27BFB9252AF911F70094DCD9 /* TransactionRowView.swift in Sources */,
 				27ED8C1929AA549B0092C57D /* LongPressAndDragGestureView.swift in Sources */,
+				27D6E1592AFABD7000A031CB /* XPaging.swift in Sources */,
 				27CB9DC52A0CF4DA00F3E077 /* ButtonsView.swift in Sources */,
 				27A884652A1CD01400B22DE7 /* ImmediateScheduler.swift in Sources */,
 				2782C0972AF831BA0098ACEF /* Transaction.swift in Sources */,
+				27D6E15C2AFAC53600A031CB /* XPagination.swift in Sources */,
 				27238CC32A161CBE00957132 /* ColorDetailView.swift in Sources */,
 				27ED8C0829AA4CE40092C57D /* LinearGradientView.swift in Sources */,
 				27B28B2B2A698245006FCCD4 /* LoadingPublisher.swift in Sources */,

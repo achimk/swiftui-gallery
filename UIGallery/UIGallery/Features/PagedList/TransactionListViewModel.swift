@@ -2,40 +2,43 @@ import Combine
 import Foundation
 
 final class TransactionListViewModel: ObservableObject {
-    private let loader: PageLoader<TransactionQuery, [Transaction]>
+    private let loader: XPageDataLoader<TransactionQuery, [Transaction]>
+    private let listCollection: XPageDataListCollection<Transaction>
     private var cancellables = Set<AnyCancellable>()
-    
+
     @Published private(set) var activity: ActivityState = .initial
     @Published private(set) var transactions: [Transaction] = []
     @Published private(set) var hasPageAvailable: Bool = false
-    
-    init(loader: PageLoader<TransactionQuery, [Transaction]>) {
+
+    init(operation: @escaping (TransactionQuery, UInt) async throws -> XPageResult<[Transaction]>) {
+        let loader = XPageDataLoader(operation)
         self.loader = loader
+        listCollection = XPageDataListCollection(pagePublisher: loader.eraseToAnyPublisher())
         setupBindings()
     }
-    
+
     func viewAppeared() {
         loader.load(with: makeInitialQuery())
     }
-    
+
     @MainActor
     func refreshRequested() async {
         await loader.load(with: makeInitialQuery())
     }
-    
+
     func pageLoadRequested() {
         if let query = makeNextQuery() {
             loader.loadMore(with: query)
         }
     }
-    
+
     private func makeInitialQuery() -> TransactionQuery {
         TransactionQuery(offset: 0, category: nil)
     }
-    
+
     private func makeNextQuery() -> TransactionQuery? {
         switch loader.state.offset {
-        case .available(let offset):
+        case let .available(offset):
             return TransactionQuery(
                 offset: offset,
                 category: nil
@@ -44,44 +47,59 @@ final class TransactionListViewModel: ObservableObject {
             return nil
         }
     }
-    
+
     private func setupBindings() {
         loader.sink { [weak self] state in
+            self?.handleLoaderUpdate(state)
+        }.store(in: &cancellables)
+        listCollection.sink { [weak self] state in
             self?.handlePageUpdate(state)
         }.store(in: &cancellables)
     }
-    
-    private func handlePageUpdate(_ state: PageState<[Transaction]>) {
-        guard let request = state.request else {
-            return
-        }
-        
-        switch request {
+
+    private func handleLoaderUpdate(_: XPagingState<[Transaction]>) {
+//        print("[Loader State]")
+//        print("-> request:", state.request)
+//        print("-> offset:", state.offset)
+//        print("-> status:", state.status)
+//        print("-> items:", state.data.count)
+    }
+
+    private func handlePageUpdate(_ state: XPagingState<[Transaction]>) {
+//        print("[Collection State]")
+//        print("-> request:", state.request)
+//        print("-> offset:", state.offset)
+//        print("-> status:", state.status)
+//        print("-> items:", state.data.count)
+
+        switch state.request {
         case .load:
             hasPageAvailable = false
-            activity = state.loadState.toActivityState()
-            state.loadState.ifSuccess { result in
-                transactions = result.data
+            activity = state.status.toActivityState()
+            transactions = state.data
+            if state.status == .success {
                 hasPageAvailable = true
             }
+
         case .loadMore:
-            activity = state.loadState.toActivityState()
-            state.loadState.ifSuccess { result in
-                transactions = transactions + result.data
-                hasPageAvailable = !result.nextOffset.isCompleted
-            }
-            state.loadState.ifFailure { _ in
+            activity = state.status.toActivityState()
+            switch state.status {
+            case .success:
+                transactions = state.data
+                hasPageAvailable = state.offset.isAvailable
+            case .failure:
                 hasPageAvailable = false
+            default:
+                break
             }
         }
     }
 }
 
 extension TransactionListViewModel {
-    
     static func makeStub() -> TransactionListViewModel {
         TransactionListViewModel(
-            loader: .init { query in
+            operation: { query, _ in
                 let numberOfItems: UInt = 4
                 let nextOffset = query.offset + numberOfItems
                 let repository = StubTransactionRepository()
@@ -89,7 +107,7 @@ extension TransactionListViewModel {
                 repository.transactionGenerator.items = Int(numberOfItems)
                 repository.transactionGenerator.offset = Int(query.offset)
                 let transactions = try await repository.findAll(for: query)
-                return .init(data: transactions, nextOffset: .available(offset: nextOffset))
+                return .init(data: transactions, offset: .available(offset: nextOffset))
             }
         )
     }

@@ -53,6 +53,7 @@
 		2782C0A02AF8323B0098ACEF /* StubTransactionRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2782C09F2AF8323B0098ACEF /* StubTransactionRepository.swift */; };
 		2782C0A22AF832AB0098ACEF /* TransactionListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2782C0A12AF832AB0098ACEF /* TransactionListView.swift */; };
 		2782C0A42AF842050098ACEF /* TransactionListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2782C0A32AF842050098ACEF /* TransactionListViewModel.swift */; };
+		27A352B42AFBA17E00B7A9C6 /* HiddenListItems.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27A352B32AFBA17E00B7A9C6 /* HiddenListItems.swift */; };
 		27A884652A1CD01400B22DE7 /* ImmediateScheduler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27A884642A1CD01400B22DE7 /* ImmediateScheduler.swift */; };
 		27A884672A1CDB3D00B22DE7 /* Scheduler+Any.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27A884662A1CDB3D00B22DE7 /* Scheduler+Any.swift */; };
 		27A884692A1CDC7F00B22DE7 /* AnyScheduler+Additions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27A884682A1CDC7F00B22DE7 /* AnyScheduler+Additions.swift */; };
@@ -162,6 +163,7 @@
 		2782C09F2AF8323B0098ACEF /* StubTransactionRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StubTransactionRepository.swift; sourceTree = "<group>"; };
 		2782C0A12AF832AB0098ACEF /* TransactionListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionListView.swift; sourceTree = "<group>"; };
 		2782C0A32AF842050098ACEF /* TransactionListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionListViewModel.swift; sourceTree = "<group>"; };
+		27A352B32AFBA17E00B7A9C6 /* HiddenListItems.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HiddenListItems.swift; sourceTree = "<group>"; };
 		27A884642A1CD01400B22DE7 /* ImmediateScheduler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImmediateScheduler.swift; sourceTree = "<group>"; };
 		27A884662A1CDB3D00B22DE7 /* Scheduler+Any.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Scheduler+Any.swift"; sourceTree = "<group>"; };
 		27A884682A1CDC7F00B22DE7 /* AnyScheduler+Additions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AnyScheduler+Additions.swift"; sourceTree = "<group>"; };
@@ -384,6 +386,7 @@
 		2782C07A2AF7C5100098ACEF /* Features */ = {
 			isa = PBXGroup;
 			children = (
+				27A352B02AFBA15000B7A9C6 /* HiddenListItems */,
 				2782C07B2AF7C52B0098ACEF /* PagedList */,
 			);
 			path = Features;
@@ -451,6 +454,14 @@
 				2782C09F2AF8323B0098ACEF /* StubTransactionRepository.swift */,
 			);
 			path = Mocks;
+			sourceTree = "<group>";
+		};
+		27A352B02AFBA15000B7A9C6 /* HiddenListItems */ = {
+			isa = PBXGroup;
+			children = (
+				27A352B32AFBA17E00B7A9C6 /* HiddenListItems.swift */,
+			);
+			path = HiddenListItems;
 			sourceTree = "<group>";
 		};
 		27A884632A1CCFE300B22DE7 /* Schedulers */ = {
@@ -798,6 +809,7 @@
 				2717E28C2A1638D50066DA0C /* GalleryNavigationView.swift in Sources */,
 				2717E2932A1755380066DA0C /* ArticleModel.swift in Sources */,
 				2782C0912AF82F430098ACEF /* Currency.swift in Sources */,
+				27A352B42AFBA17E00B7A9C6 /* HiddenListItems.swift in Sources */,
 				2710687E29AAC10D0057A90B /* RotateAnimationsView.swift in Sources */,
 				27ED8C0229AA4B4E0092C57D /* ShapeRectangleView.swift in Sources */,
 				275CD42D2A1B80D500BC549E /* Binding+Additions.swift in Sources */,

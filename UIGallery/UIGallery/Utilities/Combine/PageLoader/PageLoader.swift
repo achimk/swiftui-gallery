@@ -119,7 +119,6 @@ extension PageLoader {
             }
             pagination.update(to: .completed)
             state = .failure(.loadMore, error)
-            Swift.print("=> Error:", error)
         }
     }
 

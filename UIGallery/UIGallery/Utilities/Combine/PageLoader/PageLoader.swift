@@ -91,6 +91,8 @@ extension PageLoader {
             let result = try await handleLoadPage(with: query, offset: 0)
             pagination.update(to: result.offset)
             state = .success(.load, result.data)
+        } catch is CancellationError {
+            // ignored
         } catch {
             if Task.isCancelled {
                 return
@@ -109,12 +111,15 @@ extension PageLoader {
             let result = try await handleLoadPage(with: query, offset: offset)
             pagination.update(to: result.offset)
             state = .success(.loadMore, result.data)
+        } catch is CancellationError {
+            // ignored
         } catch {
             if Task.isCancelled {
                 return
             }
             pagination.update(to: .completed)
             state = .failure(.loadMore, error)
+            Swift.print("=> Error:", error)
         }
     }
 

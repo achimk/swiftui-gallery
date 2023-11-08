@@ -1,15 +1,22 @@
 import Foundation
 
 enum PageOffset: Equatable {
-    case completed
     case available(offset: UInt)
-    
-    static let initial = PageOffset.available(offset: 0)
+    case completed
+
+    var isAvailable: Bool {
+        switch self {
+        case .available: return true
+        case .completed: return false
+        }
+    }
 
     var isCompleted: Bool {
         switch self {
-        case .completed: return true
         case .available: return false
+        case .completed: return true
         }
     }
+
+    static let initial = PageOffset.available(offset: 0)
 }

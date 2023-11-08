@@ -54,6 +54,10 @@
 		2782C0A22AF832AB0098ACEF /* TransactionListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2782C0A12AF832AB0098ACEF /* TransactionListView.swift */; };
 		2782C0A42AF842050098ACEF /* TransactionListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2782C0A32AF842050098ACEF /* TransactionListViewModel.swift */; };
 		27A352B42AFBA17E00B7A9C6 /* HiddenListItems.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27A352B32AFBA17E00B7A9C6 /* HiddenListItems.swift */; };
+		27A352B62AFBB0DE00B7A9C6 /* XXPagingState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27A352B52AFBB0DE00B7A9C6 /* XXPagingState.swift */; };
+		27A352B82AFBB28200B7A9C6 /* XXPagination.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27A352B72AFBB28200B7A9C6 /* XXPagination.swift */; };
+		27A352BA2AFBB42300B7A9C6 /* PagingState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27A352B92AFBB42300B7A9C6 /* PagingState.swift */; };
+		27A352BC2AFBBC3400B7A9C6 /* PageListPublisher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27A352BB2AFBBC3400B7A9C6 /* PageListPublisher.swift */; };
 		27A884652A1CD01400B22DE7 /* ImmediateScheduler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27A884642A1CD01400B22DE7 /* ImmediateScheduler.swift */; };
 		27A884672A1CDB3D00B22DE7 /* Scheduler+Any.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27A884662A1CDB3D00B22DE7 /* Scheduler+Any.swift */; };
 		27A884692A1CDC7F00B22DE7 /* AnyScheduler+Additions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27A884682A1CDC7F00B22DE7 /* AnyScheduler+Additions.swift */; };
@@ -164,6 +168,10 @@
 		2782C0A12AF832AB0098ACEF /* TransactionListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionListView.swift; sourceTree = "<group>"; };
 		2782C0A32AF842050098ACEF /* TransactionListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionListViewModel.swift; sourceTree = "<group>"; };
 		27A352B32AFBA17E00B7A9C6 /* HiddenListItems.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HiddenListItems.swift; sourceTree = "<group>"; };
+		27A352B52AFBB0DE00B7A9C6 /* XXPagingState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XXPagingState.swift; sourceTree = "<group>"; };
+		27A352B72AFBB28200B7A9C6 /* XXPagination.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XXPagination.swift; sourceTree = "<group>"; };
+		27A352B92AFBB42300B7A9C6 /* PagingState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PagingState.swift; sourceTree = "<group>"; };
+		27A352BB2AFBBC3400B7A9C6 /* PageListPublisher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PageListPublisher.swift; sourceTree = "<group>"; };
 		27A884642A1CD01400B22DE7 /* ImmediateScheduler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImmediateScheduler.swift; sourceTree = "<group>"; };
 		27A884662A1CDB3D00B22DE7 /* Scheduler+Any.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Scheduler+Any.swift"; sourceTree = "<group>"; };
 		27A884682A1CDC7F00B22DE7 /* AnyScheduler+Additions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AnyScheduler+Additions.swift"; sourceTree = "<group>"; };
@@ -409,9 +417,11 @@
 			children = (
 				27D6E15A2AFAC52B00A031CB /* XPageLoader */,
 				2782C0812AF7E5A50098ACEF /* PageLoader.swift */,
+				27A352B92AFBB42300B7A9C6 /* PagingState.swift */,
 				2782C0832AF7E5C00098ACEF /* PageOffset.swift */,
 				2782C0852AF7E5DB0098ACEF /* PageResult.swift */,
 				2782C0872AF7E6290098ACEF /* Pagination.swift */,
+				27A352BB2AFBBC3400B7A9C6 /* PageListPublisher.swift */,
 			);
 			path = PageLoader;
 			sourceTree = "<group>";
@@ -542,6 +552,8 @@
 			children = (
 				27D6E1582AFABD7000A031CB /* XPaging.swift */,
 				27D6E15B2AFAC53600A031CB /* XPagination.swift */,
+				27A352B52AFBB0DE00B7A9C6 /* XXPagingState.swift */,
+				27A352B72AFBB28200B7A9C6 /* XXPagination.swift */,
 			);
 			path = XPageLoader;
 			sourceTree = "<group>";
@@ -859,6 +871,7 @@
 				27BFB91C2AF90DF00094DCD9 /* TransactionCategoryFilterView.swift in Sources */,
 				270C22112AC3EDE000B35B40 /* BottomContentSampleView.swift in Sources */,
 				275434E42A1782C000972B0B /* HeroView.swift in Sources */,
+				27A352BC2AFBBC3400B7A9C6 /* PageListPublisher.swift in Sources */,
 				2782C0A22AF832AB0098ACEF /* TransactionListView.swift in Sources */,
 				2710687429AAB1AA0057A90B /* MagnificationGestureView.swift in Sources */,
 				2717E2862A1623340066DA0C /* ColorModel.swift in Sources */,
@@ -871,15 +884,18 @@
 				27BFB9232AF911C40094DCD9 /* TransactionColorView.swift in Sources */,
 				27ED8C1529AA527F0092C57D /* RotationGestureView.swift in Sources */,
 				27F896F729AA5B8E00ED1B18 /* ParallaxMotionView.swift in Sources */,
+				27A352BA2AFBB42300B7A9C6 /* PagingState.swift in Sources */,
 				2710687229AA9AA10057A90B /* SampleProgressView.swift in Sources */,
 				2782C0A42AF842050098ACEF /* TransactionListViewModel.swift in Sources */,
 				27ED8C1129AA51B30092C57D /* DoubleTapGestureView.swift in Sources */,
 				2782C0882AF7E6290098ACEF /* Pagination.swift in Sources */,
+				27A352B62AFBB0DE00B7A9C6 /* XXPagingState.swift in Sources */,
 				275CD4292A1B5EC100BC549E /* SimpleHeroView.swift in Sources */,
 				2782C0842AF7E5C00098ACEF /* PageOffset.swift in Sources */,
 				2710687B29AAB6350057A90B /* RepeatAnimationsView.swift in Sources */,
 				27AAFD3D2A1CCB6D004589E5 /* AnyScheduler.swift in Sources */,
 				2782C0A02AF8323B0098ACEF /* StubTransactionRepository.swift in Sources */,
+				27A352B82AFBB28200B7A9C6 /* XXPagination.swift in Sources */,
 				275CD42F2A1B8B3800BC549E /* View+Alert.swift in Sources */,
 				2710687029AA9A1B0057A90B /* ProgressView.swift in Sources */,
 				27238CBA2A16198E00957132 /* NavigationAppearance.swift in Sources */,

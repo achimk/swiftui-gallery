@@ -59,11 +59,8 @@ struct TransactionListView: View {
     @ViewBuilder
     private func makeContentList() -> some View {
         LazyVStack {
-            ForEach(Array(viewModel.transactions.enumerated()), id: \.element.id) { index, transaction in
-                TransactionRowView(transaction: transaction)
-                    .onTapGesture {
-                        viewModel.remove(at: index)
-                    }
+            ForEach(viewModel.transactions) {
+                TransactionRowView(transaction: $0)
             }
 
             if viewModel.hasPageAvailable {

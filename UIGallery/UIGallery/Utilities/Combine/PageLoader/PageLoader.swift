@@ -1,41 +1,30 @@
 import Combine
 import Foundation
 
-typealias PagePublisher<Data> = AnyPublisher<PageState<Data>, Never>
-
-struct PageState<Data> {
-    enum Request {
-        case load
-        case loadMore
-    }
-
-    var request: Request?
-    var loadState: LoadingState<PageResult<Data>, Error> = .initial
-    var offset: PageOffset = .initial
+enum PageLoaderEvent: Equatable {
+    case loadFailed
+    case loadMoreFailed
 }
 
 final class PageLoader<Query, Data>: Publisher {
-    typealias Output = PageState<Data>
+    typealias Output = PagingState<Data>
     typealias Failure = Never
 
-    private enum Event {
-        case loadRequested
-        case loadMoreRequested
-    }
-
-    private let stateSubject = CurrentValueSubject<PageState<Data>, Never>(PageState())
-    private let operation: (Query) async throws -> PageResult<Data>
+    private let stateSubject = CurrentValueSubject<PagingState<Data>, Never>(.initial)
+    private let operation: (Query, UInt) async throws -> PageResult<Data>
     private var operationTask: Task<PageResult<Data>, Error>? {
         willSet {
             operationTask?.cancel()
         }
     }
 
-    var state: PageState<Data> {
-        stateSubject.value
+    let pagination = Pagination()
+    private(set) var state: PagingState<Data> {
+        get { stateSubject.value }
+        set { stateSubject.value = newValue }
     }
 
-    init(_ operation: @escaping (Query) async throws -> PageResult<Data>) {
+    init(_ operation: @escaping (Query, UInt) async throws -> PageResult<Data>) {
         self.operation = operation
     }
 
@@ -45,6 +34,23 @@ final class PageLoader<Query, Data>: Publisher {
 }
 
 extension PageLoader {
+    private enum Event {
+        case loadRequested
+        case loadMoreRequested
+    }
+
+    func start(with pageResult: PageResult<Data>) {
+        operationTask = nil
+        pagination.update(to: pageResult.offset)
+        stateSubject.value = .success(.load, pageResult.data)
+    }
+
+    func reset() {
+        operationTask = nil
+        pagination.reset()
+        stateSubject.value = .initial
+    }
+
     func load(with query: Query) {
         dispatch(.loadRequested, with: query)
     }
@@ -80,80 +86,78 @@ extension PageLoader {
     @MainActor
     private func handleLoad(with query: Query) async {
         do {
-            updateState {
-                $0.loadState = .loading
-                $0.request = .load
-                $0.offset = .available(offset: 0)
-            }
-            let result = try await handleLoadPage(with: query)
-            updateState {
-                $0.loadState = .success(result)
-                $0.offset = result.nextOffset
-            }
+            pagination.update(to: .initial)
+            state = .loading(.load)
+            let result = try await handleLoadPage(with: query, offset: 0)
+            pagination.update(to: result.offset)
+            state = .success(.load, result.data)
         } catch {
             if Task.isCancelled {
                 return
             }
-            updateState {
-                $0.loadState = .failure(error)
-            }
+            state = .failure(.load, error)
         }
     }
 
     @MainActor
     private func handleLoadMore(with query: Query) async {
-        guard canLoadMore() else {
+        guard let offset = currentOffset() else {
             return
         }
         do {
-            updateState {
-                $0.loadState = .loading
-                $0.request = .loadMore
-            }
-            let result = try await handleLoadPage(with: query)
-            updateState {
-                $0.loadState = .success(result)
-                $0.offset = result.nextOffset
-            }
+            state = .loading(.loadMore)
+            let result = try await handleLoadPage(with: query, offset: offset)
+            pagination.update(to: result.offset)
+            state = .success(.loadMore, result.data)
         } catch {
             if Task.isCancelled {
                 return
             }
-            updateState {
-                $0.loadState = .failure(error)
-                $0.offset = .completed
-            }
+            pagination.update(to: .completed)
+            state = .failure(.loadMore, error)
         }
     }
 
     @MainActor
-    private func handleLoadPage(with query: Query) async throws -> PageResult<Data> {
+    private func handleLoadPage(with query: Query, offset: UInt) async throws -> PageResult<Data> {
         let task = Task {
-            try await operation(query)
+            try await operation(query, offset)
         }
         operationTask = task
         return try await task.value
     }
 
     private func canLoadMore() -> Bool {
-        !state.loadState.isLoading && state.offset != .completed && state.offset != .initial
+        state.toPagingActivityStatus() != .loading && pagination.currentOffset != .completed && pagination.currentOffset != .initial
     }
 
-    private func updateState(_ builder: (inout PageState<Data>) -> Void) {
-        var state = stateSubject.value
-        builder(&state)
-        stateSubject.value = state
+    private func currentOffset() -> UInt? {
+        switch pagination.currentOffset {
+        case let .available(offset): return canLoadMore() ? offset : nil
+        case .completed: return nil
+        }
     }
 }
 
 extension PageLoader {
-    func asPagination() -> Pagination {
-        Pagination(set: { offset in
-            self.updateState {
-                $0.offset = offset
+    var eventPublisher: AnyPublisher<PageLoaderEvent, Never> {
+        stateSubject
+            .dropFirst()
+            .compactMap(makeEventMapper())
+            .eraseToAnyPublisher()
+    }
+
+    private func makeEventMapper() -> (PagingState<Data>) -> PageLoaderEvent? {
+        { pageState in
+            switch pageState {
+            case let .failure(request, _):
+                switch request {
+                case .load: return .loadFailed
+                case .loadMore: return .loadMoreFailed
+                }
+            default:
+                return nil
             }
-        }, get: {
-            self.state.offset
-        })
+        }
     }
 }

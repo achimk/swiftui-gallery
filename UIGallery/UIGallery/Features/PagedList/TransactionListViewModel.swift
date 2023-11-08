@@ -2,21 +2,18 @@ import Combine
 import Foundation
 
 final class TransactionListViewModel: ObservableObject {
-    private let loader: XPageDataLoader<TransactionQuery, [Transaction]>
-    private let listCollection: XPageDataMutableListCollection<Transaction>
+    private let loader: PageLoader<TransactionQuery, [Transaction]>
+    private let listPublisher: PageListPublisher<Transaction>
     private var cancellables = Set<AnyCancellable>()
 
-    @Published private(set) var activity: ActivityState = .initial
+    @Published private(set) var activity: PagingActivityStatus = .initial
     @Published private(set) var transactions: [Transaction] = []
     @Published private(set) var hasPageAvailable: Bool = false
 
-    init(operation: @escaping (TransactionQuery, UInt) async throws -> XPageResult<[Transaction]>) {
-        let loader = XPageDataLoader(operation)
+    init(operation: @escaping (TransactionQuery, UInt) async throws -> PageResult<[Transaction]>) {
+        let loader = PageLoader(operation)
         self.loader = loader
-        listCollection = XPageDataMutableListCollection(
-            pagination: loader.asPagination(),
-            pagePublisher: loader.eraseToAnyPublisher()
-        )
+        listPublisher = PageListPublisher(pagePublisher: loader.eraseToAnyPublisher())
         setupBindings()
     }
 
@@ -35,16 +32,12 @@ final class TransactionListViewModel: ObservableObject {
         }
     }
 
-    func remove(at index: Int) {
-        listCollection.remove(at: index)
-    }
-
     private func makeInitialQuery() -> TransactionQuery {
         TransactionQuery(category: nil)
     }
 
     private func makeNextQuery() -> TransactionQuery? {
-        switch loader.state.offset {
+        switch loader.pagination.currentOffset {
         case .available:
             return TransactionQuery(
                 category: nil
@@ -55,43 +48,58 @@ final class TransactionListViewModel: ObservableObject {
     }
 
     private func setupBindings() {
-        loader.sink { [weak self] state in
-            self?.handleLoaderUpdate(state)
+        loader.sink { [weak self] pageState in
+            self?.printState(of: pageState)
         }.store(in: &cancellables)
-        listCollection.sink { [weak self] state in
-            self?.handlePageUpdate(state)
-        }.store(in: &cancellables)
+
+        let loaderPublisher = loader
+            .prepend(.initial)
+            .eraseToAnyPublisher()
+
+        let itemsPublisher = listPublisher
+            .prepend([])
+            .eraseToAnyPublisher()
+
+        Publishers.CombineLatest(loaderPublisher, itemsPublisher)
+            .sink { [weak self] pageState, items in
+                self?.handleUpdate(
+                    request: pageState.pageRequest,
+                    status: pageState.toPagingActivityStatus(),
+                    items: items
+                )
+            }.store(in: &cancellables)
     }
 
-    private func handleLoaderUpdate(_: XPagingState<[Transaction]>) {
-//        print("[Loader State]")
-//        print("-> request:", state.request)
-//        print("-> offset:", state.offset)
-//        print("-> status:", state.status)
-//        print("-> items:", state.data.count)
+    private func printState(of pageState: PagingState<[Transaction]>) {
+        print("[State]")
+        print("-> request:", pageState.pageRequest ?? "-")
+        print("-> offset:", loader.pagination.currentOffset)
+        print("-> status:", pageState.toPagingActivityStatus())
+        print("-> items:", pageState.data?.count ?? "-")
     }
 
-    private func handlePageUpdate(_ state: XPagingState<[Transaction]>) {
-        print("[Collection State]")
-        print("-> request:", state.request)
-        print("-> offset:", state.offset)
-        print("-> status:", state.status)
-        print("-> items:", state.data.count)
-        print("-> offset:", loader.asPagination().currentOffset)
+    private func handleUpdate(request: PageRequest?, status: PagingActivityStatus, items: [Transaction]) {
+        handleUpdatePageAvailability(request: request, status: status)
+        transactions = items
+        activity = status
+    }
 
-        activity = state.status.toActivityState()
-        transactions = state.data
+    private func handleUpdatePageAvailability(request: PageRequest?, status: PagingActivityStatus) {
+        guard let request else {
+            hasPageAvailable = false
+            return
+        }
 
-        switch state.request {
+        switch request {
         case .load:
             hasPageAvailable = false
-            if state.status == .success {
+            if status == .success {
                 hasPageAvailable = true
             }
         case .loadMore:
-            switch state.status {
+            switch status {
             case .success:
-                hasPageAvailable = state.offset == .available
+                hasPageAvailable = loader.pagination.currentOffset.isAvailable
             case .failure:
                 hasPageAvailable = false
             default:

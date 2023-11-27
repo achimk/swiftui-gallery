@@ -11,16 +11,16 @@ struct GalleryRootView: View {
                 } header: {
                     Text("Features")
                 }
-                
+
                 Section {
                     NavigationLink("Navigation") {
                         GalleryNavigationView()
                     }
-                    
+
                     NavigationLink("Nested Navigation Links") {
                         NestedNavigationLink()
                     }
-                    
+
                     NavigationLink("Route Sample") {
                         RouterWithNavigationLink()
                     }
@@ -156,6 +156,9 @@ struct GalleryRootView: View {
                     }
                     NavigationLink("TextFields") {
                         TextFieldsView()
+                    }
+                    NavigationLink("Date Picker") {
+                        DatePickerSampleView()
                     }
                 } header: {
                     Text("Control Samples")

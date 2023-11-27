@@ -24,6 +24,7 @@
 		2717E28C2A1638D50066DA0C /* GalleryNavigationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2717E28B2A1638D50066DA0C /* GalleryNavigationView.swift */; };
 		2717E2932A1755380066DA0C /* ArticleModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2717E2922A1755380066DA0C /* ArticleModel.swift */; };
 		2717E2952A175EC60066DA0C /* ArticleCardListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2717E2942A175EC60066DA0C /* ArticleCardListView.swift */; };
+		272205B62B14CA85007B2503 /* UIView+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 272205B52B14CA85007B2503 /* UIView+Extensions.swift */; };
 		27238CB72A1614D800957132 /* SearchBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27238CB62A1614D800957132 /* SearchBar.swift */; };
 		27238CBA2A16198E00957132 /* NavigationAppearance.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27238CB92A16198E00957132 /* NavigationAppearance.swift */; };
 		27238CC12A161BB000957132 /* ColorListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27238CC02A161BB000957132 /* ColorListView.swift */; };
@@ -73,6 +74,7 @@
 		27BFB91E2AF90EEC0094DCD9 /* TransactionCategoryFilterViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27BFB91D2AF90EEC0094DCD9 /* TransactionCategoryFilterViewModel.swift */; };
 		27BFB9232AF911C40094DCD9 /* TransactionColorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27BFB9222AF911C40094DCD9 /* TransactionColorView.swift */; };
 		27BFB9252AF911F70094DCD9 /* TransactionRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27BFB9242AF911F70094DCD9 /* TransactionRowView.swift */; };
+		27BFEC922B14B147003E163D /* DatePickerSampleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27BFEC912B14B147003E163D /* DatePickerSampleView.swift */; };
 		27CB9DC52A0CF4DA00F3E077 /* ButtonsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27CB9DC42A0CF4DA00F3E077 /* ButtonsView.swift */; };
 		27CB9DCB2A0D149B00F3E077 /* TextFieldsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27CB9DCA2A0D149B00F3E077 /* TextFieldsView.swift */; };
 		27D6E1592AFABD7000A031CB /* XPaging.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27D6E1582AFABD7000A031CB /* XPaging.swift */; };
@@ -138,6 +140,7 @@
 		2717E28B2A1638D50066DA0C /* GalleryNavigationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GalleryNavigationView.swift; sourceTree = "<group>"; };
 		2717E2922A1755380066DA0C /* ArticleModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArticleModel.swift; sourceTree = "<group>"; };
 		2717E2942A175EC60066DA0C /* ArticleCardListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArticleCardListView.swift; sourceTree = "<group>"; };
+		272205B52B14CA85007B2503 /* UIView+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Extensions.swift"; sourceTree = "<group>"; };
 		27238CB62A1614D800957132 /* SearchBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchBar.swift; sourceTree = "<group>"; };
 		27238CB92A16198E00957132 /* NavigationAppearance.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationAppearance.swift; sourceTree = "<group>"; };
 		27238CC02A161BB000957132 /* ColorListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorListView.swift; sourceTree = "<group>"; };
@@ -187,6 +190,7 @@
 		27BFB91D2AF90EEC0094DCD9 /* TransactionCategoryFilterViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionCategoryFilterViewModel.swift; sourceTree = "<group>"; };
 		27BFB9222AF911C40094DCD9 /* TransactionColorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionColorView.swift; sourceTree = "<group>"; };
 		27BFB9242AF911F70094DCD9 /* TransactionRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionRowView.swift; sourceTree = "<group>"; };
+		27BFEC912B14B147003E163D /* DatePickerSampleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatePickerSampleView.swift; sourceTree = "<group>"; };
 		27CB9DC42A0CF4DA00F3E077 /* ButtonsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ButtonsView.swift; sourceTree = "<group>"; };
 		27CB9DCA2A0D149B00F3E077 /* TextFieldsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextFieldsView.swift; sourceTree = "<group>"; };
 		27D6E1582AFABD7000A031CB /* XPaging.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XPaging.swift; sourceTree = "<group>"; };
@@ -329,6 +333,22 @@
 				2717E2942A175EC60066DA0C /* ArticleCardListView.swift */,
 			);
 			path = "Card-Detail";
+			sourceTree = "<group>";
+		};
+		272205B32B14CA72007B2503 /* UIKit */ = {
+			isa = PBXGroup;
+			children = (
+				272205B42B14CA78007B2503 /* Extensions */,
+			);
+			path = UIKit;
+			sourceTree = "<group>";
+		};
+		272205B42B14CA78007B2503 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				272205B52B14CA85007B2503 /* UIView+Extensions.swift */,
+			);
+			path = Extensions;
 			sourceTree = "<group>";
 		};
 		27238CB52A1614BC00957132 /* SarchBar */ = {
@@ -531,6 +551,14 @@
 			path = Views;
 			sourceTree = "<group>";
 		};
+		27BFEC902B14B12C003E163D /* DatePicker */ = {
+			isa = PBXGroup;
+			children = (
+				27BFEC912B14B147003E163D /* DatePickerSampleView.swift */,
+			);
+			path = DatePicker;
+			sourceTree = "<group>";
+		};
 		27CB9DC12A0CF4B100F3E077 /* Buttons */ = {
 			isa = PBXGroup;
 			children = (
@@ -580,6 +608,7 @@
 		27ED8BD029AA47A50092C57D /* UIGallery */ = {
 			isa = PBXGroup;
 			children = (
+				272205B32B14CA72007B2503 /* UIKit */,
 				2782C08B2AF7EDBC0098ACEF /* SharedDomains */,
 				2782C07A2AF7C5100098ACEF /* Features */,
 				273375852A6FF4B300EAD43B /* Routing */,
@@ -626,6 +655,7 @@
 		27ED8BFD29AA4A090092C57D /* SwiftUI */ = {
 			isa = PBXGroup;
 			children = (
+				27BFEC902B14B12C003E163D /* DatePicker */,
 				27CB9DC92A0D148700F3E077 /* TextFields */,
 				27CB9DC12A0CF4B100F3E077 /* Buttons */,
 				2710687929AAB60C0057A90B /* Animations */,
@@ -850,6 +880,7 @@
 				2782C0822AF7E5A50098ACEF /* PageLoader.swift in Sources */,
 				27ED8BD229AA47A50092C57D /* UIGalleryApp.swift in Sources */,
 				2710688229AAC33F0057A90B /* Rotate3DAnimationsView.swift in Sources */,
+				272205B62B14CA85007B2503 /* UIView+Extensions.swift in Sources */,
 				27238CC12A161BB000957132 /* ColorListView.swift in Sources */,
 				27A8846C2A1CDCE600B22DE7 /* LoadingState.swift in Sources */,
 				276C3FCE2A1CBCF700701571 /* AsyncLoadingPublisher.swift in Sources */,
@@ -892,6 +923,7 @@
 				27A352B62AFBB0DE00B7A9C6 /* XXPagingState.swift in Sources */,
 				275CD4292A1B5EC100BC549E /* SimpleHeroView.swift in Sources */,
 				2782C0842AF7E5C00098ACEF /* PageOffset.swift in Sources */,
+				27BFEC922B14B147003E163D /* DatePickerSampleView.swift in Sources */,
 				2710687B29AAB6350057A90B /* RepeatAnimationsView.swift in Sources */,
 				27AAFD3D2A1CCB6D004589E5 /* AnyScheduler.swift in Sources */,
 				2782C0A02AF8323B0098ACEF /* StubTransactionRepository.swift in Sources */,
